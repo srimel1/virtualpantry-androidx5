@@ -184,22 +184,13 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 })
-//                .setNegativeButton(android.R.string.no, null)
+
                 .setSavedInstanceState(savedInstanceState)
                 .show();
     }
 
 
-
-
-
-
-
-
     private void showEditDialog(){
-
-//        View v = getLayoutInflater().inflate(R.layout.item_donate_option, null);
-
 
         final Context context = this;
         final LovelyCustomDialog mDialog = new LovelyCustomDialog(this);
@@ -227,8 +218,13 @@ public class MainActivity extends AppCompatActivity {
 
                 Foods food = new Foods(mName, mQuantity, mLifecycle);
 
-                DatabaseReference newFoodRef = mRef.push();
-                newFoodRef.setValue(food);
+//                DatabaseReference newFoodRef = mRef.push();
+//                newFoodRef.setValue(food);
+
+                FirebaseDatabase.getInstance().getReference("Pantry")
+                        .child(mName)
+                        .setValue(new Foods(""+mName, mQuantity, mLifecycle));
+
 
                 mDialog.dismiss();
                 Toast.makeText(MainActivity.this, "Added " +mName, Toast.LENGTH_LONG).show();

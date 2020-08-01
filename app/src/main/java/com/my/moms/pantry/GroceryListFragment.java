@@ -3,6 +3,7 @@ package com.my.moms.pantry;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +30,10 @@ import java.util.Random;
 
 public class GroceryListFragment extends Fragment {
 
-    private DatabaseReference mFirebaseDatabaseReference;
+    private DatabaseReference mRef;
     private FirebaseRecyclerAdapter<Foods, SimpleStringRecyclerViewAdapter.ViewHolder> mFirebaseAdapter;
+
+    private List<String> groceryList;
 
     Query query = FirebaseDatabase.getInstance()
             .getReference()
@@ -60,6 +63,8 @@ public class GroceryListFragment extends Fragment {
         }
         return list;
     }
+
+
 
     public static class SimpleStringRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleStringRecyclerViewAdapter.ViewHolder> {
