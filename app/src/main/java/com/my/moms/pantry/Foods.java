@@ -5,58 +5,49 @@ import android.os.CountDownTimer;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Foods {
-    private String mName;
-    private String mLifecycle; //in days
-    private String mDescription;
-    private String mQuantity;
-    private Date date;
-    ProgressBar progressBar;
-    Button start_timer,stop_timer;
-    MyCountDownTimer myCountDownTimer;
+    private String name;
+    private String lifecycle; //in days
+    private String quantity;
 
     public Foods(){}
 
     public Foods(String name, String quantity, String lifecycle){
-        this.mName = name;
-        this.mQuantity = quantity;
-        this.mLifecycle = lifecycle;
+        this.name = name;
+        this.quantity = quantity;
+        this.lifecycle = lifecycle;
 
     }
 
     public String getmName() {
-        return mName;
+        return name;
     }
 
-    public void setmName(String mName) {
-        this.mName = mName;
+    public void setmName(String name) {
+        this.name = name;
     }
 
     public String getmLifecycle() {
-        return mLifecycle;
+        return lifecycle;
     }
 
     public void setmLifecycle(String mLifecycle) {
-        this.mLifecycle = mLifecycle;
-    }
-
-    public String getmDescription() {
-        return mDescription;
-    }
-
-    public void setmDescription(String mDescription) {
-        this.mDescription = mDescription;
+        this.lifecycle = mLifecycle;
     }
 
     public String getmQuantity() {
-        return mQuantity;
+        return quantity;
     }
 
     public void setmQuantity(String mQuantity) {
-        this.mQuantity = mQuantity;
+        this.quantity = mQuantity;
     }
 
 
@@ -98,6 +89,16 @@ public class Foods {
         }
     }
 
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("name", name);
+        result.put("quantity", quantity);
+        result.put("lifecycle", lifecycle);
+
+        return result;
+    }
+
     public static final String[] foodStrings = {
             "lemons", "tomatoes", "carrots", "onions", "lettuce", "pickles", "peppers", "cilantro",
             "crackers", "pasta", "chicken", "steak", "salmon", "shrimp" , "lettuce",
@@ -107,27 +108,27 @@ public class Foods {
             "celery", "ice cream", "pizza"," butter lettuce", "croissant", "steak", "jalepeno"
     };
 
-    public class MyCountDownTimer extends CountDownTimer {
-
-        public MyCountDownTimer(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-        }
-
-
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-
-            int progress = (int) (millisUntilFinished/1000);
-
-            progressBar.setProgress(progressBar.getMax()-progress);
-        }
-
-        @Override
-        public void onFinish() {
-//            finish();
-        }
-    }
+//    public class MyCountDownTimer extends CountDownTimer {
+//
+//        public MyCountDownTimer(long millisInFuture, long countDownInterval) {
+//            super(millisInFuture, countDownInterval);
+//        }
+//
+//
+//
+//        @Override
+//        public void onTick(long millisUntilFinished) {
+//
+//            int progress = (int) (millisUntilFinished/1000);
+//
+//            progressBar.setProgress(progressBar.getMax()-progress);
+//        }
+//
+//        @Override
+//        public void onFinish() {
+////            finish();
+//        }
+//    }
 
 
 

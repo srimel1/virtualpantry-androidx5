@@ -58,14 +58,14 @@
 
 
 
-            <TextView
-                android:id="@+id/ld_error_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/ld_side_margin"
-                android:layout_marginRight="@dimen/ld_side_margin"
-                android:textColor="@color/ld_textInputError"
-                android:visibility="gone" />
+<!--            <TextView-->
+<!--                android:id="@+id/ld_error_message"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="@dimen/ld_side_margin"-->
+<!--                android:layout_marginRight="@dimen/ld_side_margin"-->
+<!--                android:textColor="@color/ld_textInputError"-->
+<!--                android:visibility="gone" />-->
 
             <Space
                 android:layout_width="wrap_content"
@@ -78,10 +78,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/layout">
 
 
-        <TextView
+        <Button
             android:id="@+id/ld_btn_confirm"
             style="@style/DialogButton"
             android:layout_width="wrap_content"
