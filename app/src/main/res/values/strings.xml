@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<resources>
+    <string name="app_name">Virtual Pantry</string>
+
+  <string name="food_item">Details.</string>
+  <string name="checkin">Checkin</string>
+
+  <string name="menu_night_mode">Night mode</string>
+  <string name="menu_night_mode_system">Follow system</string>
+  <string name="menu_night_mode_day">Day (always)</string>
+  <string name="menu_night_mode_night">Night (always)</string>
+  <string name="menu_night_mode_auto">Auto</string>
+    <string name="sign_in" />
+    <string name="sign_out">Sign Out</string>
+    <string name="text_input_title">Add Pantry Item</string>
+  <string name="text_item_name">Item Name</string>
+  <string name="text_item_quantity">Item Quantity</string>
+  <string name="text_item_lifecycle">Item Lifecycle in Days</string>
+
+  <string name="text_input_error_message">Error</string>
+  <string name="food_name">Food Name</string>
+  <string name="item_quantity">Item Quantity</string>
+  <string name="item_lifecycle_in_days">Item Lifecycle in Days</string>
+  <string name="text_input_message">Add Item</string>
+  <string name="text_inputGL_title">Add Grocery List Item</string>
+  <!--    <string name="text_input_message">Add Pantry Item</string>-->
+
+</resources>
