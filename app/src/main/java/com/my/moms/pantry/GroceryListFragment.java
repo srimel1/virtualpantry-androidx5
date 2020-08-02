@@ -20,12 +20,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.FirebaseError;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 public class GroceryListFragment extends Fragment {
@@ -33,11 +43,17 @@ public class GroceryListFragment extends Fragment {
     private DatabaseReference mRef;
     private FirebaseRecyclerAdapter<Foods, SimpleStringRecyclerViewAdapter.ViewHolder> mFirebaseAdapter;
 
-    private List<String> groceryList;
-
+    private List<Foods> foodList;
+    private List<String> nameList;
+    private String[] array;
     Query query = FirebaseDatabase.getInstance()
             .getReference()
-            .child("Foods");
+            .child("Pantry");
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference ref = database.getReference("Pantry");
+
+
 
     @Nullable
     @Override
@@ -50,9 +66,98 @@ public class GroceryListFragment extends Fragment {
 
     private void setupRecyclerView(RecyclerView recyclerView) {
 
+        foodList = new ArrayList<>();
+        nameList = new ArrayList<>();
+
+
+        //ref.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Map<String, Foods> td = (HashMap<String,Foods>) dataSnapshot.getValue();
+//
+//                foodList = td.values();
+//
+//                //notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Log.w("Read failed", "Failed to read value.", databaseError.toException());
+//
+//            }
+//
+//        });
+
+
+
+
+
+//        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                Log.e("Count " ,""+snapshot.getChildrenCount());
+//                foodList.clear();
+//                nameList.clear();
+//                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+//                    Foods food  = postSnapshot.getValue(Foods.class);
+//                    foodList.add(food);
+//                    nameList.add(food.name);
+//                    Log.d("list", nameList.toString());
+//                    Log.e("Get Data", food.name);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Log.w("Read failed", "Failed to read value.", databaseError.toException());
+//
+//            }
+//        });
+
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Log.e("Count " ,""+snapshot.getChildrenCount());
+                foodList.clear();
+                nameList.clear();
+                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                    Foods food  = postSnapshot.getValue(Foods.class);
+                    foodList.add(food);
+                    nameList.add(food.name);
+                    Log.d("list", nameList.toString());
+                    Log.e("Get Data", food.name);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w("Read failed", "Failed to read value.", error.toException());
+
+            }
+
+        });
+        String[] arr = GetStringArray(nameList);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        recyclerView.setAdapter(new SimpleStringRecyclerViewAdapter(getActivity(),
-                getRandomSublist(Foods.foodStrings, 30)));
+        recyclerView.setAdapter(new PantryListFragment.SimpleStringRecyclerViewAdapter(getActivity(),
+                getRandomSublist(arr, arr.length)));   ;
+    }
+
+    public static String[] GetStringArray(List<String> arr)
+    {
+
+        // declaration and initialise String Array
+        String str[] = new String[arr.size()];
+
+        // ArrayList to Array Conversion
+        for (int j = 0; j < arr.size(); j++) {
+
+            // Assign each value to String array
+            str[j] = arr.get(j);
+        }
+
+        return str;
     }
 
     private List<String> getRandomSublist(String[] array, int amount) {
@@ -64,9 +169,30 @@ public class GroceryListFragment extends Fragment {
         return list;
     }
 
+//    private List<String> getRandomSublist(String[] arr, int amount) {
+//        array = nameList.toArray(new String[0]);
+//
+//        Random random = new Random();
+//        while (nameList.size() < amount) {
+//            nameList.add(nameList.get(random.nextInt(nameList.size())));
+//        }
+//        return nameList;
+//    }
 
 
-    public static class SimpleStringRecyclerViewAdapter
+
+        }
+        
+        
+        
+        
+        
+        
+
+
+
+
+    class SimpleStringRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleStringRecyclerViewAdapter.ViewHolder> {
 
         private final TypedValue mTypedValue = new TypedValue();
@@ -75,7 +201,6 @@ public class GroceryListFragment extends Fragment {
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
             public String mBoundString;
-
             public final View mView;
             public final ImageView mImageView;
             public final TextView mTextView;
@@ -139,4 +264,3 @@ public class GroceryListFragment extends Fragment {
     }
 
 
-}

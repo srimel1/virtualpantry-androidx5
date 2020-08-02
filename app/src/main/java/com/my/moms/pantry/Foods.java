@@ -6,13 +6,14 @@ import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 public class Foods {
-    private String name;
-    private String lifecycle; //in days
-    private String quantity;
+    String name;
+    String lifecycle; //in days
+    String quantity;
 
     public Foods(){
     }
@@ -104,6 +105,7 @@ public class Foods {
     }
 
     Map<String, Foods> food = new HashMap<>();
+
 
 
     public static final String[] foodStrings = {

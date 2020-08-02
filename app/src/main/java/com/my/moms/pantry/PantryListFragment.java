@@ -49,6 +49,7 @@ public class PantryListFragment extends Fragment {
 
     private void setupRecyclerView(RecyclerView recyclerView) {
 
+
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setAdapter(new SimpleStringRecyclerViewAdapter(getActivity(),
                 getRandomSublist(Foods.foodStrings, 30)));
