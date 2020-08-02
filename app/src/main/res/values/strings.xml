@@ -25,6 +25,7 @@
   <string name="item_lifecycle_in_days">Item Lifecycle in Days</string>
   <string name="text_input_message">Add Item</string>
   <string name="text_inputGL_title">Add Grocery List Item</string>
+  <string name="date">07/29/2019</string>
   <!--    <string name="text_input_message">Add Pantry Item</string>-->
 
 </resources>
