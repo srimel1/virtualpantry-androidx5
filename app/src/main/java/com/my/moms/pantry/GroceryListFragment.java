@@ -54,6 +54,7 @@ public class GroceryListFragment extends Fragment {
     DatabaseReference ref = database.getReference("Pantry");
 
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class GroceryListFragment extends Fragment {
     private void setupRecyclerView(RecyclerView recyclerView) {
 
         foodList = new ArrayList<>();
+
         nameList = new ArrayList<>();
 
 
@@ -86,6 +88,9 @@ public class GroceryListFragment extends Fragment {
 //            }
 //
 //        });
+
+
+
 
 
 //        ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -114,11 +119,11 @@ public class GroceryListFragment extends Fragment {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                Log.e("Count ", "" + snapshot.getChildrenCount());
+                Log.e("Count " ,""+snapshot.getChildrenCount());
                 foodList.clear();
                 nameList.clear();
-                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                    Foods food = postSnapshot.getValue(Foods.class);
+                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                    Foods food  = postSnapshot.getValue(Foods.class);
                     foodList.add(food);
                     nameList.add(food.name);
                     Log.d("list", nameList.toString());
@@ -136,17 +141,12 @@ public class GroceryListFragment extends Fragment {
         String[] arr = GetStringArray(nameList);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        recyclerView.setAdapter(new SimpleStringRecyclerViewAdapter(getActivity(),
-                getRandomSublist(arr, arr.length)));
-
-//        recyclerView.setAdapter(new PantryListFragment.SimpleStringRecyclerViewAdapter(getActivity(),
-//                getRandomSublist(Foods.foodStrings, 30)));
-//
-//        recyclerView.setAdapter(new PantryDetailActivity().SimpleStringRecyclerViewAdapter(getActivity(),
-//                getRandomSublist(arr, arr.length)));   ;
+        recyclerView.setAdapter(new PantryListFragment.SimpleStringRecyclerViewAdapter(getActivity(),
+                getRandomSublist(arr, arr.length)));   ;
     }
 
-    public static String[] GetStringArray(List<String> arr) {
+    public static String[] GetStringArray(List<String> arr)
+    {
 
         // declaration and initialise String Array
         String str[] = new String[arr.size()];
@@ -170,9 +170,31 @@ public class GroceryListFragment extends Fragment {
         return list;
     }
 
+//    private List<String> getRandomSublist(String[] arr, int amount) {
+//        array = nameList.toArray(new String[0]);
+//
+//        Random random = new Random();
+//        while (nameList.size() < amount) {
+//            nameList.add(nameList.get(random.nextInt(nameList.size())));
+//        }
+//        return nameList;
+//    }
 
-    public static class SimpleStringRecyclerViewAdapter
-            extends RecyclerView.Adapter<PantryListFragment.SimpleStringRecyclerViewAdapter.ViewHolder> {
+
+
+        }
+        
+        
+        
+        
+        
+        
+
+
+
+
+    class SimpleStringRecyclerViewAdapter
+            extends RecyclerView.Adapter<SimpleStringRecyclerViewAdapter.ViewHolder> {
 
         private final TypedValue mTypedValue = new TypedValue();
         private int mBackground;
@@ -180,7 +202,6 @@ public class GroceryListFragment extends Fragment {
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
             public String mBoundString;
-
             public final View mView;
             public final ImageView mImageView;
             public final TextView mTextView;
@@ -205,15 +226,15 @@ public class GroceryListFragment extends Fragment {
         }
 
         @Override
-        public PantryListFragment.SimpleStringRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.list_item, parent, false);
             view.setBackgroundResource(mBackground);
-            return new PantryListFragment.SimpleStringRecyclerViewAdapter.ViewHolder(view);
+            return new ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull final PantryListFragment.SimpleStringRecyclerViewAdapter.ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
             holder.mBoundString = mValues.get(position);
             holder.mTextView.setText(mValues.get(position));
 
@@ -236,13 +257,11 @@ public class GroceryListFragment extends Fragment {
         }
 
 
+
         @Override
         public int getItemCount() {
             return mValues.size();
         }
     }
-}
-
-
 
 
