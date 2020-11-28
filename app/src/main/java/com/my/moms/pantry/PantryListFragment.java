@@ -1,5 +1,3 @@
-
-
 package com.my.moms.pantry;
 
 import android.content.Context;
@@ -21,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -29,112 +28,154 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/***
+ * Class to handle the Pantry List
+ * Recyclerview in fragment with
+ * firebase database and custom adapter
+ */
 public class PantryListFragment extends Fragment {
 
-    private DatabaseReference mFirebaseDatabaseReference;
-    private FirebaseRecyclerAdapter<Foods, SimpleStringRecyclerViewAdapter.ViewHolder> mFirebaseAdapter;
+    // Add RecyclerView member
+    private RecyclerView recyclerView;
 
-    Query query = FirebaseDatabase.getInstance()
-            .getReference()
-            .child("Foods");
+    foodAdapter adapter; // Create Object of the Adapter class
+    DatabaseReference mbase; // Create object of the
 
-    @Nullable
+
+    // Firebase Realtime Database
+//    Query query = FirebaseDatabase.getInstance()
+//            .getReference()
+//            .child("Foods");
+
+
+    /***
+     * Method to inflate the recycler view with each sub view
+     * @param inflater to inflate the layout
+     * @param container to contain the layout
+     * @param savedInstanceState to save the machine state
+     * @return view
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        RecyclerView rv = (RecyclerView) inflater.inflate(
-                R.layout.frag_food_list, container, false);
-        setupRecyclerView(rv);
-        return rv;
+
+        View view = inflater.inflate(R.layout.frag_food_list, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler1);
+        setUpRecyclerView();
+        return view;
     }
 
-    private void setupRecyclerView(RecyclerView recyclerView) {
+    /***
+     * Method to instantiate the recyclerview and bind the data
+     * from firebase database to each list item container
+     */
+    public void setUpRecyclerView() {
+        mbase = FirebaseDatabase.getInstance().getReference();
 
+        FirebaseRecyclerOptions<food> options = new FirebaseRecyclerOptions.Builder<food>()
+                .setQuery(mbase, food.class)
+                .build();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        recyclerView.setAdapter(new SimpleStringRecyclerViewAdapter(getActivity(),
-                getRandomSublist(Foods.foodStrings, 30)));
+        adapter = new foodAdapter(options);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter);
     }
 
-    private List<String> getRandomSublist(String[] array, int amount) {
-        ArrayList<String> list = new ArrayList<>(amount);
-        Random random = new Random();
-        while (list.size() < amount) {
-            list.add(array[random.nextInt(array.length)]);
+    /***
+     * initialized the recyclerview and loads the view
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (adapter != null) {
+            adapter.startListening();
         }
-        return list;
+
     }
 
-    public static class SimpleStringRecyclerViewAdapter
-            extends RecyclerView.Adapter<SimpleStringRecyclerViewAdapter.ViewHolder> {
-
-        private final TypedValue mTypedValue = new TypedValue();
-        private int mBackground;
-        private List<String> mValues;
-
-        public static class ViewHolder extends RecyclerView.ViewHolder {
-            public String mBoundString;
-
-            public final View mView;
-            public final ImageView mImageView;
-            public final TextView mTextView;
-
-            public ViewHolder(View view) {
-                super(view);
-                mView = view;
-                mImageView = view.findViewById(R.id.avatar);
-                mTextView = view.findViewById(android.R.id.text1);
-            }
-
-            @Override
-            public String toString() {
-                return super.toString() + " '" + mTextView.getText();
-            }
-        }
-
-        public SimpleStringRecyclerViewAdapter(Context context, List<String> items) {
-            context.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
-            mBackground = mTypedValue.resourceId;
-            mValues = items;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.list_item, parent, false);
-            view.setBackgroundResource(mBackground);
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-            holder.mBoundString = mValues.get(position);
-            holder.mTextView.setText(mValues.get(position));
-
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Context context = v.getContext();
-                    Intent intent = new Intent(context, PantryDetailActivity.class);
-                    intent.putExtra(PantryDetailActivity.EXTRA_NAME, holder.mBoundString);
-
-                    context.startActivity(intent);
-                }
-            });
-
-            RequestOptions options = new RequestOptions();
-            Glide.with(holder.mImageView.getContext())
-                    .load(Foods.getRandFoodImage())
-                    .apply(options.fitCenter())
-                    .into(holder.mImageView);
-        }
-
-
-
-        @Override
-        public int getItemCount() {
-            return mValues.size();
+    /***
+     * tells the adapter when to stop
+     */
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (adapter != null) {
+            adapter.stopListening();
         }
     }
-
-
 }
+//
+//    public static class SimpleStringRecyclerViewAdapter
+//            extends RecyclerView.Adapter<SimpleStringRecyclerViewAdapter.ViewHolder> {
+//
+//        private final TypedValue mTypedValue = new TypedValue();
+//        private int mBackground;
+//        private List<String> mValues;
+//
+//        public static class ViewHolder extends RecyclerView.ViewHolder {
+//            public String mBoundString;
+//
+//            public final View mView;
+//            public final ImageView mImageView;
+//            public final TextView mTextView;
+//
+//            public ViewHolder(View view) {
+//                super(view);
+//                mView = view;
+//                mImageView = view.findViewById(R.id.avatar);
+//                mTextView = view.findViewById(android.R.id.text1);
+//            }
+//
+//            @Override
+//            public String toString() {
+//                return super.toString() + " '" + mTextView.getText();
+//            }
+//        }
+//
+//        public SimpleStringRecyclerViewAdapter(Context context, List<String> items) {
+//            context.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
+//            mBackground = mTypedValue.resourceId;
+//            mValues = items;
+//        }
+//
+//        @Override
+//        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//            View view = LayoutInflater.from(parent.getContext())
+//                    .inflate(R.layout.food, parent, false);
+//            view.setBackgroundResource(mBackground);
+//            return new ViewHolder(view);
+//        }
+//
+//        @Override
+//        public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+//            holder.mBoundString = mValues.get(position);
+//            holder.mTextView.setText(mValues.get(position));
+//
+//            holder.mView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Context context = v.getContext();
+//                    Intent intent = new Intent(context, PantryDetailActivity.class);
+//                    intent.putExtra(PantryDetailActivity.EXTRA_NAME, holder.mBoundString);
+//
+//                    context.startActivity(intent);
+//                }
+//            });
+//
+//            RequestOptions options = new RequestOptions();
+//            Glide.with(holder.mImageView.getContext())
+//                    .load(food.getRandFoodImage())
+//                    .apply(options.fitCenter())
+//                    .into(holder.mImageView);
+//        }
+//
+//
+//
+//        @Override
+//        public int getItemCount() {
+//            return mValues.size();
+//        }
+//    }
+//
+//
+//}

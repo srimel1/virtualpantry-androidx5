@@ -22,8 +22,6 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import org.w3c.dom.Text;
-
 import java.util.Calendar;
 import java.util.Date;
 
@@ -144,7 +142,7 @@ public class PantryDetailActivity extends AppCompatActivity {
 
     private void loadBackdrop() {
         final ImageView imageView = findViewById(R.id.backdrop);
-        Glide.with(this).load(Foods.getRandFoodImage()).apply(RequestOptions.centerCropTransform()).into(imageView);
+        Glide.with(this).load(food.getRandFoodImage()).apply(RequestOptions.centerCropTransform()).into(imageView);
     }
 
     @Override

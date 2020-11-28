@@ -94,7 +94,7 @@ public class GroceryListDetailActivity extends AppCompatActivity {
 
     private void loadBackdrop() {
         final ImageView imageView = findViewById(R.id.backdrop);
-        Glide.with(this).load(Foods.getRandFoodImage()).apply(RequestOptions.centerCropTransform()).into(imageView);
+        Glide.with(this).load(food.getRandFoodImage()).apply(RequestOptions.centerCropTransform()).into(imageView);
     }
 
     @Override
