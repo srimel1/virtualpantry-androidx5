@@ -1,9 +1,6 @@
 package com.my.moms.pantry;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,11 +18,6 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 /***
  * Class to handle the Pantry List
@@ -71,13 +62,16 @@ public class PantryListFragment extends Fragment {
     public void setUpRecyclerView() {
         mbase = FirebaseDatabase.getInstance().getReference();
 
+
+
+
+        //recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         FirebaseRecyclerOptions<food> options = new FirebaseRecyclerOptions.Builder<food>()
                 .setQuery(mbase, food.class)
                 .build();
-
         adapter = new foodAdapter(options);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
     }
 
@@ -104,78 +98,124 @@ public class PantryListFragment extends Fragment {
         }
     }
 }
-//
-//    public static class SimpleStringRecyclerViewAdapter
-//            extends RecyclerView.Adapter<SimpleStringRecyclerViewAdapter.ViewHolder> {
-//
-//        private final TypedValue mTypedValue = new TypedValue();
-//        private int mBackground;
-//        private List<String> mValues;
-//
-//        public static class ViewHolder extends RecyclerView.ViewHolder {
-//            public String mBoundString;
-//
-//            public final View mView;
-//            public final ImageView mImageView;
-//            public final TextView mTextView;
-//
-//            public ViewHolder(View view) {
-//                super(view);
-//                mView = view;
-//                mImageView = view.findViewById(R.id.avatar);
-//                mTextView = view.findViewById(android.R.id.text1);
-//            }
-//
+
+    /***
+     *Custom FirebaseRecyclerAdapter
+     *
+     * Firebase Recycler Adapter is a class from firebase UI
+     * to provide the methods to bind, change and display the
+     * contents of a firebase database in a recycler view
+     */
+
+    class foodAdapter extends FirebaseRecyclerAdapter<food, foodAdapter.foodsViewholder> {
+
+        /***
+         * foodAdapter constructor
+         * @param options to customize the adapter
+         */
+        public foodAdapter(
+                @NonNull FirebaseRecyclerOptions<food> options) {
+            super(options);
+        }
+
+        // Function to bind the view in Card view(here
+        // "food.xml") with data in
+        // model class(here "food.class")
+//    could potentially be a problem because i used the linear layout and not cardview
+
+        /***
+         * Method to bind view to the layout
+         * @param holder holds the view
+         * @param position tracks position
+         * @param model food model to bind detabase elements
+         */
+        @Override
+        protected void
+        onBindViewHolder(@NonNull com.my.moms.pantry.foodAdapter.foodsViewholder holder,
+                         int position, @NonNull food model) {
+
+            // Add firstname from model class (here
+            // "food.class")to appropriate view in Card
+            // view (here "food.xml")
+
+            // item name
+            holder.name.setText(model.getName());
+//        holder.mView.setOnClickListener(new View.OnClickListener() {
 //            @Override
-//            public String toString() {
-//                return super.toString() + " '" + mTextView.getText();
+//            public void onClick(View v) {
+//                Context context = v.getContext();
+//                Intent intent = new Intent(context, PantryDetailActivity.class);
+//                intent.putExtra(PantryDetailActivity.EXTRA_NAME, holder.mBoundString);
+//
+//                context.startActivity(intent);
 //            }
-//        }
+//        });
+
+            // avatar image
+            RequestOptions options = new RequestOptions();
+            Glide.with(holder.avatar.getContext())
+                    .load(food.getRandFoodImage())
+                    .apply(options.fitCenter())
+                    .into(holder.avatar);
+
+
+//        // Add lastname from model class (here
+//        // "food.class")to appropriate view in Card
+//        // view (here "food.xml")
+//        holder.lastname.setText(model.getName());
 //
-//        public SimpleStringRecyclerViewAdapter(Context context, List<String> items) {
-//            context.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
-//            mBackground = mTypedValue.resourceId;
-//            mValues = items;
-//        }
+//        // Add age from model class (here
+//        // "food.class")to appropriate view in Card
+//        // view (here "food.xml")
+//        holder.age.setText(model.getQuantity());
 //
-//        @Override
-//        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//            View view = LayoutInflater.from(parent.getContext())
-//                    .inflate(R.layout.food, parent, false);
-//            view.setBackgroundResource(mBackground);
-//            return new ViewHolder(view);
-//        }
-//
-//        @Override
-//        public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-//            holder.mBoundString = mValues.get(position);
-//            holder.mTextView.setText(mValues.get(position));
-//
-//            holder.mView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Context context = v.getContext();
-//                    Intent intent = new Intent(context, PantryDetailActivity.class);
-//                    intent.putExtra(PantryDetailActivity.EXTRA_NAME, holder.mBoundString);
-//
-//                    context.startActivity(intent);
-//                }
-//            });
-//
-//            RequestOptions options = new RequestOptions();
-//            Glide.with(holder.mImageView.getContext())
-//                    .load(food.getRandFoodImage())
-//                    .apply(options.fitCenter())
-//                    .into(holder.mImageView);
-//        }
-//
-//
-//
-//        @Override
-//        public int getItemCount() {
-//            return mValues.size();
-//        }
-//    }
-//
-//
-//}
+//        // add lifecycle from model class
+//        //"food.class")to appropriate view in Card
+//        // view (here "food.xml")
+//        holder.age.setText(model.getLifecycle());
+        }
+
+        // Function to tell the class about the Card view (here
+        // "food.xml")in
+        // which the data will be shown
+
+
+        /***
+         * method that tells the classs which layout
+         * @param parent
+         * @param viewType
+         * @return custom new Firebase foodAdapter to interface
+         * with recycler
+         */
+        @NonNull
+        @Override
+        public com.my.moms.pantry.foodAdapter.foodsViewholder
+        onCreateViewHolder(@NonNull ViewGroup parent,
+                           int viewType) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.food, parent, false);
+            return new com.my.moms.pantry.foodAdapter.foodsViewholder(view);
+        }
+
+        // Sub Class to create references of the views in Crad
+        // view (here "food.xml")
+
+        /***
+         *
+         * subclass to create referece to the layout food.xml
+         */
+        class foodsViewholder extends RecyclerView.ViewHolder {
+            TextView name;
+            ImageView avatar;
+
+            public foodsViewholder(@NonNull View itemView) {
+                super(itemView);
+
+                name = itemView.findViewById(R.id.text1);
+                avatar = itemView.findViewById(R.id.avatar);
+
+
+            }
+        }
+
+    }

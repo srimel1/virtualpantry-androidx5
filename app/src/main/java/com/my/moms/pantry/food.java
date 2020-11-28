@@ -12,7 +12,7 @@ import java.util.Random;
 public class food
 {
     // variable to store the primary key
-    private long id;
+//    private String id;
 
     private String name;
 
@@ -31,13 +31,13 @@ public class food
 
     // Getter and setter method
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public void setId(String id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;
@@ -101,14 +101,14 @@ public class food
     }
 
 
-    public static final String[] foodStrings = {
-            "lemons", "tomatoes", "carrots", "onions", "lettuce", "pickles", "peppers", "cilantro",
-            "crackers", "pasta", "chicken", "steak", "salmon", "shrimp", "lettuce",
-            "corn", "green onions", "lemonade", "limes", "rice", "white rice", "milk", "limes",
-            "mushrooms", "yellow onions", "oranges", "bell peppers", "pineapple", "curry", "soup", "eggs",
-            "cheese", " pasta sauce", "muffins", "cookies", "bananas", "purple onion", "avocados", "broccoli",
-            "celery", "ice cream", "pizza", " butter lettuce", "croissant", "steak", "jalepeno"
-    };
+//    public static final String[] foodStrings = {
+//            "lemons", "tomatoes", "carrots", "onions", "lettuce", "pickles", "peppers", "cilantro",
+//            "crackers", "pasta", "chicken", "steak", "salmon", "shrimp", "lettuce",
+//            "corn", "green onions", "lemonade", "limes", "rice", "white rice", "milk", "limes",
+//            "mushrooms", "yellow onions", "oranges", "bell peppers", "pineapple", "curry", "soup", "eggs",
+//            "cheese", " pasta sauce", "muffins", "cookies", "bananas", "purple onion", "avocados", "broccoli",
+//            "celery", "ice cream", "pizza", " butter lettuce", "croissant", "steak", "jalepeno"
+//    };
 
 }
 
@@ -248,14 +248,14 @@ public class food
 //
 ////    public class MyCountDownTimer extends CountDownTimer {
 ////
-////        public MyCountDownTimer(long millisInFuture, long countDownInterval) {
+////        public MyCountDownTimer(String millisInFuture, String countDownInterval) {
 ////            super(millisInFuture, countDownInterval);
 ////        }
 ////
 ////
 ////
 ////        @Override
-////        public void onTick(long millisUntilFinished) {
+////        public void onTick(String millisUntilFinished) {
 ////
 ////            int progress = (int) (millisUntilFinished/1000);
 ////
