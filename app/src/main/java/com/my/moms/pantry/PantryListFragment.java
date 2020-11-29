@@ -3,7 +3,6 @@ package com.my.moms.pantry;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +23,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /***
- * Class to handle the Pantry List
- * Recyclerview in fragment with
+ * PantryListFragment Class to handle the Pantry List
+ * Recyclerview in a fragment with
  * firebase database and custom adapter
+ * and to pass firebase data to PantryDetailActivity
  */
 public class PantryListFragment extends Fragment {
 
@@ -35,13 +35,6 @@ public class PantryListFragment extends Fragment {
 
     foodAdapter adapter; // Create Object of the Adapter class
     DatabaseReference mbase; // Create reference to the database
-
-
-    // Firebase Realtime Database
-//    Query query = FirebaseDatabase.getInstance()
-//            .getReference()
-//            .child("Foods");
-
 
     /***
      * Method to inflate the recycler view with each sub view
@@ -64,8 +57,8 @@ public class PantryListFragment extends Fragment {
      * from firebase database to each each list item container
      */
     public void setUpRecyclerView() {
-        //query to get items from the database
-        mbase = FirebaseDatabase.getInstance().getReference();
+        //query to get items from the database in Pantry child
+        mbase = FirebaseDatabase.getInstance().getReference("Pantry");
 
         //set the recyclerView layout
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -89,7 +82,6 @@ public class PantryListFragment extends Fragment {
         if (adapter != null) {
             adapter.startListening();
         }
-
     }
 
     /***
@@ -121,7 +113,8 @@ class foodAdapter extends FirebaseRecyclerAdapter<food, foodAdapter.foodsViewhol
         public TextView name;
         public ImageView avatar;
         public View mView;
-        public String mBoundString;
+        public TextView lifecycle;
+        public TextView quantity;
 
 
         /***
@@ -153,7 +146,6 @@ class foodAdapter extends FirebaseRecyclerAdapter<food, foodAdapter.foodsViewhol
         super(options);
     }
 
-
     /***
      * Method to bind view to the layout with data from the food model class
      * @param holder holds the view
@@ -167,8 +159,12 @@ class foodAdapter extends FirebaseRecyclerAdapter<food, foodAdapter.foodsViewhol
 
         // adds the food item name from model class to view (pantry_recycler_item.xml)
         holder.name.setText(model.getName());
+//        holder.quantity.setText(model.getQuantity());
+//        holder.lifecycle.setText(model.getQuantity());
 
-        Log.i(model.getName(), "onClick: position " + position);
+        Log.i(model.getName(), "name: position " + position);
+        Log.i(model.getLifecycle(), "quantty: position " + position);
+        Log.i(model.getQuantity(), "lifecycle: position " + position);
 
         /***
          * On click event to pass firebase data from the viewholder to the PantryDetailActivity
@@ -178,7 +174,12 @@ class foodAdapter extends FirebaseRecyclerAdapter<food, foodAdapter.foodsViewhol
             Context context = v.getContext();
             Intent intent = new Intent(context, PantryDetailActivity.class);
             Log.i(PantryDetailActivity.EXTRA_NAME, "model.getName: " + model.getName());
+            Log.i(PantryDetailActivity.EXTRA_LIFECYCLE, "model.getLifecycle: " + model.getLifecycle());
+            Log.i(PantryDetailActivity.EXTRA_QUANTITY, "model.getQuantity: " + model.getQuantity());
+
             intent.putExtra(PantryDetailActivity.EXTRA_NAME, model.getName());
+            intent.putExtra(PantryDetailActivity.EXTRA_QUANTITY, model.getQuantity());
+            intent.putExtra(PantryDetailActivity.EXTRA_LIFECYCLE, model.getLifecycle());
 
             context.startActivity(intent);
         });

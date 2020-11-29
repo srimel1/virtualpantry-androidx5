@@ -5,6 +5,7 @@ import android.os.CountDownTimer;
 
 import com.google.firebase.database.Exclude;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -13,13 +14,15 @@ public class food {
     private String name;
     private String lifecycle; //in days
     private String quantity;
+    private String date;
 
     public food(){}
 
-    public food(String name, String quantity, String lifecycle){
+    public food(String name, String quantity, String lifecycle, String date){
         this.name = name;
         this.quantity = quantity;
         this.lifecycle = lifecycle;
+        this.date = date;
 
     }
 
@@ -47,7 +50,13 @@ public class food {
         this.quantity = mQuantity;
     }
 
+    public String getDate() {
+        return date;
+    }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     private static final Random RANDOM = new Random();
 

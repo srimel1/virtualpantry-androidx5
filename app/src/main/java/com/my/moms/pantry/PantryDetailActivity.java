@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,7 +28,10 @@ import java.util.Date;
 
 public class PantryDetailActivity extends AppCompatActivity {
 
-    public static final String EXTRA_NAME = "food_name";
+    public static final String EXTRA_NAME = "name";
+    public static final String EXTRA_QUANTITY = "quantity";
+    public static final String EXTRA_LIFECYCLE = "lifecycle";
+    public static final String EXTRA_DATE = "date";
     public int counter;
 
 
@@ -46,6 +50,10 @@ public class PantryDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String foodName = intent.getStringExtra(EXTRA_NAME);
+        final String foodQuantity = intent.getStringExtra(EXTRA_QUANTITY);
+        final String foodLifecycle = intent.getStringExtra(EXTRA_LIFECYCLE);
+
+        int lifecycle = Integer.parseInt(foodLifecycle);
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,34 +62,36 @@ public class PantryDetailActivity extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(foodName);
 
-        long mInitialTime = DateUtils.DAY_IN_MILLIS * 2 +
-                DateUtils.HOUR_IN_MILLIS * 9 +
-                DateUtils.MINUTE_IN_MILLIS * 3 +
-                DateUtils.SECOND_IN_MILLIS * 42;
+       // int lifecycle = Integer.parseInt(EXTRA_LIFECYCLE);
+
+        Log.i(foodName, " lifecycle: "+ lifecycle);
+        Log.i(foodName, " quantity: "+ foodQuantity);
+        long mInitialTime = DateUtils.DAY_IN_MILLIS *  lifecycle;
+//                DateUtils.HOUR_IN_MILLIS * 9 +
+//                DateUtils.MINUTE_IN_MILLIS * 3 +
+//                DateUtils.SECOND_IN_MILLIS * 42;
         TextView mTextView;
 
         final TextView date = (TextView) findViewById(R.id.date);
         Date purchaseDate = java.util.Calendar.getInstance().getTime();
         final TextView quantity = (TextView) findViewById(R.id.quantity);
+        //final TextView lifecycle = (TextView) findViewById(R.id.item_lifecycle);
 
-        String q = "9";
-        quantity.setText(q);
+
+        quantity.setText(foodQuantity);
+//        lifecycle.setText(foodLifecycle);
 
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, dd-MMM-yyyy hh-mm-ss a");
         String dateTime = simpleDateFormat.format(calendar.getTime());
         date.setText(dateTime);
 
-
-
-
-
-
-
-
         final TextView countTime = (TextView) findViewById(R.id.counttime);
 
-        CountDownTimer mCountDownTimer = new CountDownTimer(mInitialTime, 1000) {
+        //long lifecycleConversion = Long.parseLong(EXTRA_LIFECYCLE);
+        //Log.i("lifecycleConversion", "lifecycleConversion: "+lifecycleConversion);
+
+        CountDownTimer mCountDownTimer = new CountDownTimer(mInitialTime, 5000) {
             StringBuilder time = new StringBuilder();
             @Override
             public void onFinish() {

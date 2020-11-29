@@ -3,9 +3,11 @@ package com.my.moms.pantry;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -37,6 +40,7 @@ import com.yarolegovich.lovelydialog.LovelySaveStateHandler;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -52,12 +56,13 @@ public class MainActivity extends AppCompatActivity {
     public static final String FOODS_CHILD = "Pantry2";
     private DrawerLayout mDrawerLayout;
     private EditText mName, mQuantity, mLifecycle;
+    private Long date;
 
     // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private DatabaseReference mFirebaseDatabaseReference;
-    private View PrivateChatsView;
+
 
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -68,13 +73,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
         //remove below if it breaks
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-//         Set default username as anonymous.
+        //Set default username as anonymous.
         mUsername = ANONYMOUS;
 
         // Initialize Firebase Auth
@@ -92,10 +94,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-
+        //side bar menu
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //add to database floating action button
         final ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
@@ -103,18 +106,22 @@ public class MainActivity extends AppCompatActivity {
         //new child entries
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
+        //initializes the drawer
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
+        //initializes navigation menu
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
             setupDrawerContent(navigationView);
         }
 
+        //set up pager
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         if (viewPager != null) {
             setupViewPager(viewPager);
         }
 
+        //initialize fab and bind to view
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         //menu version
@@ -127,16 +134,21 @@ public class MainActivity extends AppCompatActivity {
 //                return true;
 //            }
 //        });
+
+
+        //set an  onclick event for floatingactionbutton
         fab.setOnClickListener(new View.OnClickListener(){
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-//                showLovelyDialog(view.getId(), null);
+                //showLovelyDialog(view.getId(), null);
 
-                //this is the one with all three fields that works.
+                //this is the dialog with all three fields that works.
                 showEditDialog();
 
             }
         });
+
         //old version
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -146,14 +158,18 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+
+        //initialize tab layout and bind to view with pager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
     }
 
+    //lovely dialog
     public void showLovelyDialog(int savedDialogId, Bundle savedInstanceState){
         showTextInputDialog(savedInstanceState);
     }
 
+    //text input dialog
     private void showTextInputDialog(Bundle savedInstanceState) {
         new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
                 .setTopColorRes(R.color.PINK)
@@ -164,16 +180,15 @@ public class MainActivity extends AppCompatActivity {
                 .setConfirmButton(android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
                     @Override
                     public void onTextInputConfirmed(String text) {
-                        Toast.makeText(MainActivity.this,"Added  "+ text, Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(MainActivity.this,"Added  "+ text + "to database", Toast.LENGTH_SHORT).show();
                     }
                 })
-
                 .setSavedInstanceState(savedInstanceState)
                 .show();
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void showEditDialog(){
 
         final Context context = this;
@@ -188,43 +203,59 @@ public class MainActivity extends AppCompatActivity {
         mDialog.setIcon(R.drawable.ic_forum);
         mDialog.setInstanceStateHandler(ID_TEXT_INPUT_DIALOG, new LovelySaveStateHandler());
         mDialog.show();
-        mDialog.setListener(R.id.ld_btn_confirm, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                final EditText name = (EditText) dialogView.findViewById(R.id.item_name);
-                final EditText quantity = (EditText) dialogView.findViewById(R.id.item_quantity);
-                final EditText lifecycle = (EditText) dialogView.findViewById(R.id.item_lifecycle);
+        /***
+         * onclick event to bind dialog to view
+         */
+        mDialog.setListener(R.id.ld_btn_confirm, (View.OnClickListener) view -> {
 
-
-                String mName = name.getText().toString().trim();
-                String mQuantity = quantity.getText().toString().trim();
-                String mLifecycle = lifecycle.getText().toString().trim();
-
-                food food = new food(mName, mQuantity, mLifecycle);
-
-//                DatabaseReference newFoodRef = mRef.push();
-//                newFoodRef.setValue(pantry_recycler_item);
-
-                FirebaseDatabase.getInstance().getReference("Pantry")
-                        .child(mName)
-                        .setValue(new food(""+mName, mQuantity, mLifecycle));
+            final EditText name = (EditText) dialogView.findViewById(R.id.item_name);
+            final EditText quantity = (EditText) dialogView.findViewById(R.id.item_quantity);
+            final EditText lifecycle = (EditText) dialogView.findViewById(R.id.item_lifecycle);
 
 
-                mDialog.dismiss();
-                Toast.makeText(MainActivity.this, "Added " +mName, Toast.LENGTH_LONG).show();
+            SimpleDateFormat ISO_8601_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
 
-            }
+            String mDate = ISO_8601_FORMAT.format(new Date());
+
+            String mName = name.getText().toString().trim();
+            String mQuantity = quantity.getText().toString().trim();
+            String mLifecycle = lifecycle.getText().toString().trim();
+//            Date mDate = System.currentTimeMillis();
+
+            food food = new food(mName, mQuantity, mLifecycle, mDate);
+
+
+            //insert into database
+            FirebaseDatabase.getInstance().getReference("Pantry")
+                    .child(mName)
+                    .setValue(new food(mName, mQuantity, mLifecycle, mDate));
+            Log.i(mDate.toString(), "mDate");
+
+
+
+            mDialog.dismiss();
+            Toast.makeText(MainActivity.this, "Added " + mName + " to database", Toast.LENGTH_LONG).show();
         });
 
     }
 
+    /***
+     * inflates the menu
+     * @param menu
+     * @return boolean
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.sample_actions, menu);
         return true;
     }
 
+    /***
+     * switch statements to change mode
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         switch (AppCompatDelegate.getDefaultNightMode()) {
@@ -244,6 +275,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /***
+     * method to handle sign out event
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -254,6 +290,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, SignInActivity.class));
                 finish();
                 return true;
+
+            //change the view mode
             default:
                 return super.onOptionsItemSelected(item);
             case android.R.id.home:
@@ -276,7 +314,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    /***
+     * night mode
+     * @param nightMode
+     */
     private void setNightMode(@AppCompatDelegate.NightMode int nightMode) {
         AppCompatDelegate.setDefaultNightMode(nightMode);
 
@@ -285,6 +326,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /***
+     * sets up the pager and adds the fragments for each list
+     * @param viewPager
+     */
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new PantryListFragment(), "Inventory");
@@ -293,49 +338,73 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
+    /***
+     * sets up the left navigation pane
+     * @param navigationView
+     */
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        menuItem.setChecked(true);
-                        mDrawerLayout.closeDrawers();
-                        return true;
-                    }
+                menuItem -> {
+                    menuItem.setChecked(true);
+                    mDrawerLayout.closeDrawers();
+                    return true;
                 });
     }
 
+    /***
+     * fragment pager adapter
+     */
     static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragments = new ArrayList<>();
         private final List<String> mFragmentTitles = new ArrayList<>();
 
+        /***
+         * initializes the fragment adapter
+         * @param fm
+         */
         public Adapter(FragmentManager fm) {
             super(fm);
         }
 
+        /***
+         * adds the fragment and name
+         * @param fragment
+         * @param title
+         */
         public void addFragment(Fragment fragment, String title) {
             mFragments.add(fragment);
             mFragmentTitles.add(title);
         }
 
+        /***
+         * gets the position
+         * @param position
+         * @return
+         */
         @Override
         public Fragment getItem(int position) {
             return mFragments.get(position);
         }
 
+        /***
+         * returns the number of fragments
+         * @return
+         */
         @Override
         public int getCount() {
             return mFragments.size();
         }
 
+        /***
+         * returns the pager title for each position
+         * @param position
+         * @return
+         */
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitles.get(position);
         }
     }
-
-
-
 }
 
 
