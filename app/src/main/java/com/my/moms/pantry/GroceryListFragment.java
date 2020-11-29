@@ -3,6 +3,7 @@ package com.my.moms.pantry;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,7 @@ public class GroceryListFragment extends Fragment {
 
     Query query = FirebaseDatabase.getInstance()
             .getReference()
-            .child("food");
+            .child("pantry_recycler_item");
 
     @Nullable
     @Override
@@ -96,7 +97,7 @@ public class GroceryListFragment extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.list_item, parent, false);
+                    .inflate(R.layout.grocery_recycler_item, parent, false);
             view.setBackgroundResource(mBackground);
             return new ViewHolder(view);
         }
@@ -106,15 +107,14 @@ public class GroceryListFragment extends Fragment {
             holder.mBoundString = mValues.get(position);
             holder.mTextView.setText(mValues.get(position));
 
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Context context = v.getContext();
-                    Intent intent = new Intent(context, PantryDetailActivity.class);
-                    intent.putExtra(PantryDetailActivity.EXTRA_NAME, holder.mBoundString);
+            holder.mView.setOnClickListener(v -> {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, PantryDetailActivity.class);
+                intent.putExtra(PantryDetailActivity.EXTRA_NAME, holder.mBoundString);
 
-                    context.startActivity(intent);
-                }
+                Log.i(mValues.get(position), "holder.boundstring: position "+holder.mBoundString);
+
+                context.startActivity(intent);
             });
 
             RequestOptions options = new RequestOptions();

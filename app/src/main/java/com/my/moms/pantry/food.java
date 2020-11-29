@@ -1,6 +1,7 @@
-
 package com.my.moms.pantry;
 
+
+import android.os.CountDownTimer;
 
 import com.google.firebase.database.Exclude;
 
@@ -143,7 +144,7 @@ public class food {
 //
 //import java.util.Random;
 //
-//public class food
+//public class pantry_recycler_item
 //{
 //    public String name;
 //    // variable to store the primary key
@@ -159,9 +160,9 @@ public class food {
 //
 //    // Mandatory empty constructor
 //    // for use of FirebaseUI
-//    public food() {}
+//    public pantry_recycler_item() {}
 //
-//    public food(String mName, String mQuantity, String mLifecycle) {
+//    public pantry_recycler_item(String mName, String mQuantity, String mLifecycle) {
 //    }
 //
 //    // Getter and setter method
@@ -256,13 +257,13 @@ public class food {
 ////import java.util.Map;
 ////import java.util.Random;
 ////
-////public class food {
+////public class pantry_recycler_item {
 ////    int id;
 ////    String name;
 ////    String lifecycle; //in days
 ////    String quantity;
 ////
-////    public food() {
+////    public pantry_recycler_item() {
 ////    }
 ////
 ////    public int getId() {
@@ -273,7 +274,7 @@ public class food {
 ////        this.id = id;
 ////    }
 ////
-////    public food(String name, String quantity, String lifecycle) {
+////    public pantry_recycler_item(String name, String quantity, String lifecycle) {
 ////        this.id = id;
 ////        this.name = name;
 ////        this.quantity = quantity;
@@ -357,7 +358,7 @@ public class food {
 ////        return result;
 ////    }
 ////
-////    Map<String, com.my.moms.pantry.food> food = new HashMap<>();
+////    Map<String, com.my.moms.pantry.pantry_recycler_item> pantry_recycler_item = new HashMap<>();
 ////
 ////
 ////    public static final String[] foodStrings = {

@@ -39,14 +39,8 @@ public class PantryDetailActivity extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Snackbar.make(view, "Added to Grocery List ", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fab.setOnClickListener(view -> Snackbar.make(view, "Added to Grocery List ", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
 
 
 
@@ -59,11 +53,6 @@ public class PantryDetailActivity extends AppCompatActivity {
 
         CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(foodName);
-
-
-
-
-
 
         long mInitialTime = DateUtils.DAY_IN_MILLIS * 2 +
                 DateUtils.HOUR_IN_MILLIS * 9 +

@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                 food food = new food(mName, mQuantity, mLifecycle);
 
 //                DatabaseReference newFoodRef = mRef.push();
-//                newFoodRef.setValue(food);
+//                newFoodRef.setValue(pantry_recycler_item);
 
                 FirebaseDatabase.getInstance().getReference("Pantry")
                         .child(mName)
@@ -541,8 +541,8 @@ public class MainActivity extends AppCompatActivity {
 //        if (!TextUtils.isEmpty(name)) {
 //            String id = databaseArtists.push().getKey();
 //
-//            Foods food = new Foods(name, quantity, lifecycle);
-//            databaseArtists.child(id).setValue(food);
+//            Foods pantry_recycler_item = new Foods(name, quantity, lifecycle);
+//            databaseArtists.child(id).setValue(pantry_recycler_item);
 //            editTextName.setText("");
 //            editTextLifecycle.setText("");
 //            editTextQuantity.setText("");
