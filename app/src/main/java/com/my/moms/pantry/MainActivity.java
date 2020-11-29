@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference mRef = database.getReference("Pantry");
-//    private FirebaseRecyclerAdapter<Cheeses, CheeseListFragment.SimpleStringRecyclerViewAdapter.ViewHolder> mFirebaseAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -272,8 +271,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_night_mode_auto:
                 setNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
                 break;
-
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -291,7 +288,8 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new PantryListFragment(), "Inventory");
-        adapter.addFragment(new PantryListFragment(), "Grocery List");
+        adapter.addFragment(new GroceryListFragment(), "Grocery List");
+        adapter.addFragment(new PantryListFragment(), "Recipe List");
         viewPager.setAdapter(adapter);
     }
 
