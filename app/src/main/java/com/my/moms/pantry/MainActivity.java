@@ -214,14 +214,14 @@ public class MainActivity extends AppCompatActivity {
             final EditText lifecycle = (EditText) dialogView.findViewById(R.id.item_lifecycle);
 
 
-            SimpleDateFormat ISO_8601_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
-
-            String mDate = ISO_8601_FORMAT.format(new Date());
-
+            SimpleDateFormat purchaseDate = new SimpleDateFormat("MM-dd-yyyy");
+            
+            //initialize strings for database insertion
+            String mDate = purchaseDate.format(new Date());
             String mName = name.getText().toString().trim();
             String mQuantity = quantity.getText().toString().trim();
             String mLifecycle = lifecycle.getText().toString().trim();
-//            Date mDate = System.currentTimeMillis();
+
 
             food food = new food(mName, mQuantity, mLifecycle, mDate);
 
@@ -231,9 +231,8 @@ public class MainActivity extends AppCompatActivity {
                     .child(mName)
                     .setValue(new food(mName, mQuantity, mLifecycle, mDate));
             Log.i(mDate.toString(), "mDate");
-
-
-
+            
+            //dismis the dialog box
             mDialog.dismiss();
             Toast.makeText(MainActivity.this, "Added " + mName + " to database", Toast.LENGTH_LONG).show();
         });

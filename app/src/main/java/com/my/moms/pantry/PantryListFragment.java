@@ -176,10 +176,14 @@ class foodAdapter extends FirebaseRecyclerAdapter<food, foodAdapter.foodsViewhol
             Log.i(PantryDetailActivity.EXTRA_NAME, "model.getName: " + model.getName());
             Log.i(PantryDetailActivity.EXTRA_LIFECYCLE, "model.getLifecycle: " + model.getLifecycle());
             Log.i(PantryDetailActivity.EXTRA_QUANTITY, "model.getQuantity: " + model.getQuantity());
+            Log.i(PantryDetailActivity.EXTRA_DATE, "model.getDate: " + model.getDate());
+
 
             intent.putExtra(PantryDetailActivity.EXTRA_NAME, model.getName());
             intent.putExtra(PantryDetailActivity.EXTRA_QUANTITY, model.getQuantity());
             intent.putExtra(PantryDetailActivity.EXTRA_LIFECYCLE, model.getLifecycle());
+            intent.putExtra(PantryDetailActivity.EXTRA_DATE, model.getDate());
+
 
             context.startActivity(intent);
         });
