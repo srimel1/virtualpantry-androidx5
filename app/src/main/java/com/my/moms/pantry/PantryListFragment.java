@@ -30,8 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class PantryListFragment extends Fragment {
 
-    // Add RecyclerView member
-    private RecyclerView recyclerView;
+
+    private RecyclerView recyclerView; // add recyclerView member
 
     foodAdapter adapter; // Create Object of the Adapter class
     DatabaseReference mbase; // Create reference to the database
@@ -177,43 +177,30 @@ class foodAdapter extends FirebaseRecyclerAdapter<food, foodAdapter.foodsViewhol
             Log.i(PantryDetailActivity.EXTRA_LIFECYCLE, "model.getLifecycle: " + model.getLifecycle());
             Log.i(PantryDetailActivity.EXTRA_QUANTITY, "model.getQuantity: " + model.getQuantity());
             Log.i(PantryDetailActivity.EXTRA_DATE, "model.getDate: " + model.getDate());
+            Log.i(PantryDetailActivity.EXTRA_DATE, "model.getExpirationDate: " + model.getExpirationDate());
 
 
+            /* Send the database date to the Detail Activity through Intent */
             intent.putExtra(PantryDetailActivity.EXTRA_NAME, model.getName());
             intent.putExtra(PantryDetailActivity.EXTRA_QUANTITY, model.getQuantity());
             intent.putExtra(PantryDetailActivity.EXTRA_LIFECYCLE, model.getLifecycle());
             intent.putExtra(PantryDetailActivity.EXTRA_DATE, model.getDate());
-
+            intent.putExtra(PantryDetailActivity.EXTRA_EXPIRATION, model.getExpirationDate());
 
             context.startActivity(intent);
         });
 
-        // avatar image
+        // set random avatar image
         RequestOptions options = new RequestOptions();
         Glide.with(holder.avatar.getContext())
                 .load(food.getRandFoodImage())
                 .apply(options.fitCenter())
                 .into(holder.avatar);
 
-
-//        // Add lastname from model class (here
-//        // "pantry_recycler_item.class")to appropriate view in Card
-//        // view (here "pantry_recycler_item.xml")
-//        holder.lastname.setText(model.getName());
-//
-//        // Add age from model class (here
-//        // "pantry_recycler_item.class")to appropriate view in Card
-//        // view (here "pantry_recycler_item.xml")
-//        holder.age.setText(model.getQuantity());
-//
-//        // add lifecycle from model class
-//        //"pantry_recycler_item.class")to appropriate view in Card
-//        // view (here "pantry_recycler_item.xml")
-//        holder.age.setText(model.getLifecycle());
     }
 
     /***
-     * method that tells the classs which layout
+     * method that tells the class which layout
      * @param parent
      * @param viewType
      * @return custom new Firebase foodAdapter to interface

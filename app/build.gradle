@@ -74,6 +74,9 @@ android {
         //dependency for the circleview images
         implementation 'de.hdodenhof:circleimageview:2.2.0'
         implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+        //joda time
+        implementation 'net.danlew:android.joda:2.10.7.2'
     }
 
 }

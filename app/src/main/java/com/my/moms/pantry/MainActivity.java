@@ -39,7 +39,9 @@ import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 import com.yarolegovich.lovelydialog.LovelySaveStateHandler;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -214,25 +216,28 @@ public class MainActivity extends AppCompatActivity {
             final EditText lifecycle = (EditText) dialogView.findViewById(R.id.item_lifecycle);
 
 
-            SimpleDateFormat purchaseDate = new SimpleDateFormat("MM-dd-yyyy");
+            SimpleDateFormat purchaseDate = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
             
             //initialize strings for database insertion
             String mDate = purchaseDate.format(new Date());
             String mName = name.getText().toString().trim();
             String mQuantity = quantity.getText().toString().trim();
             String mLifecycle = lifecycle.getText().toString().trim();
+            String mExpireDate = getExpirationDate(mDate, Integer.parseInt(mLifecycle));
 
+            Log.i(mExpireDate, "Date: "+mDate+" + "+ mLifecycle+" = Expiration date: "+mExpireDate);
 
-            food food = new food(mName, mQuantity, mLifecycle, mDate);
+            //food food = new food(mName, mQuantity, mLifecycle, mDate);
 
 
             //insert into database
             FirebaseDatabase.getInstance().getReference("Pantry")
                     .child(mName)
-                    .setValue(new food(mName, mQuantity, mLifecycle, mDate));
+                    .setValue(new food(mName, mQuantity, mLifecycle, mDate, mExpireDate));
+
             Log.i(mDate.toString(), "mDate");
             
-            //dismis the dialog box
+            //dismiss the dialog box
             mDialog.dismiss();
             Toast.makeText(MainActivity.this, "Added " + mName + " to database", Toast.LENGTH_LONG).show();
         });
@@ -404,6 +409,32 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentTitles.get(position);
         }
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public String getExpirationDate(String foodDate, int lifecycle){
+
+        //Converts the string element foodDate date from firebase into a Date
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");         //convert String containing the purchase date to a Date object
+        try {
+            Date purchaseDate = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss").parse(foodDate);
+            Log.i(purchaseDate.toString(), "purchaseDate before conversion: " + foodDate + " purchaseDate after: " + purchaseDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date()); // set time.
+        c.add(Calendar.DATE, lifecycle); // Adding the lifecycle, an integer, to calculate mExpireDateation date
+
+        String mExpireDateationDate = sdf.format(c.getTime()); //converts the date to string
+
+        Log.i("Conversion: ", "DATE INPUT: " + foodDate + " PLUS lifecycle: " + lifecycle + " EQUALS " + mExpireDateationDate);
+        Log.i(mExpireDateationDate, "DATE OUTPUT: " + mExpireDateationDate);
+
+        return mExpireDateationDate;
+    }
+
 }
 
 
@@ -756,6 +787,7 @@ public class MainActivity extends AppCompatActivity {
 //    }
 //
 //
+
 //
 //}
 //

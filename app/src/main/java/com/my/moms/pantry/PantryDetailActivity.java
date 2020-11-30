@@ -1,12 +1,14 @@
 
 package com.my.moms.pantry;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -24,9 +26,13 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.joda.time.Interval;
+
 import java.text.ParseException;
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -36,6 +42,7 @@ public class PantryDetailActivity extends AppCompatActivity {
     public static final String EXTRA_QUANTITY = "quantity";
     public static final String EXTRA_LIFECYCLE = "lifecycle";
     public static final String EXTRA_DATE = "date";
+    public static final String EXTRA_EXPIRATION = "expiration";
     public int counter;
 
 
@@ -57,9 +64,10 @@ public class PantryDetailActivity extends AppCompatActivity {
         final String foodQuantity = intent.getStringExtra(EXTRA_QUANTITY);
         final String foodLifecycle = intent.getStringExtra(EXTRA_LIFECYCLE);
         final String foodDate = intent.getStringExtra(EXTRA_DATE);
+        final String foodExpiration = intent.getStringExtra(EXTRA_EXPIRATION);
 
         //convert lifecycle to int
-        int lifecycle = Integer.parseInt(foodLifecycle);
+//        int lifecycle = Integer.parseInt(foodLifecycle);
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -69,106 +77,160 @@ public class PantryDetailActivity extends AppCompatActivity {
         collapsingToolbar.setTitle(foodName);
 
 
-        Log.i(foodName, " lifecycle: " + lifecycle);
+        Log.i(foodName, " lifecycle: " + foodLifecycle);
         Log.i(foodName, " quantity: " + foodQuantity);
+        Log.i(foodName, " date: " + foodDate);
+        Log.i(foodName, " expiration: " + foodExpiration);
 
-        long mInitialTime = DateUtils.DAY_IN_MILLIS * lifecycle;
-//                DateUtils.HOUR_IN_MILLIS * 9 +
-//                DateUtils.MINUTE_IN_MILLIS * 3 +
-//                DateUtils.SECOND_IN_MILLIS * 42;
+
+
+
+        //calculate the difference between todays date, and the food expiration
+        //date of the item from the data base
+        long diffInMillis = getDayDifference(foodExpiration);
+        //calculate the number of days by dividing the difference in millis by the number of millis in th day
+        long diffInDays = diffInMillis / DateUtils.DAY_IN_MILLIS;
 
 
         //bind the database query to the Card view
         final TextView date = (TextView) findViewById(R.id.date);
         final TextView quantity = (TextView) findViewById(R.id.quantity);
-        //final TextView lifecycle = (TextView) findViewById(R.id.item_lifecycle);
+        final TextView lifecycle = (TextView) findViewById(R.id.lifecycleDays);
+        final TextView countTime = (TextView) findViewById(R.id.counttime);
 
 
-        date.setText(foodDate); //purchase date
-        quantity.setText(foodQuantity); // number of items
-        
+        SimpleDateFormat month_date = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");         //convert String containing the purchase date to a Date object
+
+        Date expireBy = null, purchasedOn = null;
         try {
-            Date purchaseDate = new SimpleDateFormat("MM-dd-yyyy").parse(foodDate);
-            Log.i(purchaseDate.toString(), "purchaseDate before conversion: " + foodDate + " purchaseDate after: " + purchaseDate);
+            expireBy = sdf.parse(foodExpiration);
+            purchasedOn = sdf.parse(foodDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
+        String formatLifecycle = month_date.format(expireBy); //converts lifecycle to date with month
+        String formatPurchaseDate = month_date.format(purchasedOn); //converts lifecycle to date with month
 
-        Calendar c = Calendar.getInstance();
-        c.setTime(new Date()); // set time.
+        //String formatDate = month_date.format(foodDate); //converts purhcase date to date with month
 
-        c.add(Calendar.DATE, lifecycle); // Adding the lifecycle, an integer, to calculate expiration date
-        String expirationDate = sdf.format(c.getTime());
+
+        // Append the string for lifecycle card view
+        String lifecycleTextView = foodLifecycle + " days, " + diffInDays + " days left until expiration date: " + formatLifecycle;
+
+        String purchaseDateTextView = "Purchased on: "+formatPurchaseDate;
+
         
-        Log.i(foodName, "DATE INPUT: " + foodDate + " PLUS lifecycle: " + lifecycle + " EQUALS " + expirationDate);
-        Log.i(expirationDate, "DATE OUTPUT: " + expirationDate);
+        date.setText(purchaseDateTextView); //sets purchase date in cardview
+        quantity.setText(foodQuantity); //sets quantity of items in cardview
+        lifecycle.setText(lifecycleTextView); //sets lifecycle in cardview
 
 
-        final TextView countTime = (TextView) findViewById(R.id.counttime);
 
-
-        CountDownTimer mCountDownTimer = new CountDownTimer(mInitialTime, 1000) {
+        new CountDownTimer(diffInMillis, 1000) {
             StringBuilder time = new StringBuilder();
 
-            @Override
-            public void onFinish() {
-                countTime.setText(DateUtils.formatElapsedTime(0));
-                //mTextView.setText("Times Up!");
+            public void onTick(long millisUntilFinished) {
+
+
+                String time = formatMilliSecondsToTime(millisUntilFinished);
+
+                countTime.setText(time);
             }
 
-            @Override
-            public void onTick(long millisUntilFinished) {
-                Log.i("Milistilfinished: ", "millisUntil: "+millisUntilFinished);
-                time.setLength(0);
-
-
-                // Use days if appropriate
-                if (millisUntilFinished > DateUtils.DAY_IN_MILLIS) {
-                    Log.i("Dateutils: ", "millisUntil: "+DateUtils.DAY_IN_MILLIS);
-                    long count = millisUntilFinished / DateUtils.DAY_IN_MILLIS;
-                    if (count > 1)
-                        time.append(count).append(" days ");
-                    else
-                        time.append(count).append(" day ");
-
-                    millisUntilFinished %= DateUtils.DAY_IN_MILLIS;
-                }
-
-                time.append(DateUtils.formatElapsedTime(Math.round(millisUntilFinished / 1000d)));
-                countTime.setText(time.toString()+" left");
+            public void onFinish() {
+                countTime.setText("done!");
             }
         }.start();
 
-
-//        new CountDownTimer(500000000,1000) {
-//            @Override
-//            public void onTick(long millisUntilFinished) {
-//                counttime.setText(String.valueOf(counter));
-//                counter++;
-//            }
-//            @Override
-//            public void onFinish() {
-//                counttime.setText("Finished");
-//            }
-//        }.start();
 
 
         loadBackdrop();
     }
 
+    /***
+     * loads the random food image in the backdrop image view
+     */
     private void loadBackdrop() {
         final ImageView imageView = findViewById(R.id.backdrop);
         Glide.with(this).load(food.getRandFoodImage()).apply(RequestOptions.centerCropTransform()).into(imageView);
     }
 
+    /***
+     * inflate the menu
+     * @param menu
+     * @return boolean
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.sample_actions, menu);
         return true;
     }
 
+    /***
+     * method to convert String to Date element
+     * @param foodDate this is the final expiration date in Date formal
+     * @return a Date
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public Date stringToDate(String foodDate) {
+        Date purchaseDate = new Date();
+        //Converts the string element date from firebase into a Date
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss"); //convert String containing the purchase date to a Date object
+        try {
+            purchaseDate = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss").parse(foodDate);
+            //Log.i(purchaseDate.toString(), "purchaseDate before conversion: " + foodDate + " purchaseDate after: " + purchaseDate + " Different: " + purchaseDate.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return purchaseDate;
+    }
 
+    /***
+     * Calculates the difference between the food expiration date and todays date
+     * @param foodExpiration String date value from database
+     * @return a long value that holds the difference in milliseconds between the current date, and
+     * the expiration date
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public Long getDayDifference(String foodExpiration) {
+        Date today = new Date(); //todays date
+        Date exprDate = stringToDate(foodExpiration); //expiration date
+        long diffInMillis = (long) ((exprDate.getTime() - today.getTime()));
+        //Log.i("Time difference: ", "Todays date: " + today + " \nExpiration Date: " + exprDate + " \nDifference: " + diffInDays + " days\n DIFF IN MILLIS: " + diffInMillis);
+
+        return diffInMillis;
+    }
+
+    /***
+     * method to format the time for the countdown timer TextView
+     * @param milliseconds accepts milliseconds as a parameter
+     * @returns a string of the date in format dd:hh:mm:ss
+     */
+    private String formatMilliSecondsToTime(long milliseconds) {
+
+        int seconds = (int) (milliseconds / 1000) % 60;
+        int minutes = (int) ((milliseconds / (1000 * 60)) % 60);
+        int hours = (int) ((milliseconds / (1000 * 60 * 60)) % 24);
+        int days = (int) ((milliseconds /= DateUtils.DAY_IN_MILLIS));
+        return twoDigitString(days) + " : " + twoDigitString(hours) + " : " + twoDigitString(minutes) + " : "
+                + twoDigitString(seconds);
+    }
+
+    /***
+     * method to handle the two digit time strings
+     * @param number
+     * @returns the formatted number
+     */
+    private String twoDigitString(long number) {
+        if (number == 0) { return "00"; }
+        if (number / 10 == 0) { return "0" + number; }
+
+        return String.valueOf(number);
+    }
 }
+
+
+
