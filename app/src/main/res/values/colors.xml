@@ -3,4 +3,5 @@
 <resources>
     <color name="window_background">#000000</color>
     <color name="PINK">#FF4081</color>
+    <color name="BLACK">#0000</color>
 </resources>

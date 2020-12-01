@@ -25,6 +25,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.joda.time.Interval;
 
@@ -36,6 +37,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class PantryDetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_NAME = "name";
@@ -43,7 +45,10 @@ public class PantryDetailActivity extends AppCompatActivity {
     public static final String EXTRA_LIFECYCLE = "lifecycle";
     public static final String EXTRA_DATE = "date";
     public static final String EXTRA_EXPIRATION = "expiration";
-    public int counter;
+
+    //set the simple date format
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -51,11 +56,6 @@ public class PantryDetailActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        fab.setOnClickListener(view -> Snackbar.make(view, "Added to Grocery List ", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
 
 
         //get the data from th database that was passed through intent in pantrylistfragment
@@ -66,14 +66,14 @@ public class PantryDetailActivity extends AppCompatActivity {
         final String foodDate = intent.getStringExtra(EXTRA_DATE);
         final String foodExpiration = intent.getStringExtra(EXTRA_EXPIRATION);
 
-        //convert lifecycle to int
-//        int lifecycle = Integer.parseInt(foodLifecycle);
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
+        //collapsingToolbar.text.setTextColor(Color.RED);
+
         collapsingToolbar.setTitle(foodName);
 
 
@@ -83,6 +83,20 @@ public class PantryDetailActivity extends AppCompatActivity {
         Log.i(foodName, " expiration: " + foodExpiration);
 
 
+        //get todays date for the grocery list insertion
+        Date today = Calendar.getInstance().getTime();
+        String dateAdded = sdf.format(today);
+        FloatingActionButton fab = findViewById(R.id.fab);
+
+        fab.setOnClickListener(view -> {
+            //insert into database
+            FirebaseDatabase.getInstance().getReference("Grocery List")
+                    .child(foodName)
+                    .setValue(new grocery(foodName, foodQuantity, foodLifecycle, dateAdded));
+
+            Snackbar.make(view, "Added " + foodName + " to Grocery List ", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        });
 
 
         //calculate the difference between todays date, and the food expiration
@@ -120,13 +134,12 @@ public class PantryDetailActivity extends AppCompatActivity {
         // Append the string for lifecycle card view
         String lifecycleTextView = foodLifecycle + " days, " + diffInDays + " days left until expiration date: " + formatLifecycle;
 
-        String purchaseDateTextView = "Purchased on: "+formatPurchaseDate;
+        String purchaseDateTextView = "Purchased on: " + formatPurchaseDate;
 
-        
+
         date.setText(purchaseDateTextView); //sets purchase date in cardview
         quantity.setText(foodQuantity); //sets quantity of items in cardview
         lifecycle.setText(lifecycleTextView); //sets lifecycle in cardview
-
 
 
         new CountDownTimer(diffInMillis, 1000) {
@@ -144,7 +157,6 @@ public class PantryDetailActivity extends AppCompatActivity {
                 countTime.setText("done!");
             }
         }.start();
-
 
 
         loadBackdrop();
@@ -225,8 +237,12 @@ public class PantryDetailActivity extends AppCompatActivity {
      * @returns the formatted number
      */
     private String twoDigitString(long number) {
-        if (number == 0) { return "00"; }
-        if (number / 10 == 0) { return "0" + number; }
+        if (number == 0) {
+            return "00";
+        }
+        if (number / 10 == 0) {
+            return "0" + number;
+        }
 
         return String.valueOf(number);
     }
