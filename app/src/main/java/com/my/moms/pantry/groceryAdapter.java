@@ -48,8 +48,8 @@ class groceryAdapter extends FirebaseRecyclerAdapter<grocery, groceryAdapter.gro
         public groceryViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
-            name = itemView.findViewById(R.id.text1);
-            avatar = itemView.findViewById(R.id.avatar);
+            name = itemView.findViewById(R.id.text2);
+            avatar = itemView.findViewById(R.id.grocery_avatar);
         }
 
         /***
