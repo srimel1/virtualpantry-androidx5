@@ -48,8 +48,8 @@ class recipeAdapter extends FirebaseRecyclerAdapter<recipe, recipeAdapter.recipe
         public recipeViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
-            name = itemView.findViewById(R.id.text_recipe);
-            avatar = itemView.findViewById(R.id.avatar_recipe);
+            name = itemView.findViewById(R.id.recipe_text);
+            avatar = itemView.findViewById(R.id.recipe_avatar);
         }
 
         /***
@@ -85,10 +85,10 @@ class recipeAdapter extends FirebaseRecyclerAdapter<recipe, recipeAdapter.recipe
         holder.name.setText(model.getName());
 
 
-        Log.i(model.getName(), "name: position " + position);
-        Log.i(model.getDescription(), "description: position " + position);
-        Log.i(model.getSteps(), "steps: position " + position);
-        Log.i(model.getIngredients(), "ingredients: position " + position);
+//        Log.i(model.getName(), "name: position " + position);
+//        Log.i(model.getDescription(), "description: position " + position);
+//        Log.i(model.getSteps(), "steps: position " + position);
+//        Log.i(model.getIngredients(), "ingredients: position " + position);
 
         /***
          * On click event to pass firebase data from the viewholder to the RecipeDetailActivity
@@ -119,7 +119,7 @@ class recipeAdapter extends FirebaseRecyclerAdapter<recipe, recipeAdapter.recipe
         // set random avatar image
         RequestOptions options = new RequestOptions();
         Glide.with(holder.avatar.getContext())
-                .load(food.getRandFoodImage())
+                .load(recipe.getRandFoodImage())
                 .apply(options.fitCenter())
                 .into(holder.avatar);
 
