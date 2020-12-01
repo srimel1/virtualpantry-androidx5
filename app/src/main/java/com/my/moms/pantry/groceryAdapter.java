@@ -90,23 +90,25 @@ class groceryAdapter extends FirebaseRecyclerAdapter<grocery, groceryAdapter.gro
         Log.i(model.getQuantity(), "lifecycle: position " + position);
 
         /***
-         * On click event to pass firebase data from the viewholder to the PantryDetailActivity
-         * class. Binds the model data to the EXTRA_NAME variable in PantryDetailActivity
+         * On click event to pass firebase data from the viewholder to the GroceryListDetailActivity
+         * class. Binds the model data to the EXTRA_NAME22 variable in GroceryListDetailActivity
          */
         holder.mView.setOnClickListener(v -> {
             Context context = v.getContext();
             Intent intent = new Intent(context, GroceryListDetailActivity.class);
-            Log.i(PantryDetailActivity.EXTRA_NAME, "model.getName: " + model.getName());
-            Log.i(PantryDetailActivity.EXTRA_LIFECYCLE, "model.getLifecycle: " + model.getLifecycle());
-            Log.i(PantryDetailActivity.EXTRA_QUANTITY, "model.getQuantity: " + model.getQuantity());
-            Log.i(PantryDetailActivity.EXTRA_DATE, "model.getDate: " + model.getDateAdded());
+            Log.i(GroceryListDetailActivity.EXTRA_NAME2, "model.getName: " + model.getName());
+            Log.i(GroceryListDetailActivity.EXTRA_LIFECYCLE2, "model.getLifecycle: " + model.getLifecycle());
+            Log.i(GroceryListDetailActivity.EXTRA_QUANTITY2, "model.getQuantity: " + model.getQuantity());
+            Log.i(GroceryListDetailActivity.EXTRA_DATE2, "model.getDate: " + model.getDate());
+            Log.i(GroceryListDetailActivity.EXTRA_EXPIRATION2, "model.getExpirationDate: " + model.getExpirationDate());
 
 
             /* Send the database date to the Detail Activity through Intent */
-            intent.putExtra(PantryDetailActivity.EXTRA_NAME, model.getName());
-            intent.putExtra(PantryDetailActivity.EXTRA_QUANTITY, model.getQuantity());
-            intent.putExtra(PantryDetailActivity.EXTRA_LIFECYCLE, model.getLifecycle());
-            intent.putExtra(PantryDetailActivity.EXTRA_DATE, model.getDateAdded());
+            intent.putExtra(GroceryListDetailActivity.EXTRA_NAME2, model.getName());
+            intent.putExtra(GroceryListDetailActivity.EXTRA_QUANTITY2, model.getQuantity());
+            intent.putExtra(GroceryListDetailActivity.EXTRA_LIFECYCLE2, model.getLifecycle());
+            intent.putExtra(GroceryListDetailActivity.EXTRA_DATE2, model.getDate());
+            intent.putExtra(GroceryListDetailActivity.EXTRA_EXPIRATION2, model.getExpirationDate());
 
             context.startActivity(intent);
         });
@@ -138,244 +140,3 @@ class groceryAdapter extends FirebaseRecyclerAdapter<grocery, groceryAdapter.gro
     }
 }
 
-
-///***
-// *Custom FirebaseRecyclerAdapter
-// *
-// * Firebase Recycler Adapter is a class from firebase UI
-// * to provide the methods to bind, change and display the
-// * contents of a firebase database in a recycler view
-// */
-//
-//public class groceryAdapter extends FirebaseRecyclerAdapter<pantry_recycler_item, groceryAdapter.groceryViewHolder> {
-//
-//    /***
-//     * groceryAdapter constructor
-//     * @param options to customize the adapter
-//     */
-//    public groceryAdapter(
-//            @NonNull FirebaseRecyclerOptions<pantry_recycler_item> options) {
-//        super(options);
-//    }
-//
-//    // Function to bind the view in Card view(here
-//    // "pantry_recycler_item.xml") with data in
-//    // model class(here "pantry_recycler_item.class")
-////    could potentially be a problem because i used the linear layout and not cardview
-//
-//    /***
-//     * Method to bind view to the layout
-//     * @param holder holds the view
-//     * @param position tracks position
-//     * @param model pantry_recycler_item model to bind detabase elements
-//     */
-//    @Override
-//    protected void
-//    onBindViewHolder(@NonNull groceryViewHolder holder,
-//                     int position, @NonNull pantry_recycler_item model) {
-//
-//        // Add firstname from model class (here
-//        // "pantry_recycler_item.class")to appropriate view in Card
-//        // view (here "pantry_recycler_item.xml")
-//
-//        // item name
-//        holder.name.setText(model.getName());
-////        holder.mView.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View v) {
-////                Context context = v.getContext();
-////                Intent intent = new Intent(context, PantryDetailActivity.class);
-////                intent.putExtra(PantryDetailActivity.EXTRA_NAME, holder.mBoundString);
-////
-////                context.startActivity(intent);
-////            }
-////        });
-//
-//        // avatar image
-//        RequestOptions options = new RequestOptions();
-//        Glide.with(holder.avatar.getContext())
-//                .load(pantry_recycler_item.getRandFoodImage())
-//                .apply(options.fitCenter())
-//                .into(holder.avatar);
-//
-//
-////        // Add lastname from model class (here
-////        // "pantry_recycler_item.class")to appropriate view in Card
-////        // view (here "pantry_recycler_item.xml")
-////        holder.lastname.setText(model.getName());
-////
-////        // Add age from model class (here
-////        // "pantry_recycler_item.class")to appropriate view in Card
-////        // view (here "pantry_recycler_item.xml")
-////        holder.age.setText(model.getQuantity());
-////
-////        // add lifecycle from model class
-////        //"pantry_recycler_item.class")to appropriate view in Card
-////        // view (here "pantry_recycler_item.xml")
-////        holder.age.setText(model.getLifecycle());
-//    }
-//
-//    // Function to tell the class about the Card view (here
-//    // "pantry_recycler_item.xml")in
-//    // which the data will be shown
-//
-//    /***
-//     * method that tells the classs which layout
-//     * @param parent
-//     * @param viewType
-//     * @return custom new Firebase groceryAdapter to interface
-//     * with recycler
-//     */
-//    @NonNull
-//    @Override
-//    public groceryViewHolder
-//    onCreateViewHolder(@NonNull ViewGroup parent,
-//                       int viewType) {
-//        View view = LayoutInflater.from(parent.getContext())
-//                .inflate(R.layout.pantry_recycler_item, parent, false);
-//        return new groceryAdapter.groceryViewHolder(view);
-//    }
-//
-//    // Sub Class to create references of the views in Crad
-//    // view (here "pantry_recycler_item.xml")
-//
-//    /***
-//     *
-//     * subclass to create referece to the layout pantry_recycler_item.xml
-//     */
-//    static class groceryViewHolder extends RecyclerView.ViewHolder {
-//        TextView name;
-//        ImageView avatar;
-//
-//        public groceryViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//
-//            name = itemView.findViewById(R.id.text1);
-//            avatar = itemView.findViewById(R.id.avatar);
-//
-//
-//        }
-//    }
-//
-//}
-
-
-///***
-// *Custom FirebaseRecyclerAdapter
-// *
-// * Firebase Recycler Adapter is a class from firebase UI
-// * to provide the methods to bind, change and display the
-// * contents of a firebase database in a recycler view
-// */
-//
-//public class groceryAdapter extends FirebaseRecyclerAdapter<pantry_recycler_item, groceryAdapter.groceryViewHolder> {
-//
-//    /***
-//     * groceryAdapter constructor
-//     * @param options to customize the adapter
-//     */
-//    public groceryAdapter(
-//            @NonNull FirebaseRecyclerOptions<pantry_recycler_item> options) {
-//        super(options);
-//    }
-//
-//    // Function to bind the view in Card view(here
-//    // "pantry_recycler_item.xml") with data in
-//    // model class(here "pantry_recycler_item.class")
-////    could potentially be a problem because i used the linear layout and not cardview
-//
-//    /***
-//     * Method to bind view to the layout
-//     * @param holder holds the view
-//     * @param position tracks position
-//     * @param model pantry_recycler_item model to bind detabase elements
-//     */
-//    @Override
-//    protected void
-//    onBindViewHolder(@NonNull groceryViewHolder holder,
-//                     int position, @NonNull pantry_recycler_item model) {
-//
-//        // Add firstname from model class (here
-//        // "pantry_recycler_item.class")to appropriate view in Card
-//        // view (here "pantry_recycler_item.xml")
-//
-//        // item name
-//        holder.name.setText(model.getName());
-////        holder.mView.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View v) {
-////                Context context = v.getContext();
-////                Intent intent = new Intent(context, PantryDetailActivity.class);
-////                intent.putExtra(PantryDetailActivity.EXTRA_NAME, holder.mBoundString);
-////
-////                context.startActivity(intent);
-////            }
-////        });
-//
-//        // avatar image
-//        RequestOptions options = new RequestOptions();
-//        Glide.with(holder.avatar.getContext())
-//                .load(pantry_recycler_item.getRandFoodImage())
-//                .apply(options.fitCenter())
-//                .into(holder.avatar);
-//
-//
-////        // Add lastname from model class (here
-////        // "pantry_recycler_item.class")to appropriate view in Card
-////        // view (here "pantry_recycler_item.xml")
-////        holder.lastname.setText(model.getName());
-////
-////        // Add age from model class (here
-////        // "pantry_recycler_item.class")to appropriate view in Card
-////        // view (here "pantry_recycler_item.xml")
-////        holder.age.setText(model.getQuantity());
-////
-////        // add lifecycle from model class
-////        //"pantry_recycler_item.class")to appropriate view in Card
-////        // view (here "pantry_recycler_item.xml")
-////        holder.age.setText(model.getLifecycle());
-//    }
-//
-//    // Function to tell the class about the Card view (here
-//    // "pantry_recycler_item.xml")in
-//    // which the data will be shown
-//
-//    /***
-//     * method that tells the classs which layout
-//     * @param parent
-//     * @param viewType
-//     * @return custom new Firebase groceryAdapter to interface
-//     * with recycler
-//     */
-//    @NonNull
-//    @Override
-//    public groceryViewHolder
-//    onCreateViewHolder(@NonNull ViewGroup parent,
-//                       int viewType) {
-//        View view = LayoutInflater.from(parent.getContext())
-//                .inflate(R.layout.pantry_recycler_item, parent, false);
-//        return new groceryAdapter.groceryViewHolder(view);
-//    }
-//
-//    // Sub Class to create references of the views in Crad
-//    // view (here "pantry_recycler_item.xml")
-//
-//    /***
-//     *
-//     * subclass to create referece to the layout pantry_recycler_item.xml
-//     */
-//    static class groceryViewHolder extends RecyclerView.ViewHolder {
-//        TextView name;
-//        ImageView avatar;
-//
-//        public groceryViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//
-//            name = itemView.findViewById(R.id.text1);
-//            avatar = itemView.findViewById(R.id.avatar);
-//
-//
-//        }
-//    }
-//
-//}

@@ -48,6 +48,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
+
+
     private static final int ID_TEXT_INPUT_DIALOG = R.id.fab;
     private String mUsername;
     private String mPhotoUrl;
@@ -66,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mFirebaseDatabaseReference;
 
 
-
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference mRef = database.getReference("Pantry");
 
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.i("WTF ","what is going on where is the console");
         //remove below if it breaks
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -139,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //set an  onclick event for floatingactionbutton
-        fab.setOnClickListener(new View.OnClickListener(){
+        fab.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
@@ -167,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //lovely dialog
-    public void showLovelyDialog(int savedDialogId, Bundle savedInstanceState){
+    public void showLovelyDialog(int savedDialogId, Bundle savedInstanceState) {
         showTextInputDialog(savedInstanceState);
     }
 
@@ -182,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                 .setConfirmButton(android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
                     @Override
                     public void onTextInputConfirmed(String text) {
-                        Toast.makeText(MainActivity.this,"Added  "+ text + "to database", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Added  " + text + "to database", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setSavedInstanceState(savedInstanceState)
@@ -191,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void showEditDialog(){
+    private void showEditDialog() {
 
         final Context context = this;
         final LovelyCustomDialog mDialog = new LovelyCustomDialog(this);
@@ -217,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             SimpleDateFormat purchaseDate = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
-            
+
             //initialize strings for database insertion
             String mDate = purchaseDate.format(new Date());
             String mName = name.getText().toString().trim();
@@ -225,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
             String mLifecycle = lifecycle.getText().toString().trim();
             String mExpireDate = getExpirationDate(mDate, Integer.parseInt(mLifecycle));
 
-            Log.i(mExpireDate, "Date: "+mDate+" + "+ mLifecycle+" = Expiration date: "+mExpireDate);
+            Log.i(mExpireDate, "Date: " + mDate + " + " + mLifecycle + " = Expiration date: " + mExpireDate);
 
             //food food = new food(mName, mQuantity, mLifecycle, mDate);
 
@@ -236,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
                     .setValue(new food(mName, mQuantity, mLifecycle, mDate, mExpireDate));
 
             Log.i(mDate.toString(), "mDate");
-            
+
             //dismiss the dialog box
             mDialog.dismiss();
             Toast.makeText(MainActivity.this, "Added " + mName + " to database", Toast.LENGTH_LONG).show();
@@ -252,6 +256,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.sample_actions, menu);
+        //getMenuInflater().inflate(R.menu.sample_actions2, menu);
+
         return true;
     }
 
@@ -338,7 +344,7 @@ public class MainActivity extends AppCompatActivity {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new PantryListFragment(), "Inventory");
         adapter.addFragment(new GroceryListFragment(), "Grocery List");
-        adapter.addFragment(new PantryListFragment(), "Recipe List");
+        adapter.addFragment(new RecipeFragment(), "Recipe List");
         viewPager.setAdapter(adapter);
     }
 
@@ -411,7 +417,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public String getExpirationDate(String foodDate, int lifecycle){
+    public String getExpirationDate(String foodDate, int lifecycle) {
 
         //Converts the string element foodDate date from firebase into a Date
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");         //convert String containing the purchase date to a Date object

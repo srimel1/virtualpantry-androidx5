@@ -7,19 +7,19 @@ public class grocery {
     private String name;
     private String lifecycle; //in days
     private String quantity;
-    private String dateAdded;
-
+    private String date;
+    private String expirationDate;
 
     public grocery(){}
 
 
 
-    public grocery(String name, String quantity, String lifecycle, String dateAdded){
+    public grocery(String name, String quantity, String lifecycle, String date, String expirationDate){
         this.name = name;
         this.quantity = quantity;
         this.lifecycle = lifecycle;
-        this.dateAdded = dateAdded;
-
+        this.date = date;
+        this.expirationDate = expirationDate;
 
     }
 
@@ -47,14 +47,17 @@ public class grocery {
         this.quantity = mQuantity;
     }
 
-    public String getDateAdded() {
-        return dateAdded;
+    public String getDate() {
+        return date;
     }
 
-    public void setDatAdded(String dateAdded) {
-        this.dateAdded = dateAdded;
+    public void setDate(String date) {
+        this.date = date;
     }
 
+    public String getExpirationDate() { return expirationDate; }
+
+    public void setExpirationDate(String expirationDate) { this.expirationDate = expirationDate; }
 
     private static final Random RANDOM = new Random();
 
