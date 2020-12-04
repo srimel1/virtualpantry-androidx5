@@ -35,7 +35,7 @@ public class GroceryListFragment extends Fragment {
 
     private RecyclerView recyclerView; // add recyclerView member
 
-    foodAdapter adapter; // Create Object of the Adapter class
+    groceryAdapter adapter; // Create Object of the Adapter class
     DatabaseReference mbase; // Create reference to the database
 
     /***
@@ -48,8 +48,8 @@ public class GroceryListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.pantry_recycler_fragment, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler1);
+        View view = inflater.inflate(R.layout.grocery_recycler_fragment, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.grocery_recycler);
         setUpRecyclerView();
         return view;
     }
@@ -64,12 +64,12 @@ public class GroceryListFragment extends Fragment {
 
         //set the recyclerView layout
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        FirebaseRecyclerOptions<food> options = new FirebaseRecyclerOptions.Builder<food>()
-                .setQuery(mbase, food.class)
+        FirebaseRecyclerOptions<grocery> options = new FirebaseRecyclerOptions.Builder<grocery>()
+                .setQuery(mbase, grocery.class)
                 .build();
 
         //initialize the adapter
-        adapter = new foodAdapter(options);
+        adapter = new groceryAdapter(options);
 
         //set the custom adapter in the recyclerView
         recyclerView.setAdapter(adapter);

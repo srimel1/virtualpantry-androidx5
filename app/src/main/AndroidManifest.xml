@@ -25,6 +25,18 @@
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.my.moms.pantry.MainActivity" />
         </activity>
+        <activity android:name="com.my.moms.pantry.GroceryDetailActivity"
+            android:parentActivityName="com.my.moms.pantry.MainActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.my.moms.pantry.MainActivity" />
+        </activity>
+
+        <activity android:name="com.my.moms.pantry.RecipeDetailActivity"
+            android:parentActivityName="com.my.moms.pantry.MainActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.my.moms.pantry.MainActivity" />
+        </activity>
+
         <activity android:name="com.my.moms.pantry.SignInActivity" />
     </application>
 

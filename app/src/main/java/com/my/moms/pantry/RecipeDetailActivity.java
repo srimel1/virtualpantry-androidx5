@@ -1,6 +1,7 @@
 
 package com.my.moms.pantry;
 
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
@@ -30,13 +31,21 @@ import java.util.Date;
 import java.util.Locale;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
-public class PantryDetailActivity extends AppCompatActivity {
+public class RecipeDetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_NAME = "name";
     public static final String EXTRA_QUANTITY = "quantity";
     public static final String EXTRA_LIFECYCLE = "lifecycle";
     public static final String EXTRA_DATE = "date";
     public static final String EXTRA_EXPIRATION = "expiration";
+
+
+
+
+//            Log.i(foodName," lifecycle: "+foodLifecycle);
+//        Log.i("foodName"," quantity: "+foodQuantity);
+//        Log.i(foodName," date: "+foodDate);
+//        Log.i(foodName," expiration: "+foodExpiration);
 
     //set the simple date format
     @SuppressLint("SimpleDateFormat")
@@ -47,7 +56,7 @@ public class PantryDetailActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pantry_detail);
+        setContentView(R.layout.grocery_detail);
 
 
         //get the data from th database that was passed through intent in pantrylistfragment
@@ -58,7 +67,11 @@ public class PantryDetailActivity extends AppCompatActivity {
         final String foodDate = intent.getStringExtra(EXTRA_DATE);
         final String foodExpiration = intent.getStringExtra(EXTRA_EXPIRATION);
 
-
+        Log.i("INTENT", "Intent: " + EXTRA_NAME);
+        Log.i("INTENT", "Intent: " + EXTRA_QUANTITY);
+        Log.i("INTENT", "Intent: " + EXTRA_LIFECYCLE);
+        Log.i("INTENT", "Intent: " + EXTRA_DATE);
+        Log.i("INTENT", "Intent: " + EXTRA_EXPIRATION);
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -71,25 +84,13 @@ public class PantryDetailActivity extends AppCompatActivity {
 
         Log.i(foodName, " lifecycle: " + foodLifecycle);
         Log.i(foodName, " quantity: " + foodQuantity);
-        Log.i(foodName, " this is food date: " + foodDate);
+        Log.i(foodName, " date: " + foodDate);
         Log.i(foodName, " expiration: " + foodExpiration);
-
 
 
         //get todays date for the grocery list insertion
         Date today = Calendar.getInstance().getTime();
         String dateAdded = sdf.format(today);
-        FloatingActionButton fab = findViewById(R.id.fab);
-
-        fab.setOnClickListener(view -> {
-            //insert into database
-            FirebaseDatabase.getInstance().getReference("Grocery List")
-                    .child(foodName)
-                    .setValue(new grocery(foodName, foodQuantity, foodLifecycle, dateAdded, foodExpiration));
-
-            Snackbar.make(view, "Added " + foodName + " to Grocery List ", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        });
 
 
         //calculate the difference between todays date, and the food expiration
@@ -104,8 +105,6 @@ public class PantryDetailActivity extends AppCompatActivity {
         final TextView quantity = (TextView) findViewById(R.id.quantity);
         final TextView lifecycle = (TextView) findViewById(R.id.lifecycleDays);
         final TextView countTime = (TextView) findViewById(R.id.counttime);
-
-
 
 
         SimpleDateFormat month_date = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
@@ -154,17 +153,21 @@ public class PantryDetailActivity extends AppCompatActivity {
         }.start();
 
 
+        //add to grocery list item
+        FloatingActionButton fab = findViewById(R.id.fab);
+
+        fab.setOnClickListener(view -> {
+            //insert into database
+            FirebaseDatabase.getInstance().getReference("Grocery List")
+                    .child(foodName)
+                    .setValue(new food(foodName, foodQuantity, foodLifecycle, dateAdded, foodExpiration));
+
+            Snackbar.make(view, "Added " + foodName + " to Grocery List ", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        });
         loadBackdrop();
     }
 
-    private long findExpirationTime(String foodDate) {
-        Date future = stringToDate(foodDate);
-        Date today = new Date();
-
-        long diffInMillis =  (today.getTime() - future.getTime());
-
-        return diffInMillis;
-    }
 
     /***
      * loads the random food image in the backdrop image view
@@ -251,6 +254,4 @@ public class PantryDetailActivity extends AppCompatActivity {
         return String.valueOf(number);
     }
 }
-
-
 

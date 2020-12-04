@@ -49,7 +49,7 @@ public class PantryListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.pantry_recycler_fragment, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler1);
+        recyclerView = (RecyclerView) view.findViewById(R.id.pantry_recycler);
         setUpRecyclerView();
         return view;
     }

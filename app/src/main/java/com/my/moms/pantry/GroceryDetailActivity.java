@@ -4,16 +4,13 @@ package com.my.moms.pantry;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Menu;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,15 +25,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.joda.time.Interval;
-
 import java.text.ParseException;
-import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class GroceryDetailActivity extends AppCompatActivity {
@@ -47,6 +39,14 @@ public class GroceryDetailActivity extends AppCompatActivity {
     public static final String EXTRA_DATE = "date";
     public static final String EXTRA_EXPIRATION = "expiration";
 
+
+
+
+//            Log.i(foodName," lifecycle: "+foodLifecycle);
+//        Log.i("foodName"," quantity: "+foodQuantity);
+//        Log.i(foodName," date: "+foodDate);
+//        Log.i(foodName," expiration: "+foodExpiration);
+
     //set the simple date format
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
@@ -56,7 +56,7 @@ public class GroceryDetailActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.grocery_detail);
 
 
         //get the data from th database that was passed through intent in pantrylistfragment
@@ -67,7 +67,11 @@ public class GroceryDetailActivity extends AppCompatActivity {
         final String foodDate = intent.getStringExtra(EXTRA_DATE);
         final String foodExpiration = intent.getStringExtra(EXTRA_EXPIRATION);
 
-
+        Log.i("INTENT", "Intent: " + EXTRA_NAME);
+        Log.i("INTENT", "Intent: " + EXTRA_QUANTITY);
+        Log.i("INTENT", "Intent: " + EXTRA_LIFECYCLE);
+        Log.i("INTENT", "Intent: " + EXTRA_DATE);
+        Log.i("INTENT", "Intent: " + EXTRA_EXPIRATION);
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -89,7 +93,6 @@ public class GroceryDetailActivity extends AppCompatActivity {
         String dateAdded = sdf.format(today);
 
 
-
         //calculate the difference between todays date, and the food expiration
         //date of the item from the data base
         long diffInMillis = getDayDifference(foodExpiration);
@@ -102,9 +105,6 @@ public class GroceryDetailActivity extends AppCompatActivity {
         final TextView quantity = (TextView) findViewById(R.id.quantity);
         final TextView lifecycle = (TextView) findViewById(R.id.lifecycleDays);
         final TextView countTime = (TextView) findViewById(R.id.counttime);
-
-
-
 
 
         SimpleDateFormat month_date = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
@@ -131,7 +131,6 @@ public class GroceryDetailActivity extends AppCompatActivity {
         String purchaseDateTextView = "Purchased on: " + formatPurchaseDate;
 
 
-
         date.setText(purchaseDateTextView); //sets purchase date in cardview
         quantity.setText(foodQuantity); //sets quantity of items in cardview
         lifecycle.setText(lifecycleTextView); //sets lifecycle in cardview
@@ -152,7 +151,6 @@ public class GroceryDetailActivity extends AppCompatActivity {
                 countTime.setText("done!");
             }
         }.start();
-
 
 
         //add to grocery list item
@@ -516,7 +514,7 @@ public class GroceryDetailActivity extends AppCompatActivity {
 //    @Override
 //    public void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_detail);
+//        setContentView(R.layout.pantry_detail);
 //        saveStateHandler= new LovelySaveStateHandler();
 //
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
