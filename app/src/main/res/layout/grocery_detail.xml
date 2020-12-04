@@ -78,13 +78,13 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Purchase Date"
+                        android:text="Date Added To Grocery List"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/date" />
+                        android:id="@+id/grocery_date" />
 
                 </LinearLayout>
 
@@ -123,7 +123,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/lifecycleDays" />
+                        android:id="@+id/grocery_lifecycle" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -149,7 +149,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/quantity" />
+                        android:id="@+id/grocery_quantity" />
 
                 </LinearLayout>
 
@@ -169,7 +169,7 @@
         android:tint="#FFFFFF"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end" />
-    />
+
 
     <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
     <!--        android:layout_width="wrap_content"-->

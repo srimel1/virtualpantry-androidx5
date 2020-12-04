@@ -40,18 +40,15 @@ public class GroceryDetailActivity extends AppCompatActivity {
     public static final String EXTRA_EXPIRATION = "expiration";
 
 
-
-
-//            Log.i(foodName," lifecycle: "+foodLifecycle);
-//        Log.i("foodName"," quantity: "+foodQuantity);
-//        Log.i(foodName," date: "+foodDate);
-//        Log.i(foodName," expiration: "+foodExpiration);
-
     //set the simple date format
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
 
 
+    /***
+     * Set the view
+     * @param savedInstanceState
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,6 +69,12 @@ public class GroceryDetailActivity extends AppCompatActivity {
         Log.i("INTENT", "Intent: " + EXTRA_LIFECYCLE);
         Log.i("INTENT", "Intent: " + EXTRA_DATE);
         Log.i("INTENT", "Intent: " + EXTRA_EXPIRATION);
+
+        Log.i(foodName," lifecycle: "+foodLifecycle);
+        Log.i("foodName"," quantity: "+foodQuantity);
+        Log.i(foodName," date: "+foodDate);
+        Log.i(foodName," expiration: "+foodExpiration);
+
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -82,10 +85,10 @@ public class GroceryDetailActivity extends AppCompatActivity {
         collapsingToolbar.setTitle(foodName);
 
 
-        Log.i(foodName, " lifecycle: " + foodLifecycle);
-        Log.i(foodName, " quantity: " + foodQuantity);
-        Log.i(foodName, " date: " + foodDate);
-        Log.i(foodName, " expiration: " + foodExpiration);
+        Log.i(foodName, " GroceryList lifecycle: " + foodLifecycle);
+        Log.i(foodName, " GroceryList quantity: " + foodQuantity);
+        Log.i(foodName, " GroceryList date: " + foodDate);
+        Log.i(foodName, " GroceryList expiration: " + foodExpiration);
 
 
         //get todays date for the grocery list insertion
@@ -101,10 +104,10 @@ public class GroceryDetailActivity extends AppCompatActivity {
 
 
         //bind the database query to the Card view
-        final TextView date = (TextView) findViewById(R.id.date);
-        final TextView quantity = (TextView) findViewById(R.id.quantity);
-        final TextView lifecycle = (TextView) findViewById(R.id.lifecycleDays);
-        final TextView countTime = (TextView) findViewById(R.id.counttime);
+        final TextView date = (TextView) findViewById(R.id.grocery_date);
+        final TextView quantity = (TextView) findViewById(R.id.grocery_quantity);
+        final TextView lifecycle = (TextView) findViewById(R.id.grocery_lifecycle);
+//        final TextView countTime = (TextView) findViewById(R.id.lifecycle);
 
 
         SimpleDateFormat month_date = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
@@ -133,7 +136,7 @@ public class GroceryDetailActivity extends AppCompatActivity {
 
         date.setText(purchaseDateTextView); //sets purchase date in cardview
         quantity.setText(foodQuantity); //sets quantity of items in cardview
-        lifecycle.setText(lifecycleTextView); //sets lifecycle in cardview
+        lifecycle.setText(foodLifecycle); //sets lifecycle in cardview
 
 
         new CountDownTimer(diffInMillis, 1000) {
@@ -144,11 +147,11 @@ public class GroceryDetailActivity extends AppCompatActivity {
 
                 String time = formatMilliSecondsToTime(millisUntilFinished);
 
-                countTime.setText(time);
+                lifecycle.setText(time);
             }
 
             public void onFinish() {
-                countTime.setText("done!");
+                lifecycle.setText("done!");
             }
         }.start();
 
@@ -537,16 +540,16 @@ public class GroceryDetailActivity extends AppCompatActivity {
 //        CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
 //        collapsingToolbar.setTitle(foodName);
 //
-//        final TextView counttime=findViewById(R.id.counttime);
+//        final TextView lifecycle=findViewById(R.id.lifecycle);
 //        new CountDownTimer(500000000,1000) {
 //            @Override
 //            public void onTick(long millisUntilFinished) {
-//                counttime.setText(String.valueOf(counter));
+//                lifecycle.setText(String.valueOf(counter));
 //                counter++;
 //            }
 //            @Override
 //            public void onFinish() {
-//                counttime.setText("Finished");
+//                lifecycle.setText("Finished");
 //            }
 //        }.start();
 //
