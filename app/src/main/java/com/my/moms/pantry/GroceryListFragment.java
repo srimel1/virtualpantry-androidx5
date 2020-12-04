@@ -8,7 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -47,8 +48,8 @@ public class GroceryListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.grocery_recycler_fragment, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        View view = inflater.inflate(R.layout.pantry_recycler_fragment, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler1);
         setUpRecyclerView();
         return view;
     }

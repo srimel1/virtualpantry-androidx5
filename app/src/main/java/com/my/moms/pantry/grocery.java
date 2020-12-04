@@ -1,6 +1,13 @@
 package com.my.moms.pantry;
 
 
+import android.os.CountDownTimer;
+
+import com.google.firebase.database.Exclude;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class grocery {
@@ -96,7 +103,15 @@ public class grocery {
         }
     }
 
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("name", name);
+        result.put("quantity", quantity);
+        result.put("lifecycle", lifecycle);
 
+        return result;
+    }
 
     public static final String[] foodStrings = {
             "lemons", "tomatoes", "carrots", "onions", "lettuce", "pickles", "peppers", "cilantro",

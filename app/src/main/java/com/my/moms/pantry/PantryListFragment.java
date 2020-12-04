@@ -35,8 +35,8 @@ public class PantryListFragment extends Fragment {
 
     private RecyclerView recyclerView; // add recyclerView member
 
-    private foodAdapter adapter; // Create Object of the Adapter class
-    private DatabaseReference mbase; // Create reference to the database
+    foodAdapter adapter; // Create Object of the Adapter class
+    DatabaseReference mbase; // Create reference to the database
 
     /***
      * Method to inflate the recycler view with each sub view

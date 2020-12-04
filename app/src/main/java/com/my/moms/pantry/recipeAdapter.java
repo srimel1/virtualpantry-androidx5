@@ -105,7 +105,7 @@ class recipeAdapter extends FirebaseRecyclerAdapter<recipe, recipeAdapter.recipe
 ////            Log.i(RecipeDetailActivity.EXTRA_SERVING3, "model.getExpirationDate: " + model.getExpirationDate());
 ////
 
-            /* Send the database date to the Detail Activity through Intent */
+        /* Send the database date to the Detail Activity through Intent */
 //            intent.putExtra(RecipeDetailActivity.EXTRA_NAME3, model.getName());
 //            intent.putExtra(RecipeDetailActivity.EXTRA_DESCRIPTION3, model.getDescription());
 //            intent.putExtra(RecipeDetailActivity.EXTRA_STEPS3, model.getSteps());

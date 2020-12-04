@@ -37,6 +37,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class PantryDetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_NAME = "name";
@@ -44,7 +45,10 @@ public class PantryDetailActivity extends AppCompatActivity {
     public static final String EXTRA_LIFECYCLE = "lifecycle";
     public static final String EXTRA_DATE = "date";
     public static final String EXTRA_EXPIRATION = "expiration";
-    public int counter;
+
+    //set the simple date format
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -52,13 +56,6 @@ public class PantryDetailActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-
-//
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//
-//        fab.setOnClickListener(view -> Snackbar.make(view, "Added to Grocery List ", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show());
 
 
         //get the data from th database that was passed through intent in pantrylistfragment
@@ -80,27 +77,27 @@ public class PantryDetailActivity extends AppCompatActivity {
         collapsingToolbar.setTitle(foodName);
 
 
-
         Log.i(foodName, " lifecycle: " + foodLifecycle);
         Log.i(foodName, " quantity: " + foodQuantity);
-        Log.i(foodName, " date: " + foodDate);
+        Log.i(foodName, " this is food date: " + foodDate);
         Log.i(foodName, " expiration: " + foodExpiration);
 
+
+
+        //get todays date for the grocery list insertion
+        Date today = Calendar.getInstance().getTime();
+        String dateAdded = sdf.format(today);
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //insert into database
-                FirebaseDatabase.getInstance().getReference("Grocery List")
-                        .child(foodName)
-                        .setValue(new food(foodName, foodQuantity, foodLifecycle, foodDate, foodExpiration));
 
-                Snackbar.make(view, "Added to Grocery List", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
+        fab.setOnClickListener(view -> {
+            //insert into database
+            FirebaseDatabase.getInstance().getReference("Grocery List")
+                    .child(foodName)
+                    .setValue(new grocery(foodName, foodQuantity, foodLifecycle, dateAdded, foodExpiration));
+
+            Snackbar.make(view, "Added " + foodName + " to Grocery List ", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
         });
-
-
 
 
         //calculate the difference between todays date, and the food expiration
@@ -115,6 +112,8 @@ public class PantryDetailActivity extends AppCompatActivity {
         final TextView quantity = (TextView) findViewById(R.id.quantity);
         final TextView lifecycle = (TextView) findViewById(R.id.lifecycleDays);
         final TextView countTime = (TextView) findViewById(R.id.counttime);
+
+
 
 
         SimpleDateFormat month_date = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
@@ -138,13 +137,12 @@ public class PantryDetailActivity extends AppCompatActivity {
         // Append the string for lifecycle card view
         String lifecycleTextView = foodLifecycle + " days, " + diffInDays + " days left until expiration date: " + formatLifecycle;
 
-        String purchaseDateTextView = "Purchased on: "+formatPurchaseDate;
+        String purchaseDateTextView = "Purchased on: " + formatPurchaseDate;
 
 
         date.setText(purchaseDateTextView); //sets purchase date in cardview
         quantity.setText(foodQuantity); //sets quantity of items in cardview
         lifecycle.setText(lifecycleTextView); //sets lifecycle in cardview
-
 
 
         new CountDownTimer(diffInMillis, 1000) {
@@ -164,8 +162,16 @@ public class PantryDetailActivity extends AppCompatActivity {
         }.start();
 
 
-
         loadBackdrop();
+    }
+
+    private long findExpirationTime(String foodDate) {
+        Date future = stringToDate(foodDate);
+        Date today = new Date();
+
+        long diffInMillis =  (today.getTime() - future.getTime());
+
+        return diffInMillis;
     }
 
     /***
@@ -184,7 +190,6 @@ public class PantryDetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.sample_actions, menu);
-        //getMenuInflater().inflate(R.menu.sample_actions2, menu);
         return true;
     }
 
@@ -244,8 +249,12 @@ public class PantryDetailActivity extends AppCompatActivity {
      * @returns the formatted number
      */
     private String twoDigitString(long number) {
-        if (number == 0) { return "00"; }
-        if (number / 10 == 0) { return "0" + number; }
+        if (number == 0) {
+            return "00";
+        }
+        if (number / 10 == 0) {
+            return "0" + number;
+        }
 
         return String.valueOf(number);
     }

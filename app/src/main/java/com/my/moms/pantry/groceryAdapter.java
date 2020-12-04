@@ -29,23 +29,25 @@ import com.bumptech.glide.request.RequestOptions;
  * to provide the methods to bind, change and display the
  * contents of a firebase database in a recycler view
  */
-class groceryAdapter extends FirebaseRecyclerAdapter<grocery, groceryAdapter.groceryViewHolder> {
+class groceryAdapter extends FirebaseRecyclerAdapter<grocery, groceryAdapter.groceryViewholder> {
+
+
 
     /***
      *
      * subclass to create reference to the layout pantry_recycler_item.xml
      */
-    public static class groceryViewHolder extends RecyclerView.ViewHolder {
+    public static class groceryViewholder extends RecyclerView.ViewHolder {
         public TextView name;
         public ImageView avatar;
         public View mView;
 
 
         /***
-         * custom view holder for grocery item
+         * custom view holder for food item
          * @param itemView hold the view
          */
-        public groceryViewHolder(@NonNull View itemView) {
+        public groceryViewholder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
             name = itemView.findViewById(R.id.text2);
@@ -53,7 +55,7 @@ class groceryAdapter extends FirebaseRecyclerAdapter<grocery, groceryAdapter.gro
         }
 
         /***
-         * toString() method for grocery model name
+         * toString() method for food model name
          * @return model name string
          */
         @Override
@@ -63,7 +65,7 @@ class groceryAdapter extends FirebaseRecyclerAdapter<grocery, groceryAdapter.gro
     }
 
     /***
-     * groceryAdapter constructor
+     * foodAdapter constructor
      * @param options to customize the adapter
      */
     public groceryAdapter(@NonNull FirebaseRecyclerOptions<grocery> options) {
@@ -71,14 +73,14 @@ class groceryAdapter extends FirebaseRecyclerAdapter<grocery, groceryAdapter.gro
     }
 
     /***
-     * Method to bind view to the layout with data from the grocery model class
+     * Method to bind view to the layout with data from the food model class
      * @param holder holds the view
      * @param position tracks position
-     * @param model grocery model to bind database elements
+     * @param model food model to bind database elements
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    protected void onBindViewHolder(@NonNull groceryAdapter.groceryViewHolder holder,
+    protected void onBindViewHolder(@NonNull groceryAdapter.groceryViewholder holder,
                                     int position, @NonNull grocery model) {
 
 
@@ -90,26 +92,25 @@ class groceryAdapter extends FirebaseRecyclerAdapter<grocery, groceryAdapter.gro
         Log.i(model.getQuantity(), "lifecycle: position " + position);
 
         /***
-         * On click event to pass firebase data from the viewholder to the GroceryListDetailActivity
-         * class. Binds the model data to the EXTRA_NAME22 variable in GroceryListDetailActivity
+         * On click event to pass firebase data from the viewholder to the GroceryDetailActivity
+         * class. Binds the model data to the EXTRA_NAME variable in GroceryDetailActivity
          */
         holder.mView.setOnClickListener(v -> {
             Context context = v.getContext();
-            Intent intent = new Intent(context, GroceryListDetailActivity.class);
-            Log.i(GroceryListDetailActivity.EXTRA_NAME2, "model.getName: " + model.getName());
-            Log.i(GroceryListDetailActivity.EXTRA_LIFECYCLE2, "model.getLifecycle: " + model.getLifecycle());
-            Log.i(GroceryListDetailActivity.EXTRA_QUANTITY2, "model.getQuantity: " + model.getQuantity());
-            Log.i(GroceryListDetailActivity.EXTRA_DATE2, "model.getDate: " + model.getDate());
-            Log.i(GroceryListDetailActivity.EXTRA_EXPIRATION2, "model.getExpirationDate: " + model.getExpirationDate());
+            Intent intent = new Intent(context, GroceryDetailActivity.class);
+            Log.i(GroceryDetailActivity.EXTRA_NAME, "model.getName: " + model.getName());
+            Log.i(GroceryDetailActivity.EXTRA_LIFECYCLE, "model.getLifecycle: " + model.getLifecycle());
+            Log.i(GroceryDetailActivity.EXTRA_QUANTITY, "model.getQuantity: " + model.getQuantity());
+            Log.i(GroceryDetailActivity.EXTRA_DATE, "model.getDate: " + model.getDate());
+            Log.i(GroceryDetailActivity.EXTRA_DATE, "model.getExpirationDate: " + model.getExpirationDate());
 
 
             /* Send the database date to the Detail Activity through Intent */
-            intent.putExtra(GroceryListDetailActivity.EXTRA_NAME2, model.getName());
-            intent.putExtra(GroceryListDetailActivity.EXTRA_QUANTITY2, model.getQuantity());
-            intent.putExtra(GroceryListDetailActivity.EXTRA_LIFECYCLE2, model.getLifecycle());
-            intent.putExtra(GroceryListDetailActivity.EXTRA_DATE2, model.getDate());
-            intent.putExtra(GroceryListDetailActivity.EXTRA_EXPIRATION2, model.getExpirationDate());
-
+            intent.putExtra(GroceryDetailActivity.EXTRA_NAME, model.getName());
+            intent.putExtra(GroceryDetailActivity.EXTRA_QUANTITY, model.getQuantity());
+            intent.putExtra(GroceryDetailActivity.EXTRA_LIFECYCLE, model.getLifecycle());
+            intent.putExtra(GroceryDetailActivity.EXTRA_DATE, model.getDate());
+            intent.putExtra(GroceryDetailActivity.EXTRA_EXPIRATION, model.getExpirationDate());
             context.startActivity(intent);
         });
 
@@ -126,17 +127,137 @@ class groceryAdapter extends FirebaseRecyclerAdapter<grocery, groceryAdapter.gro
      * method that tells the class which layout
      * @param parent
      * @param viewType
-     * @return custom new Firebase groceryAdapter to interface
+     * @return custom new Firebase foodAdapter to interface
      * with recycler
      */
     @NonNull
     @Override
-    public com.my.moms.pantry.groceryAdapter.groceryViewHolder
+    public com.my.moms.pantry.groceryAdapter.groceryViewholder
     onCreateViewHolder(@NonNull ViewGroup parent,
                        int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.grocery_recycler_item, parent, false);
-        return new com.my.moms.pantry.groceryAdapter.groceryViewHolder(view);
+        return new com.my.moms.pantry.groceryAdapter.groceryViewholder(view);
     }
 }
 
+
+///***
+// *Custom FirebaseRecyclerAdapter
+// *
+// * Firebase Recycler Adapter is a class from firebase UI
+// * to provide the methods to bind, change and display the
+// * contents of a firebase database in a recycler view
+// */
+//
+//public class foodAdapter extends FirebaseRecyclerAdapter<pantry_recycler_item, foodAdapter.foodsViewholder> {
+//
+//    /***
+//     * foodAdapter constructor
+//     * @param options to customize the adapter
+//     */
+//    public foodAdapter(
+//            @NonNull FirebaseRecyclerOptions<pantry_recycler_item> options) {
+//        super(options);
+//    }
+//
+//    // Function to bind the view in Card view(here
+//    // "pantry_recycler_item.xml") with data in
+//    // model class(here "pantry_recycler_item.class")
+////    could potentially be a problem because i used the linear layout and not cardview
+//
+//    /***
+//     * Method to bind view to the layout
+//     * @param holder holds the view
+//     * @param position tracks position
+//     * @param model pantry_recycler_item model to bind detabase elements
+//     */
+//    @Override
+//    protected void
+//    onBindViewHolder(@NonNull foodsViewholder holder,
+//                     int position, @NonNull pantry_recycler_item model) {
+//
+//        // Add firstname from model class (here
+//        // "pantry_recycler_item.class")to appropriate view in Card
+//        // view (here "pantry_recycler_item.xml")
+//
+//        // item name
+//        holder.name.setText(model.getName());
+////        holder.mView.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View v) {
+////                Context context = v.getContext();
+////                Intent intent = new Intent(context, GroceryDetailActivity.class);
+////                intent.putExtra(GroceryDetailActivity.EXTRA_NAME, holder.mBoundString);
+////
+////                context.startActivity(intent);
+////            }
+////        });
+//
+//        // avatar image
+//        RequestOptions options = new RequestOptions();
+//        Glide.with(holder.avatar.getContext())
+//                .load(pantry_recycler_item.getRandFoodImage())
+//                .apply(options.fitCenter())
+//                .into(holder.avatar);
+//
+//
+////        // Add lastname from model class (here
+////        // "pantry_recycler_item.class")to appropriate view in Card
+////        // view (here "pantry_recycler_item.xml")
+////        holder.lastname.setText(model.getName());
+////
+////        // Add age from model class (here
+////        // "pantry_recycler_item.class")to appropriate view in Card
+////        // view (here "pantry_recycler_item.xml")
+////        holder.age.setText(model.getQuantity());
+////
+////        // add lifecycle from model class
+////        //"pantry_recycler_item.class")to appropriate view in Card
+////        // view (here "pantry_recycler_item.xml")
+////        holder.age.setText(model.getLifecycle());
+//    }
+//
+//    // Function to tell the class about the Card view (here
+//    // "pantry_recycler_item.xml")in
+//    // which the data will be shown
+//
+//    /***
+//     * method that tells the classs which layout
+//     * @param parent
+//     * @param viewType
+//     * @return custom new Firebase foodAdapter to interface
+//     * with recycler
+//     */
+//    @NonNull
+//    @Override
+//    public foodsViewholder
+//    onCreateViewHolder(@NonNull ViewGroup parent,
+//                       int viewType) {
+//        View view = LayoutInflater.from(parent.getContext())
+//                .inflate(R.layout.pantry_recycler_item, parent, false);
+//        return new foodAdapter.foodsViewholder(view);
+//    }
+//
+//    // Sub Class to create references of the views in Crad
+//    // view (here "pantry_recycler_item.xml")
+//
+//    /***
+//     *
+//     * subclass to create referece to the layout pantry_recycler_item.xml
+//     */
+//    static class foodsViewholder extends RecyclerView.ViewHolder {
+//        TextView name;
+//        ImageView avatar;
+//
+//        public foodsViewholder(@NonNull View itemView) {
+//            super(itemView);
+//
+//            name = itemView.findViewById(R.id.text1);
+//            avatar = itemView.findViewById(R.id.avatar);
+//
+//
+//        }
+//    }
+//
+//}

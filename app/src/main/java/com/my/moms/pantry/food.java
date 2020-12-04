@@ -103,7 +103,15 @@ public class food {
         }
     }
 
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("name", name);
+        result.put("quantity", quantity);
+        result.put("lifecycle", lifecycle);
 
+        return result;
+    }
 
     public static final String[] foodStrings = {
             "lemons", "tomatoes", "carrots", "onions", "lettuce", "pickles", "peppers", "cilantro",

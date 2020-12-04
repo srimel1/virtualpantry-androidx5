@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar1"
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:textColor="@color/cardview_dark_background"
 
