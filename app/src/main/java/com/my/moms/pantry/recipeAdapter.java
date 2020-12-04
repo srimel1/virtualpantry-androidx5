@@ -31,6 +31,22 @@ import com.bumptech.glide.request.RequestOptions;
  */
 class recipeAdapter extends FirebaseRecyclerAdapter<recipe, recipeAdapter.recipeViewHolder> {
 
+
+    /***
+     * method that tells the class which layout
+     * @param parent
+     * @param viewType
+     * @return custom new Firebase recipeAdapter to interface
+     * with recycler
+     */
+    @NonNull
+    @Override
+    public recipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.recipe_recycler_item, parent, false);
+        return new com.my.moms.pantry.recipeAdapter.recipeViewHolder(view);
+    }
+
     /***
      *
      * subclass to create reference to the layout recipe_recycler_item.xml
@@ -85,36 +101,29 @@ class recipeAdapter extends FirebaseRecyclerAdapter<recipe, recipeAdapter.recipe
         holder.name.setText(model.getName());
 
 
-//        Log.i(model.getName(), "name: position " + position);
-//        Log.i(model.getDescription(), "description: position " + position);
-//        Log.i(model.getSteps(), "steps: position " + position);
-//        Log.i(model.getIngredients(), "ingredients: position " + position);
-
         /***
          * On click event to pass firebase data from the viewholder to the RecipeDetailActivity
          * class. Binds the model data to the EXTRA_NAME3 variable in RecipeDetailActivity
          */
-//        holder.mView.setOnClickListener(v -> {
-//            Context context = v.getContext();
-//            Intent intent = new Intent(context, RecipeDetailActivity.class);
-//            Log.i(RecipeDetailActivity.EXTRA_NAME3, "model.getName: " + model.getName());
-//            Log.i(RecipeDetailActivity.EXTRA_DESCRIPTION3, "model.getdscription: " + model.getDescription());
-//            Log.i(RecipeDetailActivity.EXTRA_STEPS3, "model.getQuantity: " + model.getSteps());
-//            Log.i(RecipeDetailActivity.EXTRA_SERVING3, "model.getServingSize: " + model.getServing());
-//            Log.i(RecipeDetailActivity.EXTRA_INGREDIENTS3, "model.getIngredients: " + model.getIngredients());
-////            Log.i(RecipeDetailActivity.EXTRA_SERVING3, "model.getExpirationDate: " + model.getExpirationDate());
-////
+        holder.mView.setOnClickListener(v -> {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, RecipeDetailActivity.class);
+            Log.i(RecipeDetailActivity.EXTRA_NAME, "model.getName: " + model.getName());
+            Log.i(RecipeDetailActivity.EXTRA_DESCRIPTION, "model.getdscription: " + model.getDescription());
+            Log.i(RecipeDetailActivity.EXTRA_STEPS, "model.getQuantity: " + model.getSteps());
+            Log.i(RecipeDetailActivity.EXTRA_SERVING, "model.getServingSize: " + model.getServing());
+            Log.i(RecipeDetailActivity.EXTRA_INGREDIENTS, "model.getIngredients: " + model.getIngredients());
 
         /* Send the database date to the Detail Activity through Intent */
-//            intent.putExtra(RecipeDetailActivity.EXTRA_NAME3, model.getName());
-//            intent.putExtra(RecipeDetailActivity.EXTRA_DESCRIPTION3, model.getDescription());
-//            intent.putExtra(RecipeDetailActivity.EXTRA_STEPS3, model.getSteps());
-//            intent.putExtra(RecipeDetailActivity.EXTRA_INGREDIENTS3, model.getIngredients());
-//            intent.putExtra(RecipeDetailActivity.EXTRA_SERVING3, model.getServing());
-//
-//
-//            context.startActivity(intent);
-//        });
+            intent.putExtra(RecipeDetailActivity.EXTRA_NAME, model.getName());
+            intent.putExtra(RecipeDetailActivity.EXTRA_DESCRIPTION, model.getDescription());
+            intent.putExtra(RecipeDetailActivity.EXTRA_STEPS, model.getSteps());
+            intent.putExtra(RecipeDetailActivity.EXTRA_INGREDIENTS, model.getIngredients());
+            intent.putExtra(RecipeDetailActivity.EXTRA_SERVING, model.getServing());
+
+
+            context.startActivity(intent);
+        });
 
         // set random avatar image
         RequestOptions options = new RequestOptions();
@@ -125,21 +134,6 @@ class recipeAdapter extends FirebaseRecyclerAdapter<recipe, recipeAdapter.recipe
 
     }
 
-    /***
-     * method that tells the class which layout
-     * @param parent
-     * @param viewType
-     * @return custom new Firebase recipeAdapter to interface
-     * with recycler
-     */
-    @NonNull
-    @Override
-    public com.my.moms.pantry.recipeAdapter.recipeViewHolder
-    onCreateViewHolder(@NonNull ViewGroup parent,
-                       int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recipe_recycler_item, parent, false);
-        return new com.my.moms.pantry.recipeAdapter.recipeViewHolder(view);
-    }
+
 }
 

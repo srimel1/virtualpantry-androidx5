@@ -8,14 +8,13 @@ public class recipe {
     private String name;
     private String description; //in days
     private String steps;
-    private String ingredients;
     private String serving;
+    private String ingredients;
+
 
 
     public recipe() {
     }
-
-
 
     public recipe(String name, String description, String steps, String ingredients, String serving) {
         this.name = name;
@@ -27,6 +26,10 @@ public class recipe {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getServing() {
@@ -61,9 +64,7 @@ public class recipe {
         this.ingredients = ingredients;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 
     private static final Random RANDOM = new Random();
 

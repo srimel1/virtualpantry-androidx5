@@ -338,7 +338,7 @@ public class MainActivity extends AppCompatActivity {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new PantryListFragment(), "Inventory");
         adapter.addFragment(new GroceryListFragment(), "Grocery List");
-        adapter.addFragment(new PantryListFragment(), "Recipe List");
+        adapter.addFragment(new RecipeFragment(), "Recipe List");
         viewPager.setAdapter(adapter);
     }
 

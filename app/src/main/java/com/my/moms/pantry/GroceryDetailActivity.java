@@ -107,8 +107,6 @@ public class GroceryDetailActivity extends AppCompatActivity {
         final TextView date = (TextView) findViewById(R.id.grocery_date);
         final TextView quantity = (TextView) findViewById(R.id.grocery_quantity);
         final TextView lifecycle = (TextView) findViewById(R.id.grocery_lifecycle);
-//        final TextView countTime = (TextView) findViewById(R.id.lifecycle);
-
 
         SimpleDateFormat month_date = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
