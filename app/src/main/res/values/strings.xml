@@ -29,6 +29,19 @@
   <string name="text_inputGL_title">Add Grocery List Item</string>
   <string name="date">07/29/2019</string>
   <string name="enter_lifecycle_in_days">Enter Lifecycle in # of Days</string>
+  <string name="time_remaining_until_expiration">Time Remaining Until Expiration</string>
+  <string name="rate_title">Add To Grocery List</string>
+  <string name="text_input_title">Add To Grocery LIst</string>
+  <string name="rate_message">Added to grocery list</string>
+  <string name="repo_waiting">Aded to list</string>
+  <string name="later">Later</string>
+  <string name="pantry_grocery_title">Add Item To Grocery List</string>
+  <!--  <string name="repo_waiting">Item added to Grocery List</string>-->
+<!--  <string name="later">Later</string>-->
+<!--  <string name="grocery_add_title">Add To Grocery LIst</string>-->
+<!--  <string name="rate_message">Added to Grocery List</string>-->
+<!--    <string name="rate_title">Add To Grocery</string>-->
+<!--  <string name="text_input_title">Add to Grocery List</string>-->
   <!--    <string name="text_input_message">Add Pantry Item</string>-->
 
 </resources>

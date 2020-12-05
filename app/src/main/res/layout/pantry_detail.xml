@@ -93,6 +93,31 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_margin">
+
+                <LinearLayout
+                    style="@style/Widget.CardContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Expiration Date"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/expiration" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/card_margin"
                 android:layout_marginRight="@dimen/card_margin"
                 android:layout_marginBottom="@dimen/card_margin">
@@ -105,7 +130,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Life Cycle"
+                        android:text="@string/time_remaining_until_expiration"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <TextView
@@ -114,6 +139,12 @@
                         android:gravity="center"
                         android:textSize="30sp"
                         android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:id="@+id/notification"/>
 
                 </LinearLayout>
 
@@ -134,7 +165,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Countdown to Expiration"
+                    android:text="Lifecycle"
                     android:textColor="@color/cardview_dark_background"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
@@ -187,15 +218,5 @@
         android:tint="#FFFFFF"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end" />
-    />
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="@dimen/fab_margin"-->
-<!--        android:clickable="true"-->
-<!--        android:src="@drawable/ic_baseline_add_24"-->
-<!--        app:layout_anchor="@id/appbar"-->
-<!--        app:layout_anchorGravity="bottom|right|end" />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

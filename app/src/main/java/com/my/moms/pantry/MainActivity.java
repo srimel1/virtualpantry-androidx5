@@ -548,20 +548,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    public void onFABClick(View view) {
-//        if (fragments.get(mViewPager.getCurrentItem()) instanceof PantryListFragment) {
-//            if (fragmentA!= null) {
-//                fragmentA.fabOnClick();
-//            }
-//        } else if (fragments.get(mViewPager.getCurrentItem()) instanceof GroceryListFragment) {
-//            if (fragmentB!= null) {
-//                fragmentB.fabOnClick();
-//            }
-//        } else if(fragments.get(mViewPager.getCurrentItem()) instanceof RecipeFragment){
-//            if(fragments!= null){
-//                fragmentsC.fabOnClick();
-//            }
-//        }
-//    }
 
 }

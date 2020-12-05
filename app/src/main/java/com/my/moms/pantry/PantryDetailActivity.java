@@ -10,8 +10,10 @@ import android.os.CountDownTimer;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +24,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
 import org.apache.commons.text.WordUtils;
 
@@ -85,6 +89,54 @@ public class PantryDetailActivity extends AppCompatActivity {
 
         //fab onCLick adds item from PantryDetail to the Grocery List
         fab.setOnClickListener(view -> {
+
+            new LovelyStandardDialog(this, LovelyStandardDialog.ButtonLayout.HORIZONTAL)
+                    .setTopColorRes(R.color.PINK)
+                    .setButtonsColorRes(R.color.BLACK)
+                    .setIcon(R.drawable.ic_forum)
+                    .setTitle("Add Pantry Item To Grocery List")
+                    .setMessage("Add "+foodName+" to Grocery List and delete from Pantry?")
+                    .setPositiveButton("Yes", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //insert into grocery list
+                            //insert into database
+                            String name = WordUtils.capitalize(foodName);
+                            FirebaseDatabase.getInstance().getReference("Grocery List")
+                                    .child(name)
+                                    .setValue(new grocery(foodName, foodQuantity, dateAdded));
+
+                            //delete from pantry list
+                            DatabaseReference mref = FirebaseDatabase.getInstance().getReference("Pantry")
+                                    .child(foodName);
+                            mref.removeValue();
+
+                            Snackbar.make(view,  foodName + " to Grocery List and removed from Pantry", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new View.OnClickListener(){
+
+                        @Override
+                        public void onClick(View v) {
+                            String name = WordUtils.capitalize(foodName);
+                            FirebaseDatabase.getInstance().getReference("Grocery List")
+                                    .child(name)
+                                    .setValue(new grocery(name, foodQuantity, dateAdded));
+
+                            Snackbar.make(view,  "Added "+ name + " to Grocery List", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+
+                        }
+                    })
+                    .show();
+
+
+//
+//            ViewDialog alert = new ViewDialog();
+//            alert.showDialog(PantryDetailActivity.this);
+
+
             //insert into database
             FirebaseDatabase.getInstance().getReference("Grocery List")
                     .child(WordUtils.capitalize(foodName))
@@ -107,11 +159,12 @@ public class PantryDetailActivity extends AppCompatActivity {
         final TextView quantity = (TextView) findViewById(R.id.quantity);
         final TextView lifecycle = (TextView) findViewById(R.id.lifecycleDays);
         final TextView countTime = (TextView) findViewById(R.id.counttime);
+        final TextView expiration = (TextView) findViewById(R.id.expiration);
 
 
 
 
-        SimpleDateFormat month_date = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
+        SimpleDateFormat month_date = new SimpleDateFormat("MMMM dd, yyyy", Locale.ENGLISH);
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
 
 
@@ -123,14 +176,14 @@ public class PantryDetailActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        String formatLifecycle = month_date.format(expireBy); //converts lifecycle to date with month
+        String formatLifecycle = "Expiration Date: "+ month_date.format(expireBy); //converts lifecycle to date with month
         String formatPurchaseDate = month_date.format(purchasedOn); //converts lifecycle to date with month
 
         //String formatDate = month_date.format(foodDate); //converts purhcase date to date with month
 
 
         // Append the string for lifecycle card view
-        String lifecycleTextView = foodLifecycle + " days, " + diffInDays + " days left until expiration date: " + formatLifecycle;
+        String lifecycleTextView = foodLifecycle + " days.\nItem will be added to Grocery List in "+diffInDays+" days";
 
         String purchaseDateTextView = "Purchased on: " + formatPurchaseDate;
 
@@ -138,6 +191,7 @@ public class PantryDetailActivity extends AppCompatActivity {
         date.setText(purchaseDateTextView); //sets purchase date in cardview
         quantity.setText(foodQuantity); //sets quantity of items in cardview
         lifecycle.setText(lifecycleTextView); //sets lifecycle in cardview
+        expiration.setText(formatLifecycle);
 
 
         new CountDownTimer(diffInMillis, 1000) {
