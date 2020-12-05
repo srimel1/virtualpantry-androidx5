@@ -127,13 +127,13 @@ public class MainActivity extends AppCompatActivity {
             setupViewPager(viewPager);
         }
         assert viewPager != null;
-        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
-           @Override
-           public void onPageSelected(int pos){
-               Log.i("POS", "Position: "+pos);
-               position = pos;
+        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int pos) {
+                Log.i("POS", "Position: " + pos);
+                position = pos;
 
-           }
+            }
         });
 
 
@@ -150,16 +150,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(position == 0){
+                if (position == 0) {
                     pantryDialog();
                     Toast.makeText(MainActivity.this, "Fragment 0", Toast.LENGTH_SHORT).show();
-                }
-                else if(position == 1){
+                } else if (position == 1) {
                     groceryDialog();
                     Toast.makeText(MainActivity.this, "Fragment 1", Toast.LENGTH_SHORT).show();
 
-                }
-                else if(position == 2){
+                } else if (position == 2) {
                     recipeDialog();
                     Toast.makeText(MainActivity.this, "Fragment 2", Toast.LENGTH_SHORT).show();
 
@@ -315,39 +313,34 @@ public class MainActivity extends AppCompatActivity {
          * onclick event to bind dialog to view
          */
         mDialog.setListener(R.id.ld_btn_confirm, (View.OnClickListener) view -> {
+            final EditText name = (EditText) dialogView.findViewById(R.id.recipe_name);
+            final EditText serving = (EditText) dialogView.findViewById(R.id.recipe_serving);
+            final EditText description = (EditText) dialogView.findViewById(R.id.recipe_description);
+            final EditText ingredients = (EditText) dialogView.findViewById(R.id.ingredients);
+            final EditText steps = (EditText) dialogView.findViewById(R.id.steps);
 
-            final EditText name = (EditText) dialogView.findViewById(R.id.item_name);
-            final EditText quantity = (EditText) dialogView.findViewById(R.id.item_quantity);
-            final EditText lifecycle = (EditText) dialogView.findViewById(R.id.item_lifecycle);
-
-
-            SimpleDateFormat purchaseDate = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
 
             //initialize strings for database insertion
-            String mDate = purchaseDate.format(new Date());
             String mName = WordUtils.capitalize(name.getText().toString().trim());
-            String mQuantity = quantity.getText().toString().trim();
-            String mLifecycle = lifecycle.getText().toString().trim();
-            String mExpireDate = getExpirationDate(mDate, Integer.parseInt(mLifecycle));
+            String mServing = serving.getText().toString().trim();
+            String mDescription = description.getText().toString().trim();
+            String mIngredients = ingredients.getText().toString().trim();
+            String mSteps = steps.getText().toString().trim();
+            String mDate = sdf.format(new Date());
 
-            Log.i(mExpireDate, "Date: " + mDate + " + " + mLifecycle + " = Expiration date: " + mExpireDate);
-
-
-
-
-            //insert into database
-            FirebaseDatabase.getInstance().getReference("Pantry")
+            FirebaseDatabase.getInstance().getReference("Recipes")
                     .child(mName)
-                    .setValue(new food(WordUtils.capitalize(mName), mQuantity, mLifecycle, mDate, mExpireDate));
-
-            Log.i(mDate.toString(), "mDate");
+                    .setValue(new recipe(mName, mServing, mDescription, mIngredients, mSteps, mDate));
 
             //dismiss the dialog box
             mDialog.dismiss();
-            Toast.makeText(MainActivity.this, "Added " + mName + " to database", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "Added " + mName + " to Recipe List", Toast.LENGTH_LONG).show();
         });
 
     }
+
+
 
     /***
      * inflates the menu

@@ -99,8 +99,8 @@ public class PantryDetailActivity extends AppCompatActivity {
                     .setPositiveButton("Yes", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            //insert into grocery list
-                            //insert into database
+
+                            //insert into Grocery List
                             String name = WordUtils.capitalize(foodName);
                             FirebaseDatabase.getInstance().getReference("Grocery List")
                                     .child(name)
@@ -111,7 +111,7 @@ public class PantryDetailActivity extends AppCompatActivity {
                                     .child(foodName);
                             mref.removeValue();
 
-                            Snackbar.make(view,  foodName + " to Grocery List and removed from Pantry", Snackbar.LENGTH_LONG)
+                            Snackbar.make(view,  "Added "+ foodName + " to Grocery List and removed from Pantry", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         }
                     })
@@ -131,10 +131,6 @@ public class PantryDetailActivity extends AppCompatActivity {
                     })
                     .show();
 
-
-//
-//            ViewDialog alert = new ViewDialog();
-//            alert.showDialog(PantryDetailActivity.this);
 
 
             //insert into database

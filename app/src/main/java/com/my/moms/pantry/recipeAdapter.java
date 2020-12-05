@@ -113,6 +113,7 @@ class recipeAdapter extends FirebaseRecyclerAdapter<recipe, recipeAdapter.recipe
             Log.i(RecipeDetailActivity.EXTRA_STEPS, "model.getQuantity: " + model.getSteps());
             Log.i(RecipeDetailActivity.EXTRA_SERVING, "model.getServingSize: " + model.getServing());
             Log.i(RecipeDetailActivity.EXTRA_INGREDIENTS, "model.getIngredients: " + model.getIngredients());
+            Log.i(RecipeDetailActivity.EXTRA_DATE, "model.getIngredients: " + model.getDate());
 
         /* Send the database date to the Detail Activity through Intent */
             intent.putExtra(RecipeDetailActivity.EXTRA_NAME, model.getName());
@@ -120,6 +121,8 @@ class recipeAdapter extends FirebaseRecyclerAdapter<recipe, recipeAdapter.recipe
             intent.putExtra(RecipeDetailActivity.EXTRA_STEPS, model.getSteps());
             intent.putExtra(RecipeDetailActivity.EXTRA_INGREDIENTS, model.getIngredients());
             intent.putExtra(RecipeDetailActivity.EXTRA_SERVING, model.getServing());
+            intent.putExtra(RecipeDetailActivity.EXTRA_DATE, model.getDate());
+
 
 
             context.startActivity(intent);

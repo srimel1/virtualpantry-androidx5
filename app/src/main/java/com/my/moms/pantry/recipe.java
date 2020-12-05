@@ -6,22 +6,24 @@ public class recipe {
 
 
     private String name;
-    private String description; //in days
-    private String steps;
     private String serving;
+    private String description; //in days
     private String ingredients;
+    private String steps;
+    private String date;
 
 
 
     public recipe() {
     }
 
-    public recipe(String name, String description, String steps, String ingredients, String serving) {
+    public recipe(String name, String serving, String description, String ingredients, String steps, String date) {
         this.name = name;
         this.description = description;
         this.steps = steps;
         this.ingredients = ingredients;
         this.serving = serving;
+        this.date = date;
     }
 
     public String getName() {
@@ -63,6 +65,10 @@ public class recipe {
     public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
     }
+
+    public String getDate() { return date; }
+
+    public void setDate(String date) { this.date = date; }
 
 
 
