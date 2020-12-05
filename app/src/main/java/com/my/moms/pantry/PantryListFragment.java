@@ -32,6 +32,10 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class PantryListFragment extends Fragment {
 
+    private int pos;
+    public void PantryListFragment(int position){
+        this.pos = position;
+    }
 
     private RecyclerView recyclerView; // add recyclerView member
 

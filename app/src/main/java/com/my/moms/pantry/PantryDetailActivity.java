@@ -24,6 +24,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.apache.commons.text.WordUtils;
+
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -52,7 +54,7 @@ public class PantryDetailActivity extends AppCompatActivity {
 
         //get the data from th database that was passed through intent in pantrylistfragment
         Intent intent = getIntent();
-        final String foodName = intent.getStringExtra(EXTRA_NAME);
+        final String foodName = WordUtils.capitalize(intent.getStringExtra(EXTRA_NAME));
         final String foodQuantity = intent.getStringExtra(EXTRA_QUANTITY);
         final String foodLifecycle = intent.getStringExtra(EXTRA_LIFECYCLE);
         final String foodDate = intent.getStringExtra(EXTRA_DATE);
@@ -81,11 +83,12 @@ public class PantryDetailActivity extends AppCompatActivity {
         String dateAdded = sdf.format(today);
         FloatingActionButton fab = findViewById(R.id.fab);
 
+        //fab onCLick adds item from PantryDetail to the Grocery List
         fab.setOnClickListener(view -> {
             //insert into database
             FirebaseDatabase.getInstance().getReference("Grocery List")
-                    .child(foodName)
-                    .setValue(new grocery(foodName, foodQuantity, foodLifecycle, dateAdded, foodExpiration));
+                    .child(WordUtils.capitalize(foodName))
+                    .setValue(new grocery(foodName, foodQuantity, dateAdded));
 
             Snackbar.make(view, "Added " + foodName + " to Grocery List ", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();

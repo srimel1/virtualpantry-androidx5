@@ -23,6 +23,12 @@ public class grocery {
 
     }
 
+    public grocery(String name, String quantity, String date){
+        this.name = name;
+        this.quantity = quantity;
+        this.date = date;
+    }
+
     public String getName() {
         return name;
     }

@@ -130,9 +130,9 @@ class groceryAdapter extends FirebaseRecyclerAdapter<grocery, groceryAdapter.gro
             /* Send the database date to the Detail Activity through Intent */
             intent.putExtra(GroceryDetailActivity.EXTRA_NAME, model.getName());
             intent.putExtra(GroceryDetailActivity.EXTRA_QUANTITY, model.getQuantity());
-            intent.putExtra(GroceryDetailActivity.EXTRA_LIFECYCLE, model.getLifecycle());
+            //intent.putExtra(GroceryDetailActivity.EXTRA_LIFECYCLE, model.getLifecycle());
             intent.putExtra(GroceryDetailActivity.EXTRA_DATE, model.getDate());
-            intent.putExtra(GroceryDetailActivity.EXTRA_EXPIRATION, model.getExpirationDate());
+            //intent.putExtra(GroceryDetailActivity.EXTRA_EXPIRATION, model.getExpirationDate());
             context.startActivity(intent);
         });
 

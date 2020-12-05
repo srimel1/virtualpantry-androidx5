@@ -23,6 +23,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.apache.commons.text.WordUtils;
+
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -55,7 +57,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         //get the data from th database that was passed through intent in pantrylistfragment
         Intent intent = getIntent();
-        final String recipeName = intent.getStringExtra(EXTRA_NAME);
+        final String recipeName = WordUtils.capitalize(intent.getStringExtra(EXTRA_NAME));
         final String recipeDescription = intent.getStringExtra(EXTRA_DESCRIPTION);
         final String recipeSteps = intent.getStringExtra(EXTRA_STEPS);
         final String recipeServing = intent.getStringExtra(EXTRA_SERVING);

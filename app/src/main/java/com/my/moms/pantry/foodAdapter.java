@@ -99,9 +99,9 @@ class foodAdapter extends FirebaseRecyclerAdapter<food, foodAdapter.foodsViewhol
         holder.name.setText(model.getName());
 
 
-        Log.i(model.getName()+ "from foodadapter ", "name: position " + position);
-        Log.i(model.getLifecycle()+" from foodadapter  ", "quantty: position " + position);
-        Log.i(model.getQuantity()+" from foodadapter  ", "lifecycle: position " + position);
+//        Log.i(model.getName()+ "from foodadapter ", "name: position " + position);
+//        Log.i(model.getLifecycle()+" from foodadapter  ", "quantty: position " + position);
+//        Log.i(model.getQuantity()+" from foodadapter  ", "lifecycle: position " + position);
 
         /***
          * On click event to pass firebase data from the viewholder to the PantryDetailActivity

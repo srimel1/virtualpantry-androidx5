@@ -77,6 +77,13 @@ android {
 
         //joda time
         implementation 'net.danlew:android.joda:2.10.7.2'
+
+
+        //apache commons lang
+        implementation 'org.apache.commons:commons-lang3:3.9'
+        // https://mvnrepository.com/artifact/org.apache.commons/commons-text
+        compile group: 'org.apache.commons', name: 'commons-text', version: '1.9'
+
     }
 
 }
@@ -86,4 +93,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:16.0.4'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.google.android.material:material:1.2.1'
 }

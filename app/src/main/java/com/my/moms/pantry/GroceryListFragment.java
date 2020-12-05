@@ -16,11 +16,13 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -32,11 +34,12 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class GroceryListFragment extends Fragment {
 
-
     private RecyclerView recyclerView; // add recyclerView member
 
     groceryAdapter adapter; // Create Object of the Adapter class
     DatabaseReference mbase; // Create reference to the database
+
+    FloatingActionButton fab;
 
     /***
      * Method to inflate the recycler view with each sub view
@@ -52,6 +55,7 @@ public class GroceryListFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.grocery_recycler);
         setUpRecyclerView();
         return view;
+
     }
 
     /***
@@ -96,4 +100,20 @@ public class GroceryListFragment extends Fragment {
             adapter.stopListening();
         }
     }
+
+    public void setFloatingActionButton(){
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    interface MyFragmentListener{
+
+    }
+
+
 }

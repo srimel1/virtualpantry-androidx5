@@ -14,10 +14,12 @@
   <string name="menu_night_mode_auto">Auto</string>
     <string name="sign_in" />
     <string name="sign_out">Sign Out</string>
-    <string name="text_input_title">Add Pantry Item</string>
-  <string name="text_item_name">Item Name</string>
-  <string name="text_item_quantity">Item Quantity</string>
-  <string name="text_item_lifecycle">Item Lifecycle in Days</string>
+    <string name="pantry_dialog_title">Add Pantry Item</string>
+  <string name="grocery_dialog_title">Add Grocery Item</string>
+  <string name="recipe_dialog_title">Add Recipe</string>
+  <string name="pantry_item_name">Item Name</string>
+  <string name="pantry_item_quantity">Item Quantity</string>
+  <string name="pantry_item_lifecycle">Item Lifecycle in # of Days</string>
 
   <string name="text_input_error_message">Error</string>
   <string name="food_name">Food Name</string>
@@ -26,6 +28,7 @@
   <string name="text_input_message">Add Item</string>
   <string name="text_inputGL_title">Add Grocery List Item</string>
   <string name="date">07/29/2019</string>
+  <string name="enter_lifecycle_in_days">Enter Lifecycle in # of Days</string>
   <!--    <string name="text_input_message">Add Pantry Item</string>-->
 
 </resources>
