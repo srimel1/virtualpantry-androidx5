@@ -8,31 +8,40 @@
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:orientation="vertical"
-    android:gravity="bottom"
+    android:gravity="center"
     android:id="@+id/nav_header">
 
+<!--    <me.virtualiz.blurshadowimageview.BlurShadowImageView-->
+<!--        android:layout_width="120dp"-->
+<!--        android:layout_height="120dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        app:v_shadowOffset="40dp"-->
+<!--        android:id="@+id/img_profile"-->
+<!--        app:v_imageRound="20dp" />-->
 
-    <ImageView
-        android:id="@+id/img_profile"
-        android:background="@drawable/shadows"
-        android:layout_width="80dp"
-        android:layout_height="@dimen/profile_height"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@android:drawable/sym_def_app_icon"
-        android:elevation="80dp"/>
+        <com.jackandphantom.circularimageview.CircleImage
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:border_width="1dp"
+            app:border_color="#000000"
+            app:add_shadow="true"
+            app:shadow_color="#000000"
+            app:shadow_radius="20"
+            android:id="@+id/img_profile" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/alert_icon"-->
-<!--        android:layout_width="@dimen/profile_width"-->
-<!--        android:layout_height="@dimen/profile_height"-->
-<!--        android:paddingTop="@dimen/nav_header_vertical_spacing"-->
-<!--        android:background="@drawable/shadows"-->
-<!--        android:elevation="80dp" />-->
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/username"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/email"
+        android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
 

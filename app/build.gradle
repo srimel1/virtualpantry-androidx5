@@ -85,6 +85,12 @@ android {
         // https://mvnrepository.com/artifact/org.apache.commons/commons-text
         implementation group: 'org.apache.commons', name: 'commons-text', version: '1.9'
 
+
+        //for shadow
+//        implementation fileTree(dir: 'libs', include: ['*.jar'])
+//        implementation 'com.github.BluRe-CN: VomplexView:v1.1`'
+
+        implementation 'com.github.virtualvivek:BlurShadowImageView:1.2'
     }
 
 }
@@ -105,6 +111,11 @@ dependencies {
 
     // Glide image library
     implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
+
+    implementation 'com.github.BluRe-CN:ComplexView:v1.1'
+
+
 
 
 }
