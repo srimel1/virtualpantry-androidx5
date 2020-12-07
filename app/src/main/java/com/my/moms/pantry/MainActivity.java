@@ -1,5 +1,6 @@
 package com.my.moms.pantry;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -25,9 +29,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -47,6 +57,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -55,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int FAB_ID = R.id.fab;
     private String mUsername;
     private String mPhotoUrl;
+    private String mEmail;
     private SharedPreferences mSharedPreferences;
     private GoogleSignInClient mSignInClient;
     private static final String MESSAGE_URL = "http://pantryapp.firebase.google.com/message/";
@@ -63,6 +77,17 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private EditText mName, mQuantity, mLifecycle;
     private Long date;
+
+    //nav view
+    private NavigationView navigationView;
+    private DrawerLayout drawer;
+    private View navHeader;
+    private ImageView imgNavHeaderBg, imgProfile;
+    // urls to load navigation header background image
+    // and profile image
+    private static final String urlNavHeaderBg = "https://api.androidhive.info/images/nav-menu-header-bg.jpg";
+    private static final String urlProfileImg = "https://lh3.googleusercontent.com/eCtE_G34M9ygdkmOpYvCag1vBARCmZwnVS6rS5t4JLzJ6QgQSBquM0nuTsCpLhYbKljoyS-txg";
+
 
     // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
@@ -73,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference mRef = database.getReference("Pantry");
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         // Initialize Firebase Auth
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
         if (mFirebaseUser == null) {
             // Not signed in, launch the Sign In activity
             startActivity(new Intent(this, SignInActivity.class));
@@ -94,16 +121,20 @@ public class MainActivity extends AppCompatActivity {
             return;
         } else {
             mUsername = mFirebaseUser.getDisplayName();
+            mEmail = mFirebaseUser.getEmail();
             if (mFirebaseUser.getPhotoUrl() != null) {
                 mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
             }
         }
 
+
+
+
         //side bar menu
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //add to database floating action button
+
         final ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
@@ -115,10 +146,52 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         //initializes navigation menu
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        //initializes the header view
+        View header = navigationView.getHeaderView(0);
+
+
+        TextView username = (TextView) header.findViewById(R.id.username);
+        ImageView imageView = (ImageView) header.findViewById(R.id.img_profile);
+        TextView email = (TextView) header.findViewById(R.id.email);
+
+
+
+
+        // Navigation view header
+        navHeader = navigationView.getHeaderView(0);
+
+        // imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
+        imgProfile = (ImageView) navigationView.findViewById(R.id.img_profile);
+
+        final ImageView img = findViewById(R.id.backdrop);
+
+        username.setText("Welcome, "+mUsername);
+        email.setText(mEmail);
+        Glide.with(this)
+                .load(mPhotoUrl)
+                .apply(RequestOptions.centerCropTransform())
+                .into(imageView);
+        Glide.with(this)
+                .load(mPhotoUrl)
+                .apply(RequestOptions.circleCropTransform())
+                .into(imageView);
+
+
         if (navigationView != null) {
             setupDrawerContent(navigationView);
         }
+
+
+
+
+
+
+
+
+        // showing dot next to notifications label
+        navigationView.getMenu().getItem(3).setActionView(R.layout.menu_dot);
 
 
         //set up pager
@@ -130,9 +203,8 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int pos) {
-                Log.i("POS", "Position: " + pos);
+                //Log.i("POS", "Position: " + pos);
                 position = pos;
-
             }
         });
 
@@ -152,43 +224,20 @@ public class MainActivity extends AppCompatActivity {
 
                 if (position == 0) {
                     pantryDialog();
-                    Toast.makeText(MainActivity.this, "Fragment 0", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Fragment 0", Toast.LENGTH_SHORT).show();
                 } else if (position == 1) {
                     groceryDialog();
-                    Toast.makeText(MainActivity.this, "Fragment 1", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Fragment 1", Toast.LENGTH_SHORT).show();
 
                 } else if (position == 2) {
                     recipeDialog();
-                    Toast.makeText(MainActivity.this, "Fragment 2", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Fragment 2", Toast.LENGTH_SHORT).show();
 
                 }
             }
         });
 
     }
-
-    //lovely dialog
-//    public void showLovelyDialog(int savedDialogId, Bundle savedInstanceState) {
-//        showTextInputDialog(savedInstanceState);
-//    }
-
-    //text input dialog
-//    private void showTextInputDialog(Bundle savedInstanceState) {
-//        new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
-//                .setTopColorRes(R.color.PINK)
-//                .setTitle(R.string.text_input_title)
-//                .setMessage(R.string.text_input_message)
-//                .setIcon(R.drawable.ic_forum)
-//                .setInstanceStateHandler(FAB_ID, new LovelySaveStateHandler())
-//                .setConfirmButton(android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
-//                    @Override
-//                    public void onTextInputConfirmed(String text) {
-//                        Toast.makeText(MainActivity.this, "Added  " + text + "to database", Toast.LENGTH_SHORT).show();
-//                    }
-//                })
-//                .setSavedInstanceState(savedInstanceState)
-//                .show();
-//    }
 
 
     /***
@@ -211,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
         mDialog.show();
 
         /***
-         * onclick event to bind dialog to view
+         * onclick event to insert into database once the user clicks the button
          */
         mDialog.setListener(R.id.ld_btn_confirm, (View.OnClickListener) view -> {
 
@@ -263,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
         mDialog.show();
 
         /***
-         * onclick event to bind dialog to view
+         * onclick event listens for user to click the button and then inserts edit text to database
          */
         mDialog.setListener(R.id.ld_btn_confirm, (View.OnClickListener) view -> {
 
@@ -310,7 +359,7 @@ public class MainActivity extends AppCompatActivity {
         mDialog.show();
 
         /***
-         * onclick event to bind dialog to view
+         * onclick event listens for button click and inserts into database
          */
         mDialog.setListener(R.id.ld_btn_confirm, (View.OnClickListener) view -> {
             final EditText name = (EditText) dialogView.findViewById(R.id.recipe_name);
@@ -319,7 +368,7 @@ public class MainActivity extends AppCompatActivity {
             final EditText ingredients = (EditText) dialogView.findViewById(R.id.ingredients);
             final EditText steps = (EditText) dialogView.findViewById(R.id.steps);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss", Locale.US);
 
             //initialize strings for database insertion
             String mName = WordUtils.capitalize(name.getText().toString().trim());
@@ -364,7 +413,7 @@ public class MainActivity extends AppCompatActivity {
             case AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM:
                 menu.findItem(R.id.menu_night_mode_system).setChecked(true);
                 break;
-            case AppCompatDelegate.MODE_NIGHT_AUTO:
+            case AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY:
                 menu.findItem(R.id.menu_night_mode_auto).setChecked(true);
                 break;
             case AppCompatDelegate.MODE_NIGHT_YES:

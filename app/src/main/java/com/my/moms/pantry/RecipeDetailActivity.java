@@ -41,10 +41,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
     public static final String EXTRA_DATE = "date";
 
 
-
-
-
-
     /***
      * Set the view
      * @param savedInstanceState

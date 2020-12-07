@@ -109,9 +109,9 @@ class groceryAdapter extends FirebaseRecyclerAdapter<grocery, groceryAdapter.gro
 
         Log.i(model.getName(), "name: "+model.getName()+" position: " + position);
         Log.i(model.getQuantity(), "quantity: " + model.getQuantity() + " position: " + position);
-        Log.i(model.getLifecycle(), "name: "+model.getLifecycle()+" position: " + position);
-        Log.i(model.getDate(), "name: " + model.getDate() + " position: " + position);
-        Log.i(model.getExpirationDate(), "name: "+model.getExpirationDate()+" position: " + position);
+        Log.i(model.getLifecycle(), "lifecycle: "+model.getLifecycle()+" position: " + position);
+        Log.i(model.getDate(), "date: " + model.getDate() + " position: " + position);
+        Log.i(model.getExpirationDate(), "expiration: "+model.getExpirationDate()+" position: " + position);
 
         /***
          * On click event to pass firebase data from the viewholder to the GroceryDetailActivity
