@@ -348,12 +348,15 @@ public class MainActivity extends AppCompatActivity {
         //final Context context = this;
         final LovelyCustomDialog mDialog = new LovelyCustomDialog(this);
 
+
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.recipe_dialog, null);
 
         mDialog.setView(dialogView);
         mDialog.setTopColorRes(R.color.PINK);
         mDialog.setTitle(R.string.recipe_dialog_title);
+        mDialog.setTopTitleColor(R.color.PINK);
+        mDialog.setTitleGravity(10);
         mDialog.setIcon(R.drawable.ic_forum);
         mDialog.setInstanceStateHandler(FAB_ID, new LovelySaveStateHandler());
         mDialog.show();

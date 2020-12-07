@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#AA5387">
 
     <include layout="@layout/view_color_area" />
 
@@ -24,37 +26,46 @@
             <include layout="@layout/view_title_and_message" />
 
 
+
             <EditText
+                android:layout_marginVertical="20dp"
                 android:id="@+id/recipe_name"
                 android:layout_margin="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:ems="20"
-                android:background="#CCC8C8"
-                android:hint="Recipe Name" />
+                android:hint="Recipe Name"
+                android:background="@drawable/rounded_border_edittext"
+                android:padding="10dp"
+                />
 
 
             <EditText
+                android:layout_marginVertical="20dp"
                 android:id="@+id/recipe_serving"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
+                android:padding="10dp"
                 android:ems="20"
-                android:background="#CCC8C8"
+                android:background="@drawable/rounded_border_edittext"
                 android:hint="Serving Size" />
 
 
             <EditText
+                android:layout_marginVertical="20dp"
                 android:layout_margin="15dp"
                 android:id="@+id/recipe_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:ems="20"
-                android:background="#CCC8C8"
+                android:hint="Recipe Description"
+                android:padding="10dp"
+                android:background="@drawable/rounded_border_edittext"
 
-                android:hint="Recipe Description" />
+                />
 
 <!--            <TextView-->
 <!--                android:textSize="19dp"-->
@@ -66,12 +77,14 @@
 <!--                android:hint=   "Recipe Ingredients:" />-->
 
             <EditText
+                android:layout_marginVertical="20dp"
+                android:background="@drawable/rounded_border_edittext"
                 android:id="@+id/ingredients"
+                android:padding="10dp"
                 android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="15dp"
-                android:background="#CCC8C8"
                 android:inputType="textMultiLine"
                 android:singleLine="false"
                 android:overScrollMode="always"
@@ -81,18 +94,21 @@
                 />
 
             <EditText
+                android:layout_marginVertical="20dp"
                 android:id="@+id/steps"
                 android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="15dp"
-                android:background="#CCC8C8"
+                android:background="@drawable/rounded_border_edittext"
                 android:inputType="textMultiLine"
                 android:singleLine="false"
                 android:overScrollMode="always"
                 android:scrollbarStyle="insideInset"
                 android:scrollbars="vertical"
-                android:hint="Enter Steps" />
+                android:hint="Enter Steps"
+                android:padding="10dp"
+                />
 
 
 
@@ -103,7 +119,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="ADD" />
+                android:text="ADD"
+                />
 
 
             <Space

@@ -112,10 +112,7 @@ dependencies {
     // Glide image library
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
-
+    implementation 'me.omidh:rvelib:0.8.01'
     implementation 'com.github.BluRe-CN:ComplexView:v1.1'
-
-
-
 
 }
