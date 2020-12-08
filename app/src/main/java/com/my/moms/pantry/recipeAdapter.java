@@ -133,7 +133,7 @@ class recipeAdapter extends FirebaseRecyclerAdapter<recipe, recipeAdapter.recipe
         // set random avatar image
         RequestOptions options = new RequestOptions();
         Glide.with(holder.avatar.getContext())
-                .load(recipe.getRandFoodImage())
+                .load(recipe.getAvatar())
                 .apply(options.fitCenter())
                 .into(holder.avatar);
 

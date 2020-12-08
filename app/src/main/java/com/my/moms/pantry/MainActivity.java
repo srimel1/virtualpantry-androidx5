@@ -75,10 +75,6 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private View navHeader;
     private ImageView imgNavHeaderBg, imgProfile;
-    // urls to load navigation header background image
-    // and profile image
-    private static final String urlNavHeaderBg = "https://api.androidhive.info/images/nav-menu-header-bg.jpg";
-    private static final String urlProfileImg = "https://lh3.googleusercontent.com/eCtE_G34M9ygdkmOpYvCag1vBARCmZwnVS6rS5t4JLzJ6QgQSBquM0nuTsCpLhYbKljoyS-txg";
 
 
     // Firebase instance variables
@@ -159,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
         final ImageView img = findViewById(R.id.backdrop);
 
+        // get the user's name, email, and profile photo and display it in the nav header
         username.setText("Welcome, "+mUsername);
         email.setText(mEmail);
         Glide.with(this)
@@ -176,17 +173,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
-
-
-
-
-
         // showing dot next to notifications label
-        navigationView.getMenu().getItem(3).setActionView(R.layout.menu_dot);
+//        navigationView.getMenu().getItem(3).setActionView(R.layout.menu_dot);
 
 
-        //set up pager
+        //set up viewpager with floating action button and wave sidebar
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         if (viewPager != null) {
             setupViewPager(viewPager);

@@ -1,18 +1,27 @@
 package com.my.moms.pantry;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.gjiazhe.wavesidebar.WaveSideBar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
+import java.util.ArrayList;
 
 /***
  * PantryListFragment Class to handle the Pantry List
@@ -22,15 +31,22 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class PantryFragment extends Fragment {
 
+    EditText searchInput ;
     private int pos;
-    public void PantryListFragment(int position){
+    public void PantryFragment(int position){
         this.pos = position;
     }
 
+    CharSequence search="";
     private RecyclerView recyclerView; // add recyclerView member
+    WaveSideBar waveSideBar;
+
+    ConstraintLayout rootLayout;
 
     pantryAdapter adapter; // Create Object of the Adapter class
     DatabaseReference mbase; // Create reference to the database
+
+    private ArrayList<pantryItem> items = new ArrayList<>();
 
     /***
      * Method to inflate the recycler view with each sub view
@@ -44,8 +60,16 @@ public class PantryFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.pantry_recycler_fragment, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.pantry_recycler);
+        rootLayout = view.findViewById(R.id.root_layout);
+        searchInput = view.findViewById(R.id.search_input);
         setUpRecyclerView();
+
+
+
+
+
         return view;
+
     }
 
     /***
@@ -67,6 +91,34 @@ public class PantryFragment extends Fragment {
 
         //set the custom adapter in the recyclerView
         recyclerView.setAdapter(adapter);
+
+        searchInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+                adapter.getFilter().filter(s);
+                Log.i("adapter getfilter", "S "+ s+ " Start: "+start+" Before: "+ before+" Count: "+count);
+                search = s;
+                Log.i("Search: ", " Search: " + search);
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+
+
     }
 
     /***

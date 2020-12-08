@@ -45,16 +45,9 @@ public class RecipeFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recipe_recycler);
         setUpRecyclerView();
 
-        /*start sidebar*/
-        WaveSideBar sideBar = (WaveSideBar) container.findViewById(R.id.side_bar);
-        sideBar.setOnSelectIndexItemListener(new WaveSideBar.OnSelectIndexItemListener() {
-            @Override
-            public void onSelectIndexItem(String index) {
-                Log.d("WaveSideBar", index);
-                // Do something here ....
-            }
-        });
-        /*end sidebar*/
+
+
+
 
         return view;
     }

@@ -141,7 +141,7 @@ class groceryAdapter extends FirebaseRecyclerAdapter<groceryItem, groceryAdapter
         // set random avatar image
         RequestOptions options = new RequestOptions();
         Glide.with(holder.grocery_avatar.getContext())
-                .load(groceryItem.getRandFoodImage())
+                .load(groceryItem.getAvatar())
                 .apply(options.fitCenter())
                 .into(holder.grocery_avatar);
 

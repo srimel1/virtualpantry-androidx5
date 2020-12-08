@@ -42,4 +42,17 @@
         android:src="@drawable/ic_baseline_add_24"
         android:tint="#FFFFFF" />
 
+<!--    <com.gjiazhe.wavesidebar.WaveSideBar-->
+<!--        android:id="@+id/pantry_sidebar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:paddingEnd="8dp"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        app:sidebar_position="right"-->
+<!--        app:sidebar_max_offset="80dp"-->
+<!--        app:sidebar_lazy_respond="false"-->
+<!--        app:sidebar_text_color="#8D6E63"-->
+<!--        app:sidebar_text_size="14sp"-->
+<!--        app:sidebar_text_alignment="center"/>-->
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
