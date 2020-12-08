@@ -21,6 +21,9 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.WordUtils;
+
 
 /***
  *Custom FirebaseRecyclerAdapter
@@ -96,7 +99,7 @@ class foodAdapter extends FirebaseRecyclerAdapter<food, foodAdapter.foodsViewhol
                                     int position, @NonNull food model) {
 
 
-        holder.name.setText(model.getName());
+        holder.name.setText(WordUtils.capitalize(model.getName()));
 
 
 //        Log.i(model.getName()+ "from foodadapter ", "name: position " + position);

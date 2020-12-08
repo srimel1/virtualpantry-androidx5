@@ -277,7 +277,7 @@ public class GroceryDetailActivity extends AppCompatActivity {
 
         mDialog.setView(dialogView);
         mDialog.setTopColorRes(R.color.PINK);
-        mDialog.setTitle("Add " + StringUtils.capitalize(mName) + " to Pantry Inventory");
+        mDialog.setTitle("Add " + WordUtils.capitalize(mName) + " to Pantry Inventory");
         mDialog.setIcon(R.drawable.ic_forum);
         mDialog.setInstanceStateHandler(R.id.fab, new LovelySaveStateHandler());
         mDialog.show();

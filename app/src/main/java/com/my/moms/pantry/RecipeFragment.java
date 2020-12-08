@@ -1,6 +1,8 @@
 package com.my.moms.pantry;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.gjiazhe.wavesidebar.WaveSideBar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -38,9 +41,22 @@ public class RecipeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+
         View view = inflater.inflate(R.layout.recipe_recycler_fragment, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recipe_recycler);
         setUpRecyclerView();
+
+        /*start sidebar*/
+        WaveSideBar sideBar = (WaveSideBar) container.findViewById(R.id.side_bar);
+        sideBar.setOnSelectIndexItemListener(new WaveSideBar.OnSelectIndexItemListener() {
+            @Override
+            public void onSelectIndexItem(String index) {
+                Log.d("WaveSideBar", index);
+                // Do something here ....
+            }
+        });
+        /*end sidebar*/
+
         return view;
     }
 
@@ -51,12 +67,13 @@ public class RecipeFragment extends Fragment {
     public void setUpRecyclerView() {
         //query to get items from the database in Pantry child
         mbase = FirebaseDatabase.getInstance().getReference("Recipes");
-
+//        mbase.orderByChild("name");
         //set the recyclerView layout
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         FirebaseRecyclerOptions<recipe> options = new FirebaseRecyclerOptions.Builder<recipe>()
                 .setQuery(mbase, recipe.class)
                 .build();
+        mbase.orderByKey();
 
         //initialize the adapter
         adapter = new recipeAdapter(options);

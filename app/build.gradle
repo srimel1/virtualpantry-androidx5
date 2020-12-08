@@ -115,4 +115,6 @@ dependencies {
     implementation 'me.omidh:rvelib:0.8.01'
     implementation 'com.github.BluRe-CN:ComplexView:v1.1'
 
+    implementation 'com.gjiazhe:wavesidebar:1.3'
+
 }

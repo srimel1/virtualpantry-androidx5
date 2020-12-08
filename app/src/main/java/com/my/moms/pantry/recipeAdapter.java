@@ -21,6 +21,9 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.WordUtils;
+
 
 /***
  *Custom FirebaseRecyclerAdaptaer
@@ -98,7 +101,7 @@ class recipeAdapter extends FirebaseRecyclerAdapter<recipe, recipeAdapter.recipe
                                     int position, @NonNull recipe model) {
 
 
-        holder.name.setText(model.getName());
+        holder.name.setText(WordUtils.capitalize(model.getName()));
 
 
         /***

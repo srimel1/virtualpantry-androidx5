@@ -21,6 +21,9 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.WordUtils;
+
 
 /***
  *Custom FirebaseRecyclerAdapter
@@ -102,7 +105,7 @@ class groceryAdapter extends FirebaseRecyclerAdapter<grocery, groceryAdapter.gro
     protected void onBindViewHolder(@NonNull groceryAdapter.groceryViewholder holder,
                                     int position, @NonNull grocery model) {
         Log.i("Grocery model: ", "name: " + model.getName());
-        String name = model.getName();
+        String name = WordUtils.capitalize(model.getName());
         holder.grocery_name.setText(name);
 
 
