@@ -21,7 +21,6 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
 
 

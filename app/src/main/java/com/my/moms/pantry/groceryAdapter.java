@@ -21,7 +21,6 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
 
 
@@ -32,7 +31,7 @@ import org.apache.commons.text.WordUtils;
  * to provide the methods to bind, change and display the
  * contents of a firebase database in a recycler view
  */
-class groceryAdapter extends FirebaseRecyclerAdapter<grocery, groceryAdapter.groceryViewholder> {
+class groceryAdapter extends FirebaseRecyclerAdapter<groceryItem, groceryAdapter.groceryViewholder> {
 
     /***
      * method that tells the class which layout
@@ -90,7 +89,7 @@ class groceryAdapter extends FirebaseRecyclerAdapter<grocery, groceryAdapter.gro
      * groceryAdapter constructor
      * @param options to customize the adapter
      */
-    public groceryAdapter(@NonNull FirebaseRecyclerOptions<grocery> options) {
+    public groceryAdapter(@NonNull FirebaseRecyclerOptions<groceryItem> options) {
         super(options);
     }
 
@@ -103,7 +102,7 @@ class groceryAdapter extends FirebaseRecyclerAdapter<grocery, groceryAdapter.gro
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onBindViewHolder(@NonNull groceryAdapter.groceryViewholder holder,
-                                    int position, @NonNull grocery model) {
+                                    int position, @NonNull groceryItem model) {
         Log.i("Grocery model: ", "name: " + model.getName());
         String name = WordUtils.capitalize(model.getName());
         holder.grocery_name.setText(name);
@@ -142,7 +141,7 @@ class groceryAdapter extends FirebaseRecyclerAdapter<grocery, groceryAdapter.gro
         // set random avatar image
         RequestOptions options = new RequestOptions();
         Glide.with(holder.grocery_avatar.getContext())
-                .load(grocery.getRandFoodImage())
+                .load(groceryItem.getRandFoodImage())
                 .apply(options.fitCenter())
                 .into(holder.grocery_avatar);
 

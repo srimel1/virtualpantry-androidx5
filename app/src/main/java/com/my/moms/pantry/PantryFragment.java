@@ -1,25 +1,15 @@
 package com.my.moms.pantry;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -30,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
  * firebase database and custom adapter
  * and to pass firebase data to PantryDetailActivity
  */
-public class PantryListFragment extends Fragment {
+public class PantryFragment extends Fragment {
 
     private int pos;
     public void PantryListFragment(int position){
@@ -39,7 +29,7 @@ public class PantryListFragment extends Fragment {
 
     private RecyclerView recyclerView; // add recyclerView member
 
-    foodAdapter adapter; // Create Object of the Adapter class
+    pantryAdapter adapter; // Create Object of the Adapter class
     DatabaseReference mbase; // Create reference to the database
 
     /***
@@ -68,12 +58,12 @@ public class PantryListFragment extends Fragment {
 
         //set the recyclerView layout
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        FirebaseRecyclerOptions<food> options = new FirebaseRecyclerOptions.Builder<food>()
-                .setQuery(mbase, food.class)
+        FirebaseRecyclerOptions<pantryItem> options = new FirebaseRecyclerOptions.Builder<pantryItem>()
+                .setQuery(mbase, pantryItem.class)
                 .build();
 
         //initialize the adapter
-        adapter = new foodAdapter(options);
+        adapter = new pantryAdapter(options);
 
         //set the custom adapter in the recyclerView
         recyclerView.setAdapter(adapter);

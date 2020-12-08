@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +30,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 import com.yarolegovich.lovelydialog.LovelySaveStateHandler;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
 
 import java.text.ParseException;
@@ -182,7 +180,7 @@ public class GroceryDetailActivity extends AppCompatActivity {
      */
     private void loadBackdrop() {
         final ImageView imageView = findViewById(R.id.backdrop);
-        Glide.with(this).load(food.getRandFoodImage()).apply(RequestOptions.centerCropTransform()).into(imageView);
+        Glide.with(this).load(pantryItem.getRandFoodImage()).apply(RequestOptions.centerCropTransform()).into(imageView);
     }
 
     /***
@@ -306,7 +304,7 @@ public class GroceryDetailActivity extends AppCompatActivity {
             //insert into database
             FirebaseDatabase.getInstance().getReference("Pantry")
                     .child(mName)
-                    .setValue(new food(WordUtils.capitalize(mName), mQuantity, mLifecycle, mDate, mExpireDate));
+                    .setValue(new pantryItem(WordUtils.capitalize(mName), mQuantity, mLifecycle, mDate, mExpireDate));
 
 
             //dismiss the dialog box

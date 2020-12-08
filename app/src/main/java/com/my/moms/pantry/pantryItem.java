@@ -1,32 +1,33 @@
 package com.my.moms.pantry;
 
 
+import android.os.CountDownTimer;
+
+import com.google.firebase.database.Exclude;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
-public class grocery {
+public class pantryItem {
     private String name;
     private String lifecycle; //in days
     private String quantity;
     private String date;
     private String expirationDate;
 
-    public grocery() {
-    }
+    public pantryItem(){}
 
 
-    public grocery(String name, String quantity, String lifecycle, String date, String expirationDate) {
+
+    public pantryItem(String name, String quantity, String lifecycle, String date, String expirationDate){
         this.name = name;
         this.quantity = quantity;
         this.lifecycle = lifecycle;
         this.date = date;
         this.expirationDate = expirationDate;
 
-    }
-
-    public grocery(String name, String quantity, String date){
-        this.name = name;
-        this.quantity = quantity;
-        this.date = date;
     }
 
     public String getName() {
@@ -61,13 +62,9 @@ public class grocery {
         this.date = date;
     }
 
-    public String getExpirationDate() {
-        return expirationDate;
-    }
+    public String getExpirationDate() { return expirationDate; }
 
-    public void setExpirationDate(String expirationDate) {
-        this.expirationDate = expirationDate;
-    }
+    public void setExpirationDate(String expirationDate) { this.expirationDate = expirationDate; }
 
     private static final Random RANDOM = new Random();
 
@@ -106,6 +103,24 @@ public class grocery {
         }
     }
 
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("name", name);
+        result.put("quantity", quantity);
+        result.put("lifecycle", lifecycle);
+
+        return result;
+    }
+
+    public static final String[] foodStrings = {
+            "lemons", "tomatoes", "carrots", "onions", "lettuce", "pickles", "peppers", "cilantro",
+            "crackers", "pasta", "chicken", "steak", "salmon", "shrimp" , "lettuce",
+            "corn", "green onions", "lemonade", "limes", "rice", "white rice", "milk", "limes",
+            "mushrooms", "yellow onions", "oranges", "bell peppers", "pineapple", "curry", "soup", "eggs",
+            "cheese"," pasta sauce", "muffins", "cookies", "bananas", "purple onion", "avocados", "broccoli",
+            "celery", "ice cream", "pizza"," butter lettuce", "croissant", "steak", "jalepeno"
+    };
 
 }
 

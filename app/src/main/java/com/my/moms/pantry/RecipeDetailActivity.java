@@ -21,7 +21,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.FirebaseDatabase;
 
 import org.apache.commons.text.WordUtils;
 
@@ -155,7 +154,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
      */
     private void loadBackdrop() {
         final ImageView imageView = findViewById(R.id.backdrop);
-        Glide.with(this).load(food.getRandFoodImage()).apply(RequestOptions.centerCropTransform()).into(imageView);
+        Glide.with(this).load(pantryItem.getRandFoodImage()).apply(RequestOptions.centerCropTransform()).into(imageView);
     }
 
     /***

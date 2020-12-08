@@ -21,7 +21,6 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
 
 
@@ -32,7 +31,7 @@ import org.apache.commons.text.WordUtils;
  * to provide the methods to bind, change and display the
  * contents of a firebase database in a recycler view
  */
-class foodAdapter extends FirebaseRecyclerAdapter<food, foodAdapter.foodsViewholder> {
+class pantryAdapter extends FirebaseRecyclerAdapter<pantryItem, pantryAdapter.foodsViewholder> {
 
     /***
      * method that tells the class which layout
@@ -46,7 +45,7 @@ class foodAdapter extends FirebaseRecyclerAdapter<food, foodAdapter.foodsViewhol
     public foodsViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.pantry_recycler_item, parent, false);
-        return new com.my.moms.pantry.foodAdapter.foodsViewholder(view);
+        return new pantryAdapter.foodsViewholder(view);
     }
 
     /***
@@ -83,7 +82,7 @@ class foodAdapter extends FirebaseRecyclerAdapter<food, foodAdapter.foodsViewhol
      * foodAdapter constructor
      * @param options to customize the adapter
      */
-    public foodAdapter(@NonNull FirebaseRecyclerOptions<food> options) {
+    public pantryAdapter(@NonNull FirebaseRecyclerOptions<pantryItem> options) {
         super(options);
     }
 
@@ -95,8 +94,8 @@ class foodAdapter extends FirebaseRecyclerAdapter<food, foodAdapter.foodsViewhol
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    protected void onBindViewHolder(@NonNull foodAdapter.foodsViewholder holder,
-                                    int position, @NonNull food model) {
+    protected void onBindViewHolder(@NonNull pantryAdapter.foodsViewholder holder,
+                                    int position, @NonNull pantryItem model) {
 
 
         holder.name.setText(WordUtils.capitalize(model.getName()));
@@ -133,7 +132,7 @@ class foodAdapter extends FirebaseRecyclerAdapter<food, foodAdapter.foodsViewhol
         // set random avatar image
         RequestOptions options = new RequestOptions();
         Glide.with(holder.avatar.getContext())
-                .load(food.getRandFoodImage())
+                .load(pantryItem.getRandFoodImage())
                 .apply(options.fitCenter())
                 .into(holder.avatar);
 

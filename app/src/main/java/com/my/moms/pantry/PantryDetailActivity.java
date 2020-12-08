@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -104,7 +103,7 @@ public class PantryDetailActivity extends AppCompatActivity {
                             String name = WordUtils.capitalize(foodName);
                             FirebaseDatabase.getInstance().getReference("Grocery List")
                                     .child(name)
-                                    .setValue(new grocery(foodName, foodQuantity, dateAdded));
+                                    .setValue(new groceryItem(foodName, foodQuantity, dateAdded));
 
                             //delete from pantry list
                             DatabaseReference mref = FirebaseDatabase.getInstance().getReference("Pantry")
@@ -122,7 +121,7 @@ public class PantryDetailActivity extends AppCompatActivity {
                             String name = WordUtils.capitalize(foodName);
                             FirebaseDatabase.getInstance().getReference("Grocery List")
                                     .child(name)
-                                    .setValue(new grocery(name, foodQuantity, dateAdded));
+                                    .setValue(new groceryItem(name, foodQuantity, dateAdded));
 
                             Snackbar.make(view,  "Added "+ name + " to Grocery List", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
@@ -136,7 +135,7 @@ public class PantryDetailActivity extends AppCompatActivity {
             //insert into database
             FirebaseDatabase.getInstance().getReference("Grocery List")
                     .child(WordUtils.capitalize(foodName))
-                    .setValue(new grocery(foodName, foodQuantity, dateAdded));
+                    .setValue(new groceryItem(foodName, foodQuantity, dateAdded));
 
             Snackbar.make(view, "Added " + foodName + " to Grocery List ", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
@@ -224,7 +223,7 @@ public class PantryDetailActivity extends AppCompatActivity {
      */
     private void loadBackdrop() {
         final ImageView imageView = findViewById(R.id.backdrop);
-        Glide.with(this).load(food.getRandFoodImage()).apply(RequestOptions.centerCropTransform()).into(imageView);
+        Glide.with(this).load(pantryItem.getRandFoodImage()).apply(RequestOptions.centerCropTransform()).into(imageView);
     }
 
     /***
