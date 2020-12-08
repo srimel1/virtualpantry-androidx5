@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2020.. Stephanie Rimel
+ */
+
 package com.my.moms.pantry;
 
 
