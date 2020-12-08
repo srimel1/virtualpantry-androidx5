@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +38,7 @@ import org.apache.commons.text.WordUtils;
  */
 class groceryAdapter extends FirebaseRecyclerAdapter<groceryItem, groceryAdapter.groceryViewholder> {
 
+    Context mContext;
     /***
      * method that tells the class which layout
      * @param parent
@@ -65,7 +67,6 @@ class groceryAdapter extends FirebaseRecyclerAdapter<groceryItem, groceryAdapter
 
 
 
-
         /***
          * custom view holder for food item
          * @param itemView hold the view
@@ -75,8 +76,8 @@ class groceryAdapter extends FirebaseRecyclerAdapter<groceryItem, groceryAdapter
             mView = itemView;
             grocery_name = itemView.findViewById(R.id.grocery_text);
             grocery_avatar = itemView.findViewById(R.id.grocery_avatar);
-        }
 
+        }
 
 
         /***
@@ -107,17 +108,21 @@ class groceryAdapter extends FirebaseRecyclerAdapter<groceryItem, groceryAdapter
     @Override
     protected void onBindViewHolder(@NonNull groceryAdapter.groceryViewholder holder,
                                     int position, @NonNull groceryItem model) {
-        Log.i("Grocery model: ", "name: " + model.getName());
+
         String name = WordUtils.capitalize(model.getName());
+
+        mContext = holder.mView.getContext();
+
+        holder.grocery_name.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_transition_animation));
+        holder.mView.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_scale_animation));
+        holder.grocery_avatar.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_scale_animation));
+
         holder.grocery_name.setText(name);
 
 
-
-        Log.i(model.getName(), "name: "+model.getName()+" position: " + position);
+        Log.i(model.getName(), "name: " + model.getName() + " position: " + position);
         Log.i(model.getQuantity(), "quantity: " + model.getQuantity() + " position: " + position);
-        Log.i(model.getLifecycle(), "lifecycle: "+model.getLifecycle()+" position: " + position);
         Log.i(model.getDate(), "date: " + model.getDate() + " position: " + position);
-        Log.i(model.getExpirationDate(), "expiration: "+model.getExpirationDate()+" position: " + position);
 
         /***
          * On click event to pass firebase data from the viewholder to the GroceryDetailActivity
@@ -127,18 +132,17 @@ class groceryAdapter extends FirebaseRecyclerAdapter<groceryItem, groceryAdapter
             Context context = v.getContext();
             Intent intent = new Intent(context, GroceryDetailActivity.class);
             Log.i(GroceryDetailActivity.EXTRA_NAME, "model.getName: " + model.getName());
-            Log.i(GroceryDetailActivity.EXTRA_LIFECYCLE, "model.getLifecycle: " + model.getLifecycle());
             Log.i(GroceryDetailActivity.EXTRA_QUANTITY, "model.getQuantity: " + model.getQuantity());
             Log.i(GroceryDetailActivity.EXTRA_DATE, "model.getDate: " + model.getDate());
-            Log.i(GroceryDetailActivity.EXTRA_DATE, "model.getExpirationDate: " + model.getExpirationDate());
+
 
 
             /* Send the database date to the Detail Activity through Intent */
             intent.putExtra(GroceryDetailActivity.EXTRA_NAME, model.getName());
             intent.putExtra(GroceryDetailActivity.EXTRA_QUANTITY, model.getQuantity());
-            //intent.putExtra(GroceryDetailActivity.EXTRA_LIFECYCLE, model.getLifecycle());
             intent.putExtra(GroceryDetailActivity.EXTRA_DATE, model.getDate());
-            //intent.putExtra(GroceryDetailActivity.EXTRA_EXPIRATION, model.getExpirationDate());
+
+            /* start the activity */
             context.startActivity(intent);
         });
 

@@ -46,8 +46,8 @@ class pantryAdapter extends FirebaseRecyclerAdapter<pantryItem, pantryAdapter.fo
 
     List<pantryItem> mData ;
     List<pantryItem> mDataFiltered ;
-    Context context;
-    View v;
+    Context mContext;
+
 
     
     /***
@@ -168,11 +168,11 @@ class pantryAdapter extends FirebaseRecyclerAdapter<pantryItem, pantryAdapter.fo
     protected void onBindViewHolder(@NonNull pantryAdapter.foodsViewholder holder,
                                     int position, @NonNull pantryItem model) {
 
-        context = holder.mView.getContext();
+        mContext = holder.mView.getContext();
 
 
-        holder.name.setAnimation(AnimationUtils.loadAnimation(context,R.anim.fade_transition_animation));
-        holder.mView.setAnimation(AnimationUtils.loadAnimation(context,R.anim.fade_scale_animation));
+        holder.name.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fade_transition_animation));
+        holder.mView.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fade_scale_animation));
 
 //        holder.name.setText(mDataFiltered.get(position).getName());
         holder.name.setText(WordUtils.capitalize(model.getName()));
@@ -195,9 +195,9 @@ class pantryAdapter extends FirebaseRecyclerAdapter<pantryItem, pantryAdapter.fo
          */
         holder.mView.setOnClickListener(v -> {
 
-            context = v.getContext();
+            mContext = v.getContext();
 
-            Intent intent = new Intent(context, PantryDetailActivity.class);
+            Intent intent = new Intent(mContext, PantryDetailActivity.class);
             Log.i(PantryDetailActivity.EXTRA_NAME, "model.getName: " + model.getName());
             Log.i(PantryDetailActivity.EXTRA_LIFECYCLE, "model.getLifecycle: " + model.getLifecycle());
             Log.i(PantryDetailActivity.EXTRA_QUANTITY, "model.getQuantity: " + model.getQuantity());
@@ -212,7 +212,7 @@ class pantryAdapter extends FirebaseRecyclerAdapter<pantryItem, pantryAdapter.fo
             intent.putExtra(PantryDetailActivity.EXTRA_DATE, model.getDate());
             intent.putExtra(PantryDetailActivity.EXTRA_EXPIRATION, model.getExpirationDate());
 
-            context.startActivity(intent);
+            mContext.startActivity(intent);
         });
 
         // set random avatar image

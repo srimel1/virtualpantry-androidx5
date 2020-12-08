@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,6 +39,8 @@ import org.apache.commons.text.WordUtils;
 class recipeAdapter extends FirebaseRecyclerAdapter<recipe, recipeAdapter.recipeViewHolder> {
 
 
+    Context mContext;
+
     /***
      * method that tells the class which layout
      * @param parent
@@ -61,6 +64,7 @@ class recipeAdapter extends FirebaseRecyclerAdapter<recipe, recipeAdapter.recipe
         TextView name;
         ImageView avatar;
         View mView;
+
 
 
         /***
@@ -104,7 +108,12 @@ class recipeAdapter extends FirebaseRecyclerAdapter<recipe, recipeAdapter.recipe
                                     int position, @NonNull recipe model) {
 
 
+        mContext = holder.mView.getContext();
+        holder.name.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_transition_animation));
+        holder.mView.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_scale_animation));
+
         holder.name.setText(WordUtils.capitalize(model.getName()));
+
 
 
         /***
