@@ -1,13 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <color name="window_background">#000000</color>
-    <color name="PINK">#6C0041</color>
-    <color name="BLACK">#000000</color>
-    <color name="WHITE">#fff</color>
+<!--    <color name="window_background">#000000</color>-->
+<!--    <color name="PINK">#6C0041</color>-->
+<!--    <color name="MAUVE">#AA5387</color>-->
+<!--    <color name="BLACK">#000000</color>-->
+<!--    <color name="WHITE">#fff</color>-->
 
-    <color name="lightgray">#7A7A7A</color>
-    <color name="gray">#434242</color>
-    <color name="card_bg_color">#f6f6f6</color>
+<!--    <color name="lightgray">#7A7A7A</color>-->
+<!--    <color name="gray">#434242</color>-->
+<!--    <color name="card_bg_color">#f6f6f6</color>-->
+
+
+
+
+    <color name="primaryColor">#560038</color>
+
+    <color name="primaryLightColor">#863462</color>
+
+    <color name="primaryDarkColor">#2e0013</color>
+
+    <color name="secondaryColor">#ff9429</color>
+
+    <color name="secondaryLightColor">#ffc55b</color>
+
+    <color name="secondaryDarkColor">#c66500</color>
+
+    <color name="primaryTextColor">#ff81f9</color>
+
+    <color name="secondaryTextColor">#560038</color>
 
 </resources>
+

@@ -69,7 +69,7 @@ public class PantryDetailActivity extends AppCompatActivity {
 
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
@@ -94,8 +94,8 @@ public class PantryDetailActivity extends AppCompatActivity {
         fab.setOnClickListener(view -> {
 
             new LovelyStandardDialog(this, LovelyStandardDialog.ButtonLayout.HORIZONTAL)
-                    .setTopColorRes(R.color.PINK)
-                    .setButtonsColorRes(R.color.BLACK)
+                    .setTopColorRes(R.color.material_dialog_message_text_color)
+                    .setButtonsColorRes(R.color.material_dialog_title_text_color)
                     .setIcon(R.drawable.ic_forum)
                     .setTitle("Add Pantry Item To Grocery List")
                     .setMessage("Add "+foodName+" to Grocery List and delete from Pantry?")

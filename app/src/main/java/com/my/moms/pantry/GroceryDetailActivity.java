@@ -82,7 +82,7 @@ public class GroceryDetailActivity extends AppCompatActivity {
         //Log.i(foodName," expiration: "+foodExpiration);
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
@@ -278,7 +278,7 @@ public class GroceryDetailActivity extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.grocery_to_pantry_dialog, null);
 
         mDialog.setView(dialogView);
-        mDialog.setTopColorRes(R.color.PINK);
+        mDialog.setTopColorRes(R.color.material_dialog_background);
         mDialog.setTitle("Add " + WordUtils.capitalize(mName) + " to Pantry Inventory");
         mDialog.setIcon(R.drawable.ic_forum);
         mDialog.setInstanceStateHandler(R.id.fab, new LovelySaveStateHandler());

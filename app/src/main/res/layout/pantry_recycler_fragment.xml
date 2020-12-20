@@ -10,7 +10,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/WHITE"
     android:id="@+id/root_layout">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -29,7 +28,6 @@
     <EditText
         android:drawablePadding="8dp"
         android:drawableLeft="@drawable/ic_search_gray_24dp"
-        android:textColor="@color/lightgray"
         android:hint="search"
         android:background="@drawable/search_input_style"
         android:id="@+id/search_input"

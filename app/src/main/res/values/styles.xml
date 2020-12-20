@@ -2,44 +2,49 @@
 
 <resources>
 
-    <style name="Theme.DesignDemo" parent="Base.Theme.DesignDemo">
-    </style>
-
-    <style name="Base.Theme.DesignDemo" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <item name="colorPrimary">#A62974</item>
-        <item name="colorPrimaryDark">#6C0041</item>
-        <item name="colorAccent">#AA5387</item>
-    </style>
-
-    <style name="Widget.CardContent" parent="android:Widget">
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
-        <item name="android:paddingTop">24dp</item>
-        <item name="android:paddingBottom">24dp</item>
-        <item name="android:orientation">vertical</item>
-    </style>
-
-    <style name="drawer_layout">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:fitsSystemWindows">true</item>
-    </style>
-
-    <style name="DialogAnimation">
-        <item name="android:windowEnterAnimation">@anim/slide_up</item>
-        <item name="android:windowExitAnimation">@anim/slide_down</item>
-    </style>
-
-    <style name="EditTextTintTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">@color/design_default_color_primary_dark</item>
-    </style>
-
-    <style name="Body1" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">@color/design_default_color_primary_dark</item>
-    </style>
 
 
+        <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+
+            <item name="colorPrimary">@color/primaryColor</item>
+            <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+            <item name="colorAccent">@color/secondaryColor</item>
+        </style>
 
 
+<!--        <style name="Base.Theme.DesignDemo" parent="Theme.MaterialComponents.DayNight.NoActionBar">-->
+<!--            <item name="colorPrimary">#A62974</item>-->
+<!--            <item name="colorPrimaryDark">#6C0041</item>-->
+<!--            <item name="colorAccent">#AA5387</item>-->
+<!--        </style>-->
 
-</resources>
+        <style name="Widget.CardContent" parent="android:Widget">
+            <item name="android:paddingLeft">16dp</item>
+            <item name="android:paddingRight">16dp</item>
+            <item name="android:paddingTop">24dp</item>
+            <item name="android:paddingBottom">24dp</item>
+            <item name="android:orientation">vertical</item>
+        </style>
+
+        <style name="drawer_layout">
+            <item name="android:layout_height">match_parent</item>
+            <item name="android:layout_width">match_parent</item>
+            <item name="android:fitsSystemWindows">true</item>
+        </style>
+
+        <style name="DialogAnimation">
+            <item name="android:windowEnterAnimation">@anim/slide_up</item>
+            <item name="android:windowExitAnimation">@anim/slide_down</item>
+        </style>
+
+        <style name="EditTextTintTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+            <item name="colorAccent">@color/primaryLightColor</item>
+        </style>
+
+        <style name="Body1" parent="Theme.AppCompat.Light.Dialog.Alert">
+            <item name="colorAccent">@color/primaryLightColor</item>
+        </style>
+
+
+    </resources>
+
