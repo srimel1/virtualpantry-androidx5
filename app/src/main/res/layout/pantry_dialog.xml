@@ -5,13 +5,13 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:theme="@style/Theme.MyApp"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:theme="@style/CustomToolbarTheme"
     android:orientation="vertical">
 
 <!--    <include layout="@layout/view_color_area" />-->
-
+    ""
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="12dp" />
 
-            <include layout="@layout/view_title_and_message" />
+<!--            <include layout="@layout/view_title_and_message" />-->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -38,22 +38,10 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/secondaryColor"
                     android:id="@+id/item_name"
                     android:layout_margin="20dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--            <EditText-->
-            <!--                android:layout_marginVertical="20dp"-->
-            <!--                android:id="@+id/item_quantity"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginHorizontal="10dp"-->
-            <!--                android:ems="20"-->
-            <!--                android:hint="@string/item_quantity"-->
-            <!--                android:padding="10dp"-->
-            <!--                android:background="@drawable/rounded_border_edittext"-->
-            <!--                />-->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,18 +54,6 @@
                     android:layout_margin="20dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-
-
-            <!--            <EditText-->
-            <!--                android:layout_marginVertical="20dp"-->
-            <!--                android:id="@+id/item_lifecycle"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginHorizontal="10dp"-->
-            <!--                android:ems="20"-->
-            <!--                android:padding="10dp"-->
-            <!--                android:background="@drawable/rounded_border_edittext"-->
-            <!--                android:hint="@string/item_lifecycle_in_days" />-->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -90,38 +66,7 @@
                     android:layout_margin="20dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--            <Button-->
-            <!--                android:id="@+id/ld_btn_confirm"-->
-            <!--                style="@style/Widget.MaterialComponents.Button"-->
-            <!--                android:background="@color/primaryLightColor"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_gravity="right"-->
-            <!--                android:layout_marginLeft="20dp"-->
-            <!--                android:text="@android:string/ok" />-->
-            <!--            <Button-->
-            <!--                android:id="@+id/ld_btn_confirm"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="OK"-->
-            <!--                android:layout_gravity="right"-->
-            <!--                style="?attr/materialButtonOutlinedStyle"-->
-            <!--                />-->
 
-            <!--            <Button-->
-            <!--                android:id="@+id/ld_btn_confirm"-->
-            <!--                style="@style/Widget.MaterialComponents.Button.TextButton"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:gravity="center"-->
-            <!--                android:text="ADD" />-->
-            <!--            <Button-->
-            <!--                android:id="@+id/ld_btn_cancel"-->
-            <!--                style="@style/Widget.MaterialComponents.Button.TextButton"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:gravity="right"-->
-            <!--                android:text="ADD" />-->
             <LinearLayout
                 android:id="@+id/LinearLayout02"
                 android:layout_height="wrap_content"
@@ -132,13 +77,13 @@
                     android:layout_margin="10dp"
                     app:icon="@drawable/ic_baseline_cancel"
                     android:layout_width="match_parent"
-                    style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" android:text="Cancel">
                 </Button>
                 <Button
                     android:layout_margin="10dp"
-                    style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     app:icon="@drawable/ic_baseline_add_24"
                     android:id="@+id/ld_btn_confirm"
                     android:layout_width="match_parent"
@@ -148,12 +93,6 @@
                 </Button>
             </LinearLayout>
 
-            <!--            <Button-->
-            <!--                android:id="@+id/ld_btn_cancel"-->
-            <!--                style="@style/Widget.MaterialComponents.Button.TextButton"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="match_parent"-->
-            <!--                android:text="Cancel" />-->
 
             <Space
                 android:layout_width="wrap_content"

@@ -16,7 +16,7 @@
             <item name="material_dialog_background">@color/primaryDarkColor</item>
             <item name="textColorAlertDialogListItem">@color/secondaryColor</item>
             <item name="background">@color/primaryDarkColor</item>
-
+            <item name="dialogCornerRadius">20dp</item>
 
         </style>
 
@@ -25,6 +25,8 @@
             <item name="colorPrimary">#A62974</item>
             <item name="colorPrimaryDark">#6C0041</item>
             <item name="colorAccent">#AA5387</item>
+            <item name="android:colorBackground">@color/primaryDarkColor</item>
+
         </style>
 
         <style name="Widget.CardContent" parent="android:Widget">
@@ -33,6 +35,8 @@
             <item name="android:paddingTop">24dp</item>
             <item name="android:paddingBottom">24dp</item>
             <item name="android:orientation">vertical</item>
+            <item name="android:colorBackground">@color/primaryDarkColor</item>
+
         </style>
 
         <style name="drawer_layout">
@@ -53,10 +57,14 @@
 
         <style name="EditTextTintTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
             <item name="colorAccent">@color/primaryLightColor</item>
+            <item name="android:colorBackground">@color/primaryDarkColor</item>
+
         </style>
 
         <style name="Body1" parent="Theme.AppCompat.Light.Dialog.Alert">
             <item name="colorAccent">@color/primaryLightColor</item>
+            <item name="android:colorBackground">@color/primaryDarkColor</item>
+
         </style>
 
 
@@ -89,6 +97,7 @@
             <item name="android:statusBarColor">@android:color/transparent</item>
             <item name="bottomSheetStyle">@style/Widget.MyTheme.BottomSheet.Modal</item>
             <item name="android:navigationBarColor">?attr/colorSurface</item>
+            <item name="android:colorBackground">@color/primaryDarkColor</item>
             <item name="android:navigationBarDividerColor" tools:ignore="NewApi">@android:color/transparent</item>
         </style>
         <style name="Widget.MyTheme.BottomSheet.Modal" parent="Widget.MaterialComponents.BottomSheet.Modal">
@@ -104,5 +113,33 @@
 
 
 
+<!--    <style name="cust_dialog" parent="@android:style/Theme.Dialog">-->
+<!--        <item name="android:windowTitleStyle">@style/dialog_title_style</item>-->
+<!--    </style>-->
+
+    <style name="dialog_title_style" parent="Theme.MyApp">
+        <item name="android:background">@color/primaryDarkColor</item>
+    </style>
+    <style name="TintTheme" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="dialogCornerRadius">20dp</item>
+        <item name="android:colorBackground">@color/primaryDarkColor</item>
+        <item name="titleTextColor">@color/secondaryColor</item>
+        <item name="android:textColor">@color/secondaryColor</item>
+        <item name="textColorAlertDialogListItem">@color/secondaryColor</item>
+        <item name="android:textColorPrimary">@color/secondaryColor</item>
+        <item name="collapsedTitleGravity">center</item>
+        <item name="expandedTitleGravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+
+
+    </style>
+    <style name="AppBar" parent="@style/Widget.MaterialComponents.Toolbar">
+        <item name="android:textColorPrimary">@color/primaryColor</item>
+        <item name="android:textColor">@color/primaryColor</item>
+        <item name="android:textColorSecondary">@color/primaryColor</item>
+
+
+    </style>
 </resources>
 

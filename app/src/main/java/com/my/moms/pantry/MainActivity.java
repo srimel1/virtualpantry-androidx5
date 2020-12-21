@@ -7,6 +7,7 @@ package com.my.moms.pantry;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Shader;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,11 +17,13 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import androidx.appcompat.app.ActionBar;
@@ -46,6 +49,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 import com.yarolegovich.lovelydialog.LovelySaveStateHandler;
+import com.yarolegovich.lovelydialog.ViewConfigurator;
 
 import org.apache.commons.text.WordUtils;
 
@@ -235,13 +239,15 @@ public class MainActivity extends AppCompatActivity {
     private void pantryDialog() {
 
         //final Context context = this;
-        final LovelyCustomDialog mDialog = new LovelyCustomDialog(this);
+        final LovelyCustomDialog mDialog = new LovelyCustomDialog(this, R.style.TintTheme);
+//        mDialog.setTopTitleColor(getResources().getColor(R.color.primaryDarkColor));
+//        mDialog.setTopColor(getResources().getColor(R.color.primaryColor));
 
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.pantry_dialog, null);
-
         mDialog.setView(dialogView);
-        mDialog.setTopColorRes(R.color.red_200);
+        mDialog.setTopColorRes(R.color.secondaryColor);
+//        /mDialog.setTopTitleColor(getColor(R.color.primaryDarkColor));
         mDialog.setTitle(R.string.pantry_dialog_title);
         mDialog.setIcon(R.drawable.ic_forum);
         mDialog.setInstanceStateHandler(FAB_ID, new LovelySaveStateHandler());
@@ -287,14 +293,14 @@ public class MainActivity extends AppCompatActivity {
     private void groceryDialog() {
 
         //final Context context = this;
-        final LovelyCustomDialog mDialog = new LovelyCustomDialog(this);
 
+        final LovelyCustomDialog mDialog = new LovelyCustomDialog(this, R.style.TintTheme);
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.grocery_dialog, null);
-
         mDialog.setView(dialogView);
-        mDialog.setTopColorRes(R.color.red_200);
+        mDialog.setTopColorRes(R.color.secondaryColor);
         mDialog.setTitle(R.string.grocery_dialog_title);
+        mDialog.setTopTitleColor(R.color.secondaryColor);
         mDialog.setIcon(R.drawable.ic_forum);
         mDialog.setInstanceStateHandler(FAB_ID, new LovelySaveStateHandler());
         mDialog.show();
@@ -334,17 +340,13 @@ public class MainActivity extends AppCompatActivity {
     private void recipeDialog() {
 
         //final Context context = this;
-        final LovelyCustomDialog mDialog = new LovelyCustomDialog(this);
-
-
+        final LovelyCustomDialog mDialog = new LovelyCustomDialog(this, R.style.TintTheme);
         LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.recipe_dialog, null);
-
+        View dialogView = inflater.inflate(R.layout.recipe_log, null);
         mDialog.setView(dialogView);
-        mDialog.setTopColorRes(R.color.red_200);
+        mDialog.setTopColorRes(R.color.secondaryColor);
+        mDialog.setTitle(R.string.recipe_dialog_title);
         mDialog.setTopTitleColor(R.color.secondaryColor);
-        mDialog.setTopTitleColor(R.color.material_dialog_message_text_color);
-        mDialog.setTitleGravity(10);
         mDialog.setIcon(R.drawable.ic_forum);
         mDialog.setInstanceStateHandler(FAB_ID, new LovelySaveStateHandler());
         mDialog.show();
@@ -355,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
         mDialog.setListener(R.id.ld_btn_confirm, (View.OnClickListener) view -> {
             final EditText name = (EditText) dialogView.findViewById(R.id.recipe_name);
             final EditText serving = (EditText) dialogView.findViewById(R.id.recipe_serving);
-            final EditText description = (EditText) dialogView.findViewById(R.id.recipe_description);
+            final EditText description = (EditText) dialogView.findViewById(R.id.description);
             final EditText ingredients = (EditText) dialogView.findViewById(R.id.ingredients);
             final EditText steps = (EditText) dialogView.findViewById(R.id.steps);
 

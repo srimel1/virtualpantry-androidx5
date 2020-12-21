@@ -4,12 +4,10 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/Theme.MyApp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <include layout="@layout/view_color_area" />
 
@@ -28,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="12dp" />
 
-<!--            <include layout="@layout/view_title_and_message" />-->
+            <include layout="@layout/view_title_and_message" />
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -65,14 +63,14 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/recipe_description"
+                    android:id="@+id/description"
                     android:layout_margin="20dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Recipe Ingredients">
+                android:hint="@string/recipe_ingredients">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -85,7 +83,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Steps">
+                android:hint="@string/steps">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -95,40 +93,39 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-
-            <LinearLayout
-                android:id="@+id/LinearLayout02"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_alignParentBottom="true">
-                <Button
-                    android:id="@+id/ld_btn_negative"
-                    android:layout_margin="10dp"
-                    app:icon="@drawable/ic_baseline_cancel"
-                    android:layout_width="match_parent"
-                    style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" android:text="Cancel">
-                </Button>
-                <Button
-                    android:layout_margin="10dp"
-                    style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
-                    app:icon="@drawable/ic_baseline_add_24"
-                    android:id="@+id/ld_btn_confirm"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Add">
-                </Button>
-            </LinearLayout>
-
-
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="8dp" />
 
         </LinearLayout>
+
     </ScrollView>
 
+    <LinearLayout
+        android:id="@+id/LinearLayout02"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/ld_btn_negative"
+            android:layout_margin="10dp"
+            app:icon="@drawable/ic_baseline_cancel"
+            android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="Cancel">
+        </Button>
+        <Button
+            android:layout_margin="10dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            app:icon="@drawable/ic_baseline_add_24"
+            android:id="@+id/ld_btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Add">
+        </Button>
+    </LinearLayout>
 
 </LinearLayout>
+

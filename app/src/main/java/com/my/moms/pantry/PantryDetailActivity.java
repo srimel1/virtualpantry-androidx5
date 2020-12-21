@@ -93,9 +93,10 @@ public class PantryDetailActivity extends AppCompatActivity {
         //fab onCLick adds item from PantryDetail to the Grocery List
         fab.setOnClickListener(view -> {
 
-            new LovelyStandardDialog(this, LovelyStandardDialog.ButtonLayout.HORIZONTAL)
-                    .setTopColorRes(R.color.material_dialog_message_text_color)
-                    .setButtonsColorRes(R.color.material_dialog_title_text_color)
+            new LovelyStandardDialog(this, R.style.TintTheme)
+                    .setTopColorRes(R.color.secondaryColor)
+                    .setTopTitleColor(R.color.secondaryColor)
+                    .setButtonsColorRes(R.color.secondaryColor)
                     .setIcon(R.drawable.ic_forum)
                     .setTitle("Add Pantry Item To Grocery List")
                     .setMessage("Add "+foodName+" to Grocery List and delete from Pantry?")

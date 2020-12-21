@@ -52,9 +52,17 @@
         <!-- HERE ARE THE CHANGES - Change color of different texts -->
         <item name="android:textColorPrimary">@color/purple_200</item>
         <item name="colorPrimary">@color/primaryColor</item>
-
+        <item name="dialogCornerRadius">20dp</item>
+        <item name="tooltipForegroundColor">@color/secondaryColor</item>
         <item name="colorControlNormal">@color/black_900</item>
 <!--        <item name="expandedTitleTextAppearance" >@color/black_900</item>-->
     </style>
 
+<!--    <style name="AppBar" parent="@style/Widget.MaterialComponents.Toolbar">-->
+<!--    <item name="android:textColorPrimary">@color/primaryColor</item>-->
+<!--        <item name="android:textColor">@color/primaryColor</item>-->
+<!--        <item name="android:textColorSecondary">@color/primaryColor</item>-->
+
+
+<!--    </style>-->
 </resources>

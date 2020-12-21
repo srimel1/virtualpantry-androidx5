@@ -55,7 +55,7 @@
 
     <!--Color surface (light), color on error (light), -->
     <!--color on surface (dark), color on surface (dark)-->
-    <color name="white_50">#ffffff</color>
+    <color name="white_50">#ff9429</color>
 
     <color name="black_800">#49012C</color> <!--Color surface (dark)-->
     <!--Color on secondary (light), color on background (light),-->
