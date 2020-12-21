@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.pantry_dialog, null);
 
         mDialog.setView(dialogView);
-        mDialog.setTopColorRes(R.color.material_dialog_message_text_color);
+        mDialog.setTopColorRes(R.color.red_200);
         mDialog.setTitle(R.string.pantry_dialog_title);
         mDialog.setIcon(R.drawable.ic_forum);
         mDialog.setInstanceStateHandler(FAB_ID, new LovelySaveStateHandler());
@@ -293,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.grocery_dialog, null);
 
         mDialog.setView(dialogView);
-        mDialog.setTopColorRes(R.color.material_dialog_background);
+        mDialog.setTopColorRes(R.color.red_200);
         mDialog.setTitle(R.string.grocery_dialog_title);
         mDialog.setIcon(R.drawable.ic_forum);
         mDialog.setInstanceStateHandler(FAB_ID, new LovelySaveStateHandler());
@@ -341,8 +341,8 @@ public class MainActivity extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.recipe_dialog, null);
 
         mDialog.setView(dialogView);
-        mDialog.setTopColorRes(R.color.material_dialog_message_text_color);
-        mDialog.setTitle(R.string.recipe_dialog_title);
+        mDialog.setTopColorRes(R.color.red_200);
+        mDialog.setTopTitleColor(R.color.secondaryColor);
         mDialog.setTopTitleColor(R.color.material_dialog_message_text_color);
         mDialog.setTitleGravity(10);
         mDialog.setIcon(R.drawable.ic_forum);

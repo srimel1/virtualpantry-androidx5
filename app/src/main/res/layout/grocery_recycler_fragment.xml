@@ -14,25 +14,38 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/grocery_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="187dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_input" />
 
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/fab"-->
-<!--        android:layout_width="56dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="end|bottom"-->
-<!--        android:layout_margin="@dimen/fab_margin"-->
-<!--        android:src="@drawable/ic_baseline_add_24"-->
-<!--        android:tint="#FFFFFF"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.859"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.908" />-->
+    <EditText
+        android:drawablePadding="8dp"
+        android:drawableLeft="@drawable/ic_search_gray_24dp"
+        android:hint="@string/search"
+        android:background="@drawable/search_input_style"
+        android:id="@+id/search_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:textColorHint="@color/purple_200"
+        android:textColor="@color/secondaryColor"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:theme="@style/Theme.MyApp"
+        android:backgroundTint="@color/primaryColor"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

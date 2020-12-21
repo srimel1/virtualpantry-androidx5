@@ -12,7 +12,11 @@
             <item name="backgroundColor" >@color/primaryDarkColor</item>
             <item name="colorSecondary" >@color/secondaryColor</item>
             <item name="colorSurface">@color/primaryDarkColor</item>
-            <item name="android:textColor">@color/primaryTextColor</item>
+            <item name="android:textColor">@color/secondaryColor</item>
+            <item name="material_dialog_background">@color/primaryDarkColor</item>
+            <item name="textColorAlertDialogListItem">@color/secondaryColor</item>
+            <item name="background">@color/primaryDarkColor</item>
+
 
         </style>
 

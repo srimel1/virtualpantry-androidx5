@@ -21,7 +21,7 @@
             android:title="Recipes" />
     </group>
 
-    <item android:title="Sub items">
+    <item android:title="">
         <menu>
             <item
                 android:icon="@drawable/ic_dashboard"

@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2020.. Stephanie Rimel
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <include layout="@layout/view_color_area" />
@@ -29,85 +28,57 @@
             <include layout="@layout/view_title_and_message" />
 
 
-            <!--            <EditText-->
-            <!--                android:layout_marginVertical="20dp"-->
-            <!--                android:padding="10dp"-->
-            <!--                android:background="@drawable/rounded_border_edittext"-->
-            <!--                android:id="@+id/item_name"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginHorizontal="10dp"-->
-            <!--                android:ems="20"-->
-            <!--                android:hint="@string/food_name" />-->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Grocery Item Name">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/item_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/item_name"
-                    android:layout_margin="20dp"/>
+                    android:layout_margin="20dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <!--            <EditText-->
-            <!--                android:id="@+id/item_quantity"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginHorizontal="10dp"-->
-            <!--                android:ems="20"-->
-            <!--                android:hint="@string/item_quantity"-->
-            <!--                android:padding="10dp"-->
-            <!--                android:background="@drawable/rounded_border_edittext"-->
-            <!--                />-->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Item Quantity">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/item_quantity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/item_quantity"
-                    android:layout_margin="20dp"/>
+                    android:layout_margin="20dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
-
-
-            <!--            <Button-->
-            <!--                android:id="@+id/ld_btn_confirm"-->
-            <!--                style="@style/DialogButton"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_gravity="right"-->
-            <!--                android:text="@android:string/ok" />-->
             <LinearLayout
                 android:id="@+id/LinearLayout02"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true">
+
                 <Button
                     android:id="@+id/ld_btn_negative"
-                    android:layout_margin="10dp"
-                    app:icon="@drawable/ic_baseline_cancel"
-                    android:layout_width="match_parent"
                     style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" android:text="Cancel">
-                </Button>
-                <Button
-                    android:layout_margin="10dp"
-                    style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
-                    app:icon="@drawable/ic_baseline_add_24"
-                    android:id="@+id/ld_btn_confirm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:text="Add">
-                </Button>
+                    android:text="Cancel"
+                    app:icon="@drawable/ic_baseline_cancel"></Button>
+
+                <Button
+                    android:id="@+id/ld_btn_confirm"
+                    style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:text="Add"
+                    app:icon="@drawable/ic_baseline_add_24"></Button>
             </LinearLayout>
 
 

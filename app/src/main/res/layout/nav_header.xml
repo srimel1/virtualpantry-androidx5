@@ -40,7 +40,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/username"
         android:gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+
+        />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
