@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="?attr/colorPrimaryDark"
+
     >
 
     <include layout="@layout/view_color_area" />
@@ -32,100 +32,180 @@
 
 
 
-            <EditText
-                android:layout_marginVertical="20dp"
-                android:id="@+id/recipe_name"
-                android:layout_margin="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
-                android:ems="20"
-                android:hint="Recipe Name"
-                android:background="@drawable/rounded_border_edittext"
-                android:padding="10dp"
-                />
+            <!--            <EditText-->
+            <!--                android:layout_marginVertical="20dp"-->
+            <!--                android:id="@+id/recipe_name"-->
+            <!--                android:layout_margin="15dp"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginHorizontal="15dp"-->
+            <!--                android:ems="20"-->
+            <!--                android:hint="Recipe Name"-->
+            <!--                android:background="@drawable/rounded_border_edittext"-->
+            <!--                android:padding="10dp"-->
+            <!--                />-->
 
-
-            <EditText
-                android:layout_marginVertical="20dp"
-                android:id="@+id/recipe_serving"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:padding="10dp"
-                android:ems="20"
-                android:background="@drawable/rounded_border_edittext"
-                android:hint="Serving Size" />
-
-
-            <EditText
-                android:layout_marginVertical="20dp"
-                android:layout_margin="15dp"
-                android:id="@+id/recipe_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:ems="20"
-                android:hint="Recipe Description"
-                android:padding="10dp"
-                android:background="@drawable/rounded_border_edittext"
-
-                />
-
-<!--            <TextView-->
-<!--                android:textSize="19dp"-->
-<!--                android:id="@+id/recipe_ingredients"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginHorizontal="15dp"-->
-<!--                android:ems="20"-->
-<!--                android:hint=   "Recipe Ingredients:" />-->
-
-            <EditText
-                android:layout_marginVertical="20dp"
-                android:background="@drawable/rounded_border_edittext"
-                android:id="@+id/ingredients"
-                android:padding="10dp"
-                android:layout_marginHorizontal="15dp"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="15dp"
-                android:inputType="textMultiLine"
-                android:singleLine="false"
-                android:overScrollMode="always"
-                android:scrollbarStyle="insideInset"
-                android:scrollbars="vertical"
-                android:hint="Enter Ingredients"
-                />
-
-            <EditText
-                android:layout_marginVertical="20dp"
-                android:id="@+id/steps"
-                android:layout_marginHorizontal="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/rounded_border_edittext"
-                android:inputType="textMultiLine"
-                android:singleLine="false"
-                android:overScrollMode="always"
-                android:scrollbarStyle="insideInset"
-                android:scrollbars="vertical"
-                android:hint="Enter Steps"
-                android:padding="10dp"
-                />
-
-
-
-
-            <Button
-                android:id="@+id/ld_btn_confirm"
-                style="@style/DialogButton"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="ADD"
-                />
+                android:hint="Recipe Name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recipe_name"
+                    android:layout_margin="20dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <EditText-->
+            <!--                android:layout_marginVertical="20dp"-->
+            <!--                android:id="@+id/recipe_serving"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_margin="15dp"-->
+            <!--                android:padding="10dp"-->
+            <!--                android:ems="20"-->
+            <!--                android:background="@drawable/rounded_border_edittext"-->
+            <!--                android:hint="Serving Size" />-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Serving Size">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recipe_serving"
+                    android:layout_margin="20dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <EditText-->
+            <!--                android:layout_marginVertical="20dp"-->
+            <!--                android:layout_margin="15dp"-->
+            <!--                android:id="@+id/recipe_description"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginHorizontal="10dp"-->
+            <!--                android:ems="20"-->
+            <!--                android:hint="Recipe Description"-->
+            <!--                android:padding="10dp"-->
+            <!--                android:background="@drawable/rounded_border_edittext"-->
+
+            <!--                />-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Recipe Description">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recipe_description"
+                    android:layout_margin="20dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <TextView-->
+            <!--                android:textSize="19dp"-->
+            <!--                android:id="@+id/recipe_ingredients"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginHorizontal="15dp"-->
+            <!--                android:ems="20"-->
+            <!--                android:hint=   "Recipe Ingredients:" />-->
+
+            <!--            <EditText-->
+            <!--                android:layout_marginVertical="20dp"-->
+            <!--                android:background="@drawable/rounded_border_edittext"-->
+            <!--                android:id="@+id/ingredients"-->
+            <!--                android:padding="10dp"-->
+            <!--                android:layout_marginHorizontal="15dp"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="200dp"-->
+            <!--                android:layout_marginTop="15dp"-->
+            <!--                android:inputType="textMultiLine"-->
+            <!--                android:singleLine="false"-->
+            <!--                android:overScrollMode="always"-->
+            <!--                android:scrollbarStyle="insideInset"-->
+            <!--                android:scrollbars="vertical"-->
+            <!--                android:hint="Enter Ingredients"-->
+            <!--                />-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Recipe Ingredients">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ingredients"
+                    android:layout_margin="20dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <EditText-->
+            <!--                android:layout_marginVertical="20dp"-->
+            <!--                android:id="@+id/steps"-->
+            <!--                android:layout_marginHorizontal="15dp"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="200dp"-->
+            <!--                android:layout_marginTop="15dp"-->
+            <!--                android:background="@drawable/rounded_border_edittext"-->
+            <!--                android:inputType="textMultiLine"-->
+            <!--                android:singleLine="false"-->
+            <!--                android:overScrollMode="always"-->
+            <!--                android:scrollbarStyle="insideInset"-->
+            <!--                android:scrollbars="vertical"-->
+            <!--                android:hint="Enter Steps"-->
+            <!--                android:padding="10dp"-->
+            <!--                />-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Steps">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/steps"
+                    android:layout_margin="20dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+            <!--            <Button-->
+            <!--                android:id="@+id/ld_btn_confirm"-->
+            <!--                style="@style/DialogButton"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_gravity="right"-->
+            <!--                android:text="ADD"-->
+            <!--                />-->
+            <LinearLayout
+                android:id="@+id/LinearLayout02"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_alignParentBottom="true">
+                <Button
+                    android:id="@+id/ld_btn_negative"
+                    android:layout_margin="10dp"
+                    app:icon="@drawable/ic_baseline_cancel"
+                    android:layout_width="match_parent"
+                    style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="Cancel">
+                </Button>
+                <Button
+                    android:layout_margin="10dp"
+                    style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
+                    app:icon="@drawable/ic_baseline_add_24"
+                    android:id="@+id/ld_btn_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Add">
+                </Button>
+            </LinearLayout>
 
 
             <Space

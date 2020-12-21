@@ -6,8 +6,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <include layout="@layout/view_color_area" />
 
@@ -29,49 +29,139 @@
             <include layout="@layout/view_title_and_message" />
 
 
-            <EditText
-                android:layout_marginVertical="20dp"
-                android:id="@+id/item_name"
-                android:padding="10dp"
-                android:background="@drawable/rounded_border_edittext"
-                android:layout_width="wrap_content"
+            <!--            <EditText-->
+            <!--                android:layout_marginVertical="20dp"-->
+            <!--                android:id="@+id/item_name"-->
+            <!--                android:padding="10dp"-->
+            <!--                android:background="@drawable/rounded_border_edittext"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginHorizontal="10dp"-->
+            <!--                android:ems="20"-->
+            <!--                android:hint="@string/food_name" />-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:ems="20"
-                android:hint="@string/food_name" />
+                android:hint="Food Name">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/item_name"
+                    android:layout_margin="20dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:layout_marginVertical="20dp"
-                android:id="@+id/item_quantity"
-                android:layout_width="wrap_content"
+            <!--            <EditText-->
+            <!--                android:layout_marginVertical="20dp"-->
+            <!--                android:id="@+id/item_quantity"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginHorizontal="10dp"-->
+            <!--                android:ems="20"-->
+            <!--                android:hint="@string/item_quantity"-->
+            <!--                android:padding="10dp"-->
+            <!--                android:background="@drawable/rounded_border_edittext"-->
+            <!--                />-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:ems="20"
-                android:hint="@string/item_quantity"
-                android:padding="10dp"
-                android:background="@drawable/rounded_border_edittext"
-                />
+                android:hint="Item Quantity">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/item_quantity"
+                    android:layout_margin="20dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-            <EditText
-                android:layout_marginVertical="20dp"
-                android:id="@+id/item_lifecycle"
-                android:layout_width="wrap_content"
+
+            <!--            <EditText-->
+            <!--                android:layout_marginVertical="20dp"-->
+            <!--                android:id="@+id/item_lifecycle"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginHorizontal="10dp"-->
+            <!--                android:ems="20"-->
+            <!--                android:padding="10dp"-->
+            <!--                android:background="@drawable/rounded_border_edittext"-->
+            <!--                android:hint="@string/item_lifecycle_in_days" />-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:ems="20"
-                android:padding="10dp"
-                android:background="@drawable/rounded_border_edittext"
-                android:hint="@string/item_lifecycle_in_days" />
+                android:hint="Food Lifecycle">
 
-            <Button
-                android:id="@+id/ld_btn_confirm"
-                style="@style/DialogButton"
-                android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/item_lifecycle"
+                    android:layout_margin="20dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <Button-->
+            <!--                android:id="@+id/ld_btn_confirm"-->
+            <!--                style="@style/Widget.MaterialComponents.Button"-->
+            <!--                android:background="@color/primaryLightColor"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_gravity="right"-->
+            <!--                android:layout_marginLeft="20dp"-->
+            <!--                android:text="@android:string/ok" />-->
+            <!--            <Button-->
+            <!--                android:id="@+id/ld_btn_confirm"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="OK"-->
+            <!--                android:layout_gravity="right"-->
+            <!--                style="?attr/materialButtonOutlinedStyle"-->
+            <!--                />-->
+
+            <!--            <Button-->
+            <!--                android:id="@+id/ld_btn_confirm"-->
+            <!--                style="@style/Widget.MaterialComponents.Button.TextButton"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:gravity="center"-->
+            <!--                android:text="ADD" />-->
+            <!--            <Button-->
+            <!--                android:id="@+id/ld_btn_cancel"-->
+            <!--                style="@style/Widget.MaterialComponents.Button.TextButton"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:gravity="right"-->
+            <!--                android:text="ADD" />-->
+            <LinearLayout
+                android:id="@+id/LinearLayout02"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="@android:string/ok" />
+                android:layout_width="match_parent"
+                android:layout_alignParentBottom="true">
+                <Button
+                    android:id="@+id/ld_btn_negative"
+                    android:layout_margin="10dp"
+                    app:icon="@drawable/ic_baseline_cancel"
+                    android:layout_width="match_parent"
+                    style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="Cancel">
+                </Button>
+                <Button
+                    android:layout_margin="10dp"
+                    style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
+                    app:icon="@drawable/ic_baseline_add_24"
+                    android:id="@+id/ld_btn_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Add">
+                </Button>
+            </LinearLayout>
+
+            <!--            <Button-->
+            <!--                android:id="@+id/ld_btn_cancel"-->
+            <!--                style="@style/Widget.MaterialComponents.Button.TextButton"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:text="Cancel" />-->
 
             <Space
                 android:layout_width="wrap_content"
