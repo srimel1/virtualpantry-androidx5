@@ -45,4 +45,14 @@
         <!-- Support library compatibility -->
         <item name="windowActionBarOverlay">true</item>
     </style>
+    <style name="CustomToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <!-- HERE ARE THE CHANGES - Change color of different texts -->
+        <item name="android:textColorPrimary">@color/purple_200</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+
+        <item name="colorControlNormal">@color/black_900</item>
+<!--        <item name="expandedTitleTextAppearance" >@color/black_900</item>-->
+    </style>
+
 </resources>
