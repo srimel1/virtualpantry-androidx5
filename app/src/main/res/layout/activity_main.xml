@@ -8,7 +8,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     style="@style/drawer_layout">
-
     <include layout="@layout/include_list_viewpager"/>
 
     <com.google.android.material.navigation.NavigationView

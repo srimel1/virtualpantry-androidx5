@@ -37,6 +37,7 @@
   <string name="later">Later</string>
   <string name="pantry_grocery_title">Add Item To Grocery List</string>
     <string name="username">Username</string>
+    <string name="add_to_pantry">Add to pantry</string>
     <!--  <string name="repo_waiting">Item added to Grocery List</string>-->
 <!--  <string name="later">Later</string>-->
 <!--  <string name="grocery_add_title">Add To Grocery LIst</string>-->

@@ -2,9 +2,8 @@
 
 <resources>
 
-    <style name="Theme.DesignDemo" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Base.Theme.MyApp." parent="Theme.MyApp">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
-
 </resources>
